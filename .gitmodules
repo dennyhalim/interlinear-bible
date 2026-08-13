@@ -1,0 +1,6 @@
+[submodule "sources/tr"]
+	path = sources/tr
+	url = https://github.com/byztxt/greektext-textus-receptus.git
+[submodule "sources/stepbible"]
+	path = sources/stepbible
+	url = https://github.com/STEPBible/STEPBible-Data.git
