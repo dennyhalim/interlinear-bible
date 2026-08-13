@@ -1,0 +1,76 @@
+name: Build interlinear database
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "schema.sql"
+      - ".github/workflows/build.yml"
+  workflow_dispatch: {}
+  # Weekly check for upstream source updates (submodule pins bump separately;
+  # this just rebuilds against whatever the pinned commits currently are).
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Parse Greek NT (Textus Receptus)
+        run: |
+          python3 scripts/parse_tr.py \
+            sources/tr/parsed \
+            output/staging/tr.jsonl
+
+      - name: Parse Hebrew OT (TAHOT / Masoretic)
+        run: |
+          python3 scripts/parse_tahot.py \
+            "sources/stepbible/Translators Amalgamated OT+NT" \
+            output/staging/tahot.jsonl
+
+      - name: Parse lexicons (TBESG / TBESH)
+        run: |
+          python3 scripts/parse_lexicons.py \
+            "sources/stepbible/Lexicons/TBESG - Translators Brief lexicon of Extended Strongs for Greek - STEPBible.org CC BY.txt" \
+            "sources/stepbible/Lexicons/TBESH - Translators Brief lexicon of Extended Strongs for Hebrew - STEPBible.org CC BY.txt" \
+            output/staging/lexicons.jsonl
+
+      - name: Parse morphology codes (TEGMC / TEHMC)
+        run: |
+          python3 scripts/parse_morphology.py \
+            "sources/stepbible/Morphology codes/TEGMC - Translators Expansion of Greek Morphhology Codes - STEPBible.org CC BY.txt" \
+            "sources/stepbible/Morphology codes/TEHMC - Translators Expansion of Hebrew Morphology Codes - STEPBible.org CC BY.txt" \
+            output/staging/morphology.jsonl
+
+      - name: Build SQLite database
+        run: |
+          python3 scripts/build_db.py \
+            --staging output/staging \
+            --schema schema.sql \
+            --out output/interlinear.sqlite
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: interlinear-sqlite
+          path: output/interlinear.sqlite
+          retention-days: 30
+
+      # Attach to a GitHub Release for a stable, directly-fetchable URL
+      # (only runs on tagged commits, e.g. `git tag v0.1.0 && git push --tags`).
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: output/interlinear.sqlite
