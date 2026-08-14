@@ -16,6 +16,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # required for softprops/action-gh-release to create releases
     steps:
       - name: Checkout (with submodules)
         uses: actions/checkout@v4
