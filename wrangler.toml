@@ -1,0 +1,9 @@
+name = "interlinear-bible"
+compatibility_date = "2026-08-01"
+
+# Created via: wrangler d1 create interlinear-bible-db
+# Fill in database_id after creation (wrangler d1 create prints it).
+[[d1_databases]]
+binding = "DB"
+database_name = "interlinear-bible-db"
+database_id = "REPLACE_WITH_ACTUAL_DATABASE_ID"

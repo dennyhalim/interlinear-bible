@@ -7,7 +7,13 @@ on:
       - "scripts/**"
       - "schema.sql"
       - ".github/workflows/build.yml"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      deploy_to_d1:
+        description: "Deploy the built database to Cloudflare D1"
+        type: choice
+        options: ["false", "true"]
+        default: "false"
   # Weekly check for upstream source updates (submodule pins bump separately;
   # this just rebuilds against whatever the pinned commits currently are).
   schedule:
@@ -106,3 +112,35 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: output/interlinear.sqlite
+
+  deploy-d1:
+    # Manual-only: deploying to the public D1 database is a deliberate
+    # action, not something that should happen automatically on every
+    # push. Trigger via: Actions tab -> this workflow -> Run workflow ->
+    # set deploy_to_d1 input to "true".
+    needs: build
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy_to_d1 == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: interlinear-sqlite
+          path: output/
+
+      - name: Set up Node (for wrangler)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install wrangler
+        run: npm install -g wrangler
+
+      - name: Deploy to D1 (fresh)
+        run: bash scripts/deploy_to_d1.sh "${{ vars.D1_DATABASE_NAME }}" --fresh
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
