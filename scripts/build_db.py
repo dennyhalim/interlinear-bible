@@ -11,9 +11,11 @@ Expects in <staging>:
   tahot.jsonl       (from parse_tahot.py)
   lexicons.jsonl    (from parse_lexicons.py)
   morphology.jsonl  (from parse_morphology.py)
+  tipnr.jsonl       (from parse_tipnr.py)
 """
 import argparse
 import json
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -77,6 +79,34 @@ def get_or_create_verse(cur, book_ids, cache, book_code, chapter, verse):
     return verse_id
 
 
+def insert_morph_parts(cur, word_id, morph_code):
+    """Split a possibly-compound morph_code (e.g. 'HTd/Ncfsa') into parts
+    and store each so it can be joined against morphology_code directly.
+
+    STEPBible's compound codes only carry the language prefix (H/A/G/N)
+    on the *first* segment -- e.g. "HTd/Ncfsa" means [prefix]=HTd,
+    [stem]=Ncfsa, but the stem's real entry in TEHMC/TEGMC is keyed as
+    "HNcfsa" (prefix re-applied), not bare "Ncfsa". So for segments
+    after the first, re-prepend the first segment's leading language
+    letter before storing, so every part joins cleanly against
+    morphology_code.code.
+    """
+    if not morph_code:
+        return
+    parts = [p.strip() for p in morph_code.split("/") if p.strip()]
+    if not parts:
+        return
+    lang_prefix = parts[0][0] if parts[0] and parts[0][0].isalpha() else None
+    for ix, part in enumerate(parts):
+        code = part
+        if ix > 0 and lang_prefix and not part.startswith(lang_prefix):
+            code = lang_prefix + part
+        cur.execute(
+            "INSERT OR IGNORE INTO word_morph_part (word_id, part_ix, code) VALUES (?,?,?)",
+            (word_id, ix, code),
+        )
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--staging", required=True, type=Path)
@@ -124,6 +154,8 @@ def main():
                 None, None,
             ),
         )
+        if cur.rowcount:
+            insert_morph_parts(cur, cur.lastrowid, row["morph_code"])
         tr_count += 1
     conn.commit()
     print(f"Inserted {tr_count} Greek words", file=sys.stderr)
@@ -151,6 +183,8 @@ def main():
                 row["gloss"], row.get("punct_tag"),
             ),
         )
+        if cur.rowcount:
+            insert_morph_parts(cur, cur.lastrowid, "/".join(row["grammar_parts"]))
         tahot_count += 1
     conn.commit()
     print(f"Inserted {tahot_count} Hebrew morphemes", file=sys.stderr)
@@ -185,6 +219,60 @@ def main():
     conn.commit()
     print(f"Inserted {morph_count} morphology codes", file=sys.stderr)
 
+    # --- Proper noun disambiguation (TIPNR) ---
+    tipnr_path = args.staging / "tipnr.jsonl"
+    noun_count = 0
+    variant_count = 0
+    occurrence_count = 0
+    ref_pattern = re.compile(r"^([1-3]?[A-Za-z]{2,4})\.(\d+)\.(\d+)([a-z]?)$")
+    for row in load_jsonl(tipnr_path):
+        cur.execute(
+            """INSERT INTO proper_noun
+               (record_type, unique_name, first_ref, ustrong, description,
+                summary, briefest, brief, short, article)
+               VALUES (?,?,?,?,?,?,?,?,?,?)""",
+            (
+                row["record_type"], row["unique_name"], row["first_ref"],
+                row.get("ustrong") or None, row.get("description"),
+                row.get("summary"), row.get("briefest"), row.get("brief"),
+                row.get("short"), row.get("article"),
+            ),
+        )
+        noun_id = cur.lastrowid
+        noun_count += 1
+        for variant in row.get("name_variants", []):
+            cur.execute(
+                """INSERT INTO proper_noun_variant
+                   (noun_id, significance, name_variant, dstrong, estrong, word_form, translated_name)
+                   VALUES (?,?,?,?,?,?,?)""",
+                (
+                    noun_id, variant["significance"], variant["name_variant"],
+                    variant["dstrong"], variant.get("estrong"),
+                    variant.get("word_form"), variant.get("translated_name"),
+                ),
+            )
+            variant_id = cur.lastrowid
+            variant_count += 1
+
+            for ref in variant.get("all_refs", []):
+                m = ref_pattern.match(ref)
+                if not m:
+                    continue  # skips non-verse refs like "LXX"
+                step_book, chapter, verse, sub_ref = m.groups()
+                ref_book_code = step_book.upper()
+                if ref_book_code not in book_ids:
+                    print(f"WARN: unmapped TIPNR ref book '{step_book}' in '{ref}'", file=sys.stderr)
+                    continue
+                cur.execute(
+                    """INSERT INTO proper_noun_occurrence
+                       (variant_id, book_code, chapter, verse, sub_ref)
+                       VALUES (?,?,?,?,?)""",
+                    (variant_id, ref_book_code, int(chapter), int(verse), sub_ref or None),
+                )
+                occurrence_count += 1
+    conn.commit()
+    print(f"Inserted {noun_count} proper nouns, {variant_count} name variants, {occurrence_count} occurrences", file=sys.stderr)
+
     # --- Metadata ---
     cur.executemany(
         "INSERT INTO metadata (key, value) VALUES (?,?)",
@@ -195,6 +283,7 @@ def main():
             ("ot_source", "STEPBible-Data TAHOT (Leningrad Codex via OpenScriptures, CC BY 4.0)"),
             ("lexicon_source", "STEPBible-Data TBESG/TBESH (CC BY 4.0)"),
             ("morphology_source", "STEPBible-Data TEGMC/TEHMC (CC BY 4.0)"),
+            ("proper_noun_source", "STEPBible-Data TIPNR (CC BY 4.0)"),
             ("ai_gloss_status", "not yet generated"),
         ],
     )

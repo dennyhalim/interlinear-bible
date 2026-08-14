@@ -104,6 +104,14 @@ def parse_file(path: Path):
                 continue
             hebrew, translit, gloss, dstrongs, grammar = cols[0:5]
 
+            # The Hebrew surface-text column carries the same trailing
+            # "\<tag>" convention as dStrongs (e.g. "הָ/אָֽרֶץ\׃" for a
+            # verse-end marker). Strip it from the displayable surface
+            # text; the corresponding tag is already captured separately
+            # via split_strongs_group()'s punct_tag below.
+            if "\\" in hebrew:
+                hebrew = hebrew.split("\\", 1)[0]
+
             strongs_parts, punct_tag = split_strongs_group(dstrongs)
             grammar_parts = [g for g in grammar.split("/") if g]
 

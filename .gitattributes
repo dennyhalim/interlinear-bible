@@ -1,2 +1,24 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalize line endings so Windows checkouts (autocrlf=true) don't
+# silently rewrite files and trigger "LF will be replaced by CRLF"
+# warnings, and so CI (Linux runners) always sees consistent LF text.
+
+# Default: treat everything as text, normalize to LF in the repo.
+* text=auto eol=lf
+
+# Explicit for the file types in this repo.
+*.py    text eol=lf
+*.sql   text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.json  text eol=lf
+*.jsonl text eol=lf
+
+# Source data files (STEPBible .txt, byztxt .UTR) may legitimately use
+# CRLF upstream (the .UTR files do) -- leave them untouched if ever
+# vendored directly rather than pulled via submodule.
+*.UTR   -text
+
+# Binary, never touch.
+*.sqlite -text
+*.zip    -text

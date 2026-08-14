@@ -16,7 +16,7 @@ tagged releases, as a stable release download URL.
 | Hebrew lexicon (BDB-derived) | STEPBible-Data — TBESH | CC BY 4.0 |
 | Morphology code expansion | STEPBible-Data — TEGMC / TEHMC | CC BY 4.0 |
 | Versification differences (planned, not yet parsed) | STEPBible-Data — TVTMS | CC BY 4.0 |
-| Proper noun disambiguation (planned, not yet parsed) | STEPBible-Data — TIPNR | CC BY 4.0 |
+| Proper noun disambiguation | STEPBible-Data — TIPNR | CC BY 4.0 |
 
 Every source above was pulled and inspected row-by-row before being wired
 into the pipeline (see project history) — none of this was taken on faith
@@ -43,7 +43,11 @@ python3 scripts/parse_morphology.py \
   "sources/stepbible/Morphology codes/TEGMC - Translators Expansion of Greek Morphhology Codes - STEPBible.org CC BY.txt" \
   "sources/stepbible/Morphology codes/TEHMC - Translators Expansion of Hebrew Morphology Codes - STEPBible.org CC BY.txt" \
   output/staging/morphology.jsonl
+python3 scripts/parse_tipnr.py \
+  "sources/stepbible/Proper Nouns/TIPNR - Translators Individualised Proper Names with all References - STEPBible.org CC BY.txt" \
+  output/staging/tipnr.jsonl
 python3 scripts/build_db.py --staging output/staging --schema schema.sql --out output/interlinear.sqlite
+python3 scripts/resolve_proper_nouns.py --db output/interlinear.sqlite
 ```
 
 ## Schema
@@ -59,17 +63,34 @@ later pipeline stages (not yet populated).
   Planned: batch by verse, feed word + lemma + morph + lexicon entry +
   verse context to Claude, store structured `{gloss, alt_glosses, note}`
   per word. Not yet implemented in this repo.
-- **Compound morph codes** — Hebrew grammar codes like `HR/Ncfsa` (prefix
-  + stem) aren't split before joining against `morphology_code`, which
-  is keyed on single codes. Needs a small join-time split on `/`.
-- **Trailing punctuation artifacts** — verse-end markers like `\׃`
-  sometimes remain attached to the last Hebrew word's `surface` field;
-  should be stripped for clean display (kept for now since `punct_tag`
-  already captures the same info separately).
+- **Compound morph codes** — fixed. Hebrew grammar codes like `HR/Ncfsa`
+  now split into `word_morph_part` rows and resolve at 99.98% against
+  `morphology_code`.
+- **Trailing punctuation artifacts** — fixed. Verse-end markers like `\׃`
+  are stripped from `word.surface`; `punct_tag` still captures the same
+  info separately for anyone who needs it.
 - **TVTMS versification mapping** — not yet parsed; format is a
   rule-based action table (Keep/Concatenation/Renumber/etc.), not a
   simple lookup, and needs its own dedicated parser.
-- **TIPNR proper nouns** — not yet parsed.
+- **TIPNR proper nouns** — fixed. `resolve_proper_nouns.py` resolves
+  ambiguous names (e.g. three different Herods sharing base Strong's
+  `G2264`) by matching each word's exact `(book, chapter, verse)` against
+  TIPNR's per-variant `AllRefs` occurrence list (captured in
+  `proper_noun_occurrence`). Verified against all three Herods (Mat.2.1
+  → Herod the Great, Mat.14.1 → Herod Antipas, Act.12.1 → Herod Agrippa I)
+  resolving to the correct distinct individuals. Result: 21,394 words
+  resolved (10,986 unambiguous single-candidate, 10,408 by verse match),
+  406 left unresolved rather than guessed (mostly non-proper-noun senses
+  of a shared Strong's number, e.g. G0129 "blood" also appearing as an
+  OTHER-category TIPNR entry). Stored in `word_proper_noun`, run as a
+  separate pass after `build_db.py` since it depends on both `word` and
+  `proper_noun_occurrence` already being populated.
+- **TSK cross-references** — public domain, not in STEPBible-Data; would need
+  a separate source (e.g. an OSIS/SWORD TSK module). Not used for translation
+  (it's a study cross-reference system, verse-to-verse thematic links), but
+  flagged as a useful **app-layer feature** for later — e.g. tapping a verse
+  to see related passages. Would need its own `cross_reference` table and
+  parser, deliberately kept separate from the translation pipeline above.
 - **TR vs TAGNT cross-check** — byztxt TR and STEPBible TAGNT are
   different text traditions (TR vs. eclectic/eclectic-amalgam); TAGNT
   is not currently used for the NT text itself, only cross-checked

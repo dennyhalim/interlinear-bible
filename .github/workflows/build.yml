@@ -55,12 +55,22 @@ jobs:
             "sources/stepbible/Morphology codes/TEHMC - Translators Expansion of Hebrew Morphology Codes - STEPBible.org CC BY.txt" \
             output/staging/morphology.jsonl
 
+      - name: Parse proper nouns (TIPNR)
+        run: |
+          python3 scripts/parse_tipnr.py \
+            "sources/stepbible/Proper Nouns/TIPNR - Translators Individualised Proper Names with all References - STEPBible.org CC BY.txt" \
+            output/staging/tipnr.jsonl
+
       - name: Build SQLite database
         run: |
           python3 scripts/build_db.py \
             --staging output/staging \
             --schema schema.sql \
             --out output/interlinear.sqlite
+
+      - name: Resolve ambiguous proper nouns
+        run: |
+          python3 scripts/resolve_proper_nouns.py --db output/interlinear.sqlite
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
