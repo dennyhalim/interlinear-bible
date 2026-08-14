@@ -5,5 +5,5 @@ compatibility_date = "2026-08-01"
 # Fill in database_id after creation (wrangler d1 create prints it).
 [[d1_databases]]
 binding = "DB"
-database_name = "interlinear-bible-db"
-database_id = "REPLACE_WITH_ACTUAL_DATABASE_ID"
+database_name = "bible-mt-tr"
+database_id = "53bf6f85-e9f9-46a1-ab93-f62ff5a412f3"
