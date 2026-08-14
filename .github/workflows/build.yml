@@ -75,12 +75,12 @@ jobs:
       #   https://raw.githubusercontent.com/<owner>/<repo>/db/interlinear.sqlite
       - name: Publish to db branch
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           rm -rf /tmp/dbpub && mkdir /tmp/dbpub
           cp output/interlinear.sqlite /tmp/dbpub/
           cd /tmp/dbpub
           git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -q -b db
           git add interlinear.sqlite
           git commit -q -m "Build $(date -u +%Y-%m-%dT%H:%M:%SZ) (${GITHUB_SHA::7})"
