@@ -69,6 +69,26 @@ jobs:
           path: output/interlinear.sqlite
           retention-days: 30
 
+      # Publish the built DB to a dedicated orphan branch as a single
+      # commit each run (force-pushed), so main's history stays clean
+      # but there's still a stable, unauthenticated raw-file URL:
+      #   https://raw.githubusercontent.com/<owner>/<repo>/db/interlinear.sqlite
+      - name: Publish to db branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf /tmp/dbpub && mkdir /tmp/dbpub
+          cp output/interlinear.sqlite /tmp/dbpub/
+          cd /tmp/dbpub
+          git init -q
+          git checkout -q -b db
+          git add interlinear.sqlite
+          git commit -q -m "Build $(date -u +%Y-%m-%dT%H:%M:%SZ) (${GITHUB_SHA::7})"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -f origin db
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # Attach to a GitHub Release for a stable, directly-fetchable URL
       # (only runs on tagged commits, e.g. `git tag v0.1.0 && git push --tags`).
       - name: Attach to release
