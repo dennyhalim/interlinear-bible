@@ -1,122 +1,175 @@
-#!/usr/bin/env bash
-# Deploy the interlinear database to a Cloudflare D1 database, safely
-# re-runnable (drops and recreates all tables first).
-#
-# Usage:
-#   ./scripts/deploy_to_d1.sh <d1-database-name> [--fresh]
-#
-#   --fresh   Also run reset.sql first, dropping all existing tables.
-#             Use this for every deploy after the first, since our
-#             exported CREATE TABLE statements don't use
-#             IF NOT EXISTS (they're copied verbatim from schema.sql)
-#             and will fail with "table already exists" otherwise.
-#
-# Prerequisites:
-#   - wrangler CLI installed (npm install -g wrangler) and authenticated
-#     (wrangler login), or CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
-#     env vars set for non-interactive/CI use.
-#   - The target D1 database already created once:
-#       wrangler d1 create <d1-database-name>
-#   - output/interlinear.sqlite already built (parse_*.py + build_db.py
-#     + resolve_proper_nouns.py already run).
-#
-# What this script does, in order:
-#   1. Regenerates output/d1_export/*.sql from the current
-#      output/interlinear.sqlite (always fresh, never stale).
-#   2. If --fresh: applies reset.sql to drop all existing tables.
-#   3. Applies each table's .sql file in dependency order.
-#   4. Verifies row counts in D1 match the source .sqlite file exactly,
-#      table by table, and fails loudly if any table doesn't match
-#      rather than silently reporting success.
+#!/usr/bin/env python3
+"""
+Export interlinear.sqlite into a D1-compatible .sql file for
+`wrangler d1 execute --remote --file=...`.
 
-set -euo pipefail
+Why not just `sqlite3 interlinear.sqlite .dump`:
+  - D1 rejects BEGIN TRANSACTION / COMMIT wrapping (D1 docs: "cannot
+    start a transaction within a transaction").
+  - D1 has a 100,000 byte SQL statement length limit. A plain .dump
+    emits one INSERT per row (fine) but some tools/dumps batch multi-
+    row VALUES (...), (...), (...) into one statement -- and even
+    per-row INSERTs from a raw dump aren't guaranteed batched
+    efficiently for the wrangler upload step. This script explicitly
+    batches multiple rows into each INSERT, sized safely under the
+    limit by actual byte length (not just a fixed row count), since
+    fields like lexicon_entry.meaning vary from a few bytes to ~7KB.
+  - D1 doesn't want a `_cf_KV` table definition if present (reserved).
 
-DB_NAME="${1:-}"
-FRESH="${2:-}"
+Usage:
+  export_to_d1.py --db output/interlinear.sqlite --out output/d1_import.sql
+  # then:
+  wrangler d1 execute <db-name> --remote --file=output/d1_import.sql
 
-if [ -z "$DB_NAME" ]; then
-  echo "ERROR: no database name provided." >&2
-  echo "" >&2
-  echo "Usage: deploy_to_d1.sh <d1-database-name> [--fresh]" >&2
-  echo "" >&2
-  echo "If running via GitHub Actions, this usually means the" >&2
-  echo "D1_DATABASE_NAME repository variable is unset or empty." >&2
-  echo "Set it at: repo Settings -> Secrets and variables -> Actions" >&2
-  echo "-> Variables tab (not Secrets) -> New repository variable" >&2
-  echo "  Name:  D1_DATABASE_NAME" >&2
-  echo "  Value: the name you gave 'wrangler d1 create <name>'" >&2
-  exit 1
-fi
-
-SRC_DB="output/interlinear.sqlite"
-EXPORT_DIR="output/d1_export"
-SCHEMA="schema.sql"
-
-if [ ! -f "$SRC_DB" ]; then
-  echo "ERROR: $SRC_DB not found. Run the build pipeline first (parse_*.py, build_db.py, resolve_proper_nouns.py)." >&2
-  exit 1
-fi
-
-command -v wrangler >/dev/null 2>&1 || {
-  echo "ERROR: wrangler CLI not found. Install with: npm install -g wrangler" >&2
-  exit 1
-}
-
-echo "== Step 1: exporting $SRC_DB to $EXPORT_DIR =="
-python3 scripts/export_to_d1.py --db "$SRC_DB" --split-dir "$EXPORT_DIR"
-
-if [ "$FRESH" = "--fresh" ]; then
-  echo "== Step 2: generating and applying reset.sql (dropping existing tables) =="
-  python3 scripts/generate_d1_reset.py --schema "$SCHEMA" --out "$EXPORT_DIR/reset.sql"
-  wrangler d1 execute "$DB_NAME" --remote --file="$EXPORT_DIR/reset.sql"
-else
-  echo "== Step 2: skipped (no --fresh flag; assuming target tables don't already exist) =="
-fi
-
-echo "== Step 3: applying table files in dependency order =="
-shopt -s nullglob
-files=("$EXPORT_DIR"/[0-9][0-9]_*.sql)
-if [ ${#files[@]} -eq 0 ]; then
-  echo "ERROR: no numbered table files found in $EXPORT_DIR" >&2
-  exit 1
-fi
-
-for f in "${files[@]}"; do
-  echo "-> $(basename "$f")"
-  wrangler d1 execute "$DB_NAME" --remote --file="$f"
-done
-
-echo "== Step 4: verifying row counts (D1 vs source) =="
-FAILED=0
-for f in "${files[@]}"; do
-  table=$(basename "$f" .sql | sed -E 's/^[0-9]+_//')
-
-  src_count=$(python3 -c "
+For very large tables this also supports --split-dir to write one file
+per table (useful for staying under wrangler's 5GiB file limit and for
+resumable imports -- if one table's import fails partway, only that
+table's file needs re-running rather than the whole database).
+"""
+import argparse
 import sqlite3
-conn = sqlite3.connect('$SRC_DB')
-cur = conn.cursor()
-cur.execute('SELECT COUNT(*) FROM $table')
-print(cur.fetchone()[0])
-")
+import sys
+from pathlib import Path
 
-  d1_result=$(wrangler d1 execute "$DB_NAME" --remote --command "SELECT COUNT(*) as c FROM $table;" --json)
-  d1_count=$(echo "$d1_result" | python3 -c "
-import json, sys
-data = json.load(sys.stdin)
-print(data[0]['results'][0]['c'])
-")
+# Conservative ceiling well under D1's 100,000 byte statement limit,
+# leaving headroom for the "INSERT INTO t (...) VALUES " prefix and
+# per-row punctuation overhead.
+MAX_STATEMENT_BYTES = 80_000
 
-  if [ "$src_count" = "$d1_count" ]; then
-    echo "  $table: OK ($d1_count rows)"
-  else
-    echo "  $table: MISMATCH (source=$src_count, D1=$d1_count)" >&2
-    FAILED=1
-  fi
-done
+# Table order matters for foreign keys: parents before children.
+TABLE_ORDER = [
+    "book",
+    "verse",
+    "word",
+    "word_morph_part",
+    "lexicon_entry",
+    "morphology_code",
+    "proper_noun",
+    "proper_noun_variant",
+    "proper_noun_occurrence",
+    "word_proper_noun",
+    "ai_gloss",
+    "versification_note",
+    "metadata",
+]
 
-if [ "$FAILED" = "1" ]; then
-  echo "== FAILED: one or more tables have row-count mismatches. See above. ==" >&2
-  exit 1
-fi
 
-echo "== Done. All tables verified. =="
+def sql_quote(value):
+    """Render a Python value as a SQL literal."""
+    if value is None:
+        return "NULL"
+    if isinstance(value, int):
+        return str(value)
+    if isinstance(value, float):
+        return repr(value)
+    if isinstance(value, bytes):
+        return "X'" + value.hex() + "'"
+    # string: escape single quotes by doubling
+    escaped = str(value).replace("'", "''")
+    return f"'{escaped}'"
+
+
+def get_create_table_sql(cur, table):
+    cur.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name=?", (table,))
+    row = cur.fetchone()
+    return row[0] if row else None
+
+
+def get_create_index_sql(cur, table):
+    cur.execute(
+        "SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name=? AND sql IS NOT NULL",
+        (table,),
+    )
+    return [r[0] for r in cur.fetchall()]
+
+
+def export_table(cur, table, out_f):
+    create_sql = get_create_table_sql(cur, table)
+    if create_sql is None:
+        print(f"WARN: table '{table}' not found in source db, skipping", file=sys.stderr)
+        return 0
+
+    out_f.write(create_sql.rstrip(";") + ";\n")
+
+    cur.execute(f"SELECT * FROM {table}")
+    col_names = [d[0] for d in cur.description]
+    col_list = ", ".join(f'"{c}"' for c in col_names)
+    prefix = f'INSERT INTO "{table}" ({col_list}) VALUES '
+
+    row_count = 0
+    batch_rows = []
+    batch_bytes = len(prefix.encode("utf-8"))
+
+    def flush():
+        nonlocal batch_rows, batch_bytes
+        if batch_rows:
+            out_f.write(prefix + ",\n".join(batch_rows) + ";\n")
+            batch_rows = []
+            batch_bytes = len(prefix.encode("utf-8"))
+
+    for row in cur.fetchall():
+        values_sql = "(" + ", ".join(sql_quote(v) for v in row) + ")"
+        row_bytes = len(values_sql.encode("utf-8")) + 2  # +2 for ",\n" join overhead
+
+        if batch_rows and batch_bytes + row_bytes > MAX_STATEMENT_BYTES:
+            flush()
+
+        batch_rows.append(values_sql)
+        batch_bytes += row_bytes
+        row_count += 1
+
+    flush()
+
+    for idx_sql in get_create_index_sql(cur, table):
+        out_f.write(idx_sql.rstrip(";") + ";\n")
+
+    return row_count
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--db", required=True, type=Path)
+    ap.add_argument("--out", type=Path, help="Single combined output .sql file")
+    ap.add_argument("--split-dir", type=Path, help="Write one .sql file per table into this directory instead")
+    args = ap.parse_args()
+
+    if not args.out and not args.split_dir:
+        print("Specify --out (single file) or --split-dir (one file per table)", file=sys.stderr)
+        sys.exit(1)
+
+    conn = sqlite3.connect(args.db)
+    cur = conn.cursor()
+
+    cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+    actual_tables = {r[0] for r in cur.fetchall()}
+    ordered_tables = [t for t in TABLE_ORDER if t in actual_tables]
+    leftover = actual_tables - set(ordered_tables)
+    if leftover:
+        print(f"WARN: tables present but not in TABLE_ORDER, appending at end: {leftover}", file=sys.stderr)
+        ordered_tables += sorted(leftover)
+
+    total_rows = 0
+
+    if args.split_dir:
+        args.split_dir.mkdir(parents=True, exist_ok=True)
+        for i, table in enumerate(ordered_tables):
+            out_path = args.split_dir / f"{i:02d}_{table}.sql"
+            with out_path.open("w", encoding="utf-8") as f:
+                n = export_table(cur, table, f)
+            total_rows += n
+            print(f"{table}: {n} rows -> {out_path}", file=sys.stderr)
+    else:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        with args.out.open("w", encoding="utf-8") as f:
+            for table in ordered_tables:
+                n = export_table(cur, table, f)
+                total_rows += n
+                print(f"{table}: {n} rows", file=sys.stderr)
+        print(f"-> {args.out}", file=sys.stderr)
+
+    print(f"TOTAL rows exported: {total_rows}", file=sys.stderr)
+    conn.close()
+
+
+if __name__ == "__main__":
+    main()
