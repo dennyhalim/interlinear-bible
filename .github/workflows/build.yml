@@ -13,7 +13,7 @@ on:
         description: "Deploy the built database to Cloudflare D1"
         type: choice
         options: ["false", "true"]
-        default: "true"
+        default: "false"
   # Weekly check for upstream source updates (submodule pins bump separately;
   # this just rebuilds against whatever the pinned commits currently are).
   schedule:
