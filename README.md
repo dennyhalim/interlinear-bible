@@ -86,10 +86,18 @@ table by table, failing loudly on any mismatch rather than reporting
 false success.
 
 **Via GitHub Actions:** trigger the `build` workflow manually (Actions
-tab → Run workflow) with `deploy_to_d1` set to `true`. Requires two
-repo secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, plus
-a repo variable `D1_DATABASE_NAME` set to your D1 database's name.
-Deploy is manual-only by design — never runs automatically on push.
+tab → Run workflow) with `deploy_to_d1` set to `true`, and `d1_tables`
+set to a comma-separated list of tables to deploy (defaults to
+`lexicon_gloss_translation,ai_gloss`, the two tables that grow
+incrementally as translation/gloss work progresses). Leave `d1_tables`
+empty only for the rare full-dataset deploy (first-ever deploy, or
+after a schema change) — that path deploys all 1.1M+ rows in one run,
+which exceeds D1's free-tier 100,000-rows-written-per-day limit; see
+`deploy_to_d1.sh`'s own comments for the full reasoning and the
+`--tables`/`--fresh` scoping behavior. Requires two repo secrets:
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, plus a repo
+variable `D1_DATABASE_NAME` set to your D1 database's name. Deploy is
+manual-only by design — never runs automatically on push.
 
 **For public read access:** D1 has no built-in "public" toggle; write
 a thin read-only Worker in front of it (a `GET /verse/:book/:chapter/:verse`
@@ -288,6 +296,50 @@ Schema supports multiple target languages simultaneously — export a
 separate CSV per language (`--language es` gives a `gloss_es` column
 in its own file) and load each independently.
 
+### Testing cheaply with free-tier providers
+
+`translate_lexicon.py` defaults to Claude (production quality), but
+also supports OpenRouter and Gemini via `--provider`, both accessed
+through the `openai` package pointed at their OpenAI-compatible
+endpoints -- useful for testing this script's plumbing (CSV
+read/write, batching, resume logic) cheaply before spending real
+Claude usage on the full 16,576-entry run. Requires `pip install
+openai --break-system-packages` in addition to `anthropic` (only
+needed for these two providers; the default Claude path doesn't need
+it).
+
+```bash
+# OpenRouter's openrouter/free router randomly selects a currently-
+# free model (rotates -- check openrouter.ai/models for what's live).
+# Rate limits apply and shift; fine for a small --limit test, not the
+# full run.
+export OPENAI_API_KEY=sk-or-v1-...   # an OpenRouter key, despite the env var name
+python3 scripts/translate_lexicon.py \
+  --csv output/staging/lexicon_id_test.csv \
+  --language id --provider openrouter --model "openrouter/free" \
+  --limit 20 --batch-size 10
+
+# Gemini's free tier (Flash/Flash-Lite -- Pro moved to paid-only in
+# April 2026 per Google's pricing page; verify current limits there
+# rather than trusting a specific number, since they've shifted
+# multiple times through 2026).
+export GEMINI_API_KEY=...
+python3 scripts/translate_lexicon.py \
+  --csv output/staging/lexicon_id_test.csv \
+  --language id --provider gemini --model "gemini-2.5-flash" \
+  --limit 20 --batch-size 10
+```
+
+Both paths were verified with mocked responses matching each
+provider's real API shape (`choices[0].message.content`, vs.
+Anthropic's `content` block list) -- confirmed correct request
+construction (model name, system+user message structure) and correct
+response parsing, plus a regression check that the default Anthropic
+path is unaffected by the refactor. Live API calls to either free
+provider haven't been run (no API keys available here) -- that
+remains the real-world verification step, same as the Anthropic path
+always has been.
+
 The CSV is written with a UTF-8 BOM so Excel on Windows opens the
 Hebrew/Greek/Indonesian text correctly rather than mis-detecting the
 encoding — a plain UTF-8 CSV frequently gets misread by Excel otherwise.
@@ -380,6 +432,134 @@ duplicates), and the loader's upsert behavior were all tested against
 mocked API responses and a real copy of the database. The actual live
 translation quality is untested — that depends on running this for
 real against your API key.
+
+## OT versification mapping (Hebrew MT vs. standard English numbering)
+
+The `verse` table stores chapter/verse numbers exactly as they appear
+in the Hebrew source (TAHOT) and Greek source (byztxt TR) -- which
+occasionally differs from the numbering readers expect from an
+English Bible. The classic case: Malachi 3 in the Hebrew text runs
+through what English readers know as 4:1-6 -- **there is no Hebrew
+chapter 4 at all** in the underlying source data. Displaying "Malachi
+4:1" to a user requires translating between the two numbering systems.
+
+**Scope, deliberately narrow:** Old Testament only. TVTMS's own
+documentation states its "Greek" tradition data is LXX/Septuagint-based,
+not Textus Receptus -- so it has no real bearing on this project's NT
+text, which already follows standard English NT versification (that's
+*why* KJV, translated from a TR-family text, established that standard
+in the first place). Canonical 39-book Protestant OT only; TVTMS's
+Apocrypha coverage (Sirach, Tobit, Judith, Esther Additions, etc.) is
+out of scope since TAHOT doesn't include those books.
+
+```bash
+python3 scripts/parse_tvtms.py \
+  --tvtms "sources/stepbible/Versification/TVTMS - Translators Versification Traditions with Methodology for Standardisation for Eng+Heb+Lat+Grk+Others - STEPBible.org CC BY.txt" \
+  --out output/staging/tvtms_ot.jsonl
+
+python3 scripts/load_versification.py \
+  --db output/interlinear.sqlite \
+  --jsonl output/staging/tvtms_ot.jsonl
+```
+
+Populates `versification_mapping`: **2,900 per-verse mapping rows**
+covering 151 distinct difference-passages across 33 of the 39 OT
+books. Verified against the Malachi 3/4 case directly: the current
+`verse` table has Malachi chapter 3 running to verse 18 with no
+chapter 4 at all, and the loaded mapping correctly translates Hebrew
+3:19-24 to standard English 4:1-6, verse by verse.
+
+**Known, explicitly-flagged limitations** (the parser reports these at
+runtime rather than silently working around them):
+- **41 sections have multiple `TEST:` condition branches** in the
+  source data (different rules depending on which specific Bible
+  sub-tradition you're comparing against). This parser takes all
+  mapping rows present per section rather than selecting a specific
+  branch, which covers the standard/default case correctly but may
+  include extra detail for edge-tradition comparisons that don't apply
+  to a Hebrew MT vs. standard English comparison specifically. The
+  affected section list is printed by the parser (e.g. `Gen.5:31--6:1`,
+  `Mal.4:1-4:6`, several 1 Kings/Esther/Daniel passages) — worth a
+  manual look if precision matters for a specific one of these.
+- **2 sections have a range-length mismatch** that couldn't be safely
+  expanded verse-by-verse (e.g. one English verse maps to a two-verse
+  Hebrew range) — these are kept as whole-range mappings
+  (`standard_verse`/`standard_verse_end`) rather than guessed at
+  per-verse.
+- **Esther 4/5** contain Apocryphal "Addition" material (subverses
+  like `4:17.1`-`4:17.30`) that has no Hebrew equivalent at all, since
+  TAHOT doesn't include the Apocrypha. These collapse to a small
+  number of "this verse doesn't exist in Hebrew" facts rather than 30
+  redundant rows — correct behavior, not data loss, but worth knowing
+  if you ever wonder why Esther 4:17 only has one mapping row instead
+  of many.
+
+**Not yet built:** actually *applying* this mapping to renumber the
+`verse`/`word` tables in place (currently the mapping exists as a
+separate lookup table; the underlying data still uses Hebrew-source
+numbering). Whether to renumber in place versus keep both numbering
+systems queryable side by side is a real design decision for whoever
+builds the display/API layer, not resolved here.
+
+## Read API (Cloudflare Pages Functions)
+
+A read-only HTTP API in front of D1, implemented as Pages Functions
+(not a standalone Worker -- Pages Functions bind to D1 identically,
+and this keeps the API deployed alongside a frontend as one unit
+rather than a separate project). Lives in `functions/`.
+
+**Endpoints:**
+
+| Endpoint | Description |
+|---|---|
+| `GET /api/books` | List all 66 books with code, name, testament, chapter count |
+| `GET /api/verse/:book/:chapter/:verse` | Full interlinear payload for one verse. `:chapter`/`:verse` are standard English numbering -- transparently resolved through `versification_mapping` (e.g. `MAL/4/1` correctly finds Hebrew-stored `3:19`). Optional `?lang=id` adds a translated lexicon gloss. |
+| `GET /api/chapter/:book/:chapter` | Every verse in a chapter in one call. `:chapter` is the source (Hebrew/Greek) chapter as stored; each returned verse includes both its source and display (standard English) reference, since a "standard English chapter" doesn't always correspond to one contiguous source chapter. |
+| `GET /api/lexicon/:strongs` | Full lexicon entry (English gloss + meaning + all translated-language glosses) for a Strong's number. |
+
+Each word in a verse/chapter response includes: surface text,
+transliteration, Strong's number, morphology (both the raw code and
+resolved human-readable parts via `word_morph_part`), gloss (AI
+contextual gloss preferred when available, falling back through
+translated lexicon gloss -> English lexicon gloss -> source dataset
+gloss, with the `source` field indicating which was used), full
+English lexicon meaning, and resolved proper-noun info when the word
+refers to a specific disambiguated person/place.
+
+**Verified against real data, not just written:** `functions/_shared/test-queries.js`
+is a dev-only test harness (not deployed) that runs the actual query
+logic in `queries.js` against a real copy of `interlinear.sqlite`,
+via a minimal D1-binding-API mock backed by better-sqlite3
+(`functions/_shared/d1-mock-for-testing.js`, also dev-only). Run it
+with:
+
+```bash
+npm install
+node functions/_shared/test-queries.js output/interlinear.sqlite
+```
+
+8 tests currently pass, including the two cases that matter most for
+correctness: Malachi 4:1 correctly resolves to the Hebrew-stored 3:19
+(and back), and Matthew 2:1's "Herod" correctly resolves to the
+specific disambiguated individual (Herod the Great, not Antipas or
+Agrippa) via the `word_proper_noun` join built earlier.
+
+**Deploying:** since this lives in `functions/` at the project root,
+it deploys automatically as part of a normal Cloudflare Pages deploy
+(`wrangler pages deploy` or the Pages Git integration) -- no separate
+step. Requires a D1 binding named `DB` configured on the Pages
+project (Pages dashboard -> Settings -> Functions -> D1 database
+bindings, or via `wrangler.toml`'s `[[d1_databases]]` block, same
+`binding = "DB"` name the code expects).
+
+`_routes.json` at the repo root restricts Function invocation to
+`/api/*`, so any static assets served alongside this (e.g. a frontend)
+stay on Pages' free/unlimited static-asset path rather than invoking
+a Function (and its D1 usage) for every request.
+
+**Not yet built:** a search endpoint, and pagination/rate-limiting for
+production traffic. Both are reasonable next additions once there's a
+frontend to actually drive their design.
 
 ## Known gaps / next steps
 

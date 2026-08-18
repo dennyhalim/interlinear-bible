@@ -14,6 +14,17 @@ on:
         type: choice
         options: ["false", "true"]
         default: "false"
+      d1_tables:
+        description: >
+          Comma-separated table names to deploy (e.g.
+          "lexicon_gloss_translation,ai_gloss"). Leave EMPTY to deploy
+          ALL tables -- only intended for the very first deploy or a
+          schema change, since the full dataset (1.1M+ rows) exceeds
+          D1's free-tier 100,000-rows-written-per-day limit in one run.
+          For routine deploys after translation/gloss work, scope this
+          to just the table(s) that changed.
+        type: string
+        default: "lexicon_gloss_translation,ai_gloss"
   # Weekly check for upstream source updates (submodule pins bump separately;
   # this just rebuilds against whatever the pinned commits currently are).
   schedule:
@@ -117,7 +128,11 @@ jobs:
     # Manual-only: deploying to the public D1 database is a deliberate
     # action, not something that should happen automatically on every
     # push. Trigger via: Actions tab -> this workflow -> Run workflow ->
-    # set deploy_to_d1 input to "true".
+    # set deploy_to_d1 to "true", and set d1_tables to scope which
+    # tables get deployed (defaults to the two incrementally-growing
+    # tables; leave d1_tables EMPTY only for the rare full-dataset
+    # deploy, which exceeds the D1 free-tier daily row-write limit in
+    # one run -- see deploy_to_d1.sh's own comments for the reasoning).
     needs: build
     if: github.event_name == 'workflow_dispatch' && inputs.deploy_to_d1 == 'true'
     runs-on: ubuntu-latest
@@ -139,8 +154,15 @@ jobs:
       - name: Install wrangler
         run: npm install -g wrangler
 
-      - name: Deploy to D1 (fresh)
-        run: bash scripts/deploy_to_d1.sh "${{ vars.D1_DATABASE_NAME }}" --fresh
+      - name: Deploy to D1
+        run: |
+          if [ -n "${{ inputs.d1_tables }}" ]; then
+            echo "Scoped deploy: --tables ${{ inputs.d1_tables }}"
+            bash scripts/deploy_to_d1.sh "${{ vars.D1_DATABASE_NAME }}" --fresh --tables "${{ inputs.d1_tables }}"
+          else
+            echo "UNSCOPED full deploy -- all tables (1.1M+ rows). This will likely exceed the D1 free-tier 100,000 rows/day limit in one run."
+            bash scripts/deploy_to_d1.sh "${{ vars.D1_DATABASE_NAME }}" --fresh
+          fi
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -32,25 +32,67 @@ Design:
     in-flight batch, not all prior progress.
 
 Usage:
+  # Default: Claude (Anthropic native SDK, structured JSON via prompt)
   export ANTHROPIC_API_KEY=sk-ant-...
   python3 scripts/translate_lexicon.py \
     --csv output/staging/lexicon_id.csv \
     --language id \
     --model claude-opus-4-5 \
     --batch-size 50
+
+  # Testing with a free model via OpenRouter (openrouter/free randomly
+  # selects a currently-free model; free-tier daily/per-minute limits
+  # apply and rotate, see openrouter.ai/models -- fine for testing a
+  # small --limit, not intended for the full 16,576-entry run):
+  export OPENAI_API_KEY=sk-or-v1-...   # an OpenRouter key, despite the env var name
+  python3 scripts/translate_lexicon.py \
+    --csv output/staging/lexicon_id_test.csv \
+    --language id --provider openrouter --model "openrouter/free" \
+    --limit 20 --batch-size 10
+
+  # Testing with Gemini's free tier (Flash/Flash-Lite; Pro is no
+  # longer free as of April 2026 per Google's own pricing page --
+  # verify current limits there before relying on a specific number):
+  export GEMINI_API_KEY=...
+  python3 scripts/translate_lexicon.py \
+    --csv output/staging/lexicon_id_test.csv \
+    --language id --provider gemini --model "gemini-2.5-flash" \
+    --limit 20 --batch-size 10
 """
 import argparse
 import csv
 import json
+import os
 import sys
 import time
 from pathlib import Path
 
+# Anthropic is the only *required* import (default provider). OpenAI-
+# compatible providers (OpenRouter, Gemini) both use the `openai`
+# package's client pointed at a different base_url -- imported lazily
+# only when --provider selects one of them, so the default path has no
+# new dependency.
 try:
     import anthropic
 except ImportError:
-    print("ERROR: anthropic package not installed. Run: pip install anthropic --break-system-packages", file=sys.stderr)
-    sys.exit(1)
+    anthropic = None
+
+PROVIDER_DEFAULTS = {
+    "anthropic": {
+        "env_var": "ANTHROPIC_API_KEY",
+        "default_model": "claude-opus-4-5",
+    },
+    "openrouter": {
+        "env_var": "OPENAI_API_KEY",  # the `openai` SDK's default env var name; holds an OpenRouter key here
+        "base_url": "https://openrouter.ai/api/v1",
+        "default_model": "openrouter/free",
+    },
+    "gemini": {
+        "env_var": "GEMINI_API_KEY",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "default_model": "gemini-2.5-flash",
+    },
+}
 
 
 SYSTEM_PROMPT = """You are translating short biblical lexicon glosses from English into Indonesian, for an interlinear Bible study tool covering the Hebrew Masoretic Text and Greek Textus Receptus.
@@ -98,7 +140,7 @@ def build_batch_prompt(batch):
     return "Translate these entries:\n[\n" + ",\n".join(lines) + "\n]"
 
 
-def call_model(client, model, batch, max_retries=3):
+def call_model_anthropic(client, model, batch, max_retries=3):
     prompt = build_batch_prompt(batch)
     for attempt in range(1, max_retries + 1):
         try:
@@ -122,14 +164,78 @@ def call_model(client, model, batch, max_retries=3):
     return None
 
 
+def call_model_openai_compatible(client, model, batch, max_retries=3):
+    """Shared path for OpenRouter and Gemini, both accessed via the
+    `openai` package's client pointed at their respective OpenAI-
+    compatible base_url. Same prompt/parsing logic as the Anthropic
+    path -- structured JSON via prompt instructions, since relying on
+    a provider-specific JSON-mode flag would break the "same code path
+    for any OpenAI-compatible provider" simplicity this is going for."""
+    prompt = build_batch_prompt(batch)
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                max_tokens=4096,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": prompt},
+                ],
+            )
+            text = (response.choices[0].message.content or "").strip()
+            if text.startswith("```"):
+                text = text.split("```")[1]
+                if text.startswith("json"):
+                    text = text[4:]
+            return json.loads(text)
+        except Exception as e:
+            print(f"  attempt {attempt}/{max_retries} failed: {e}", file=sys.stderr)
+            if attempt == max_retries:
+                raise
+            time.sleep(2 ** attempt)
+    return None
+
+
+def build_client(provider):
+    cfg = PROVIDER_DEFAULTS[provider]
+    api_key = os.environ.get(cfg["env_var"])
+    if not api_key:
+        print(f"ERROR: {cfg['env_var']} environment variable not set (required for --provider {provider}).", file=sys.stderr)
+        sys.exit(1)
+
+    if provider == "anthropic":
+        if anthropic is None:
+            print("ERROR: anthropic package not installed. Run: pip install anthropic --break-system-packages", file=sys.stderr)
+            sys.exit(1)
+        return anthropic.Anthropic(api_key=api_key), call_model_anthropic
+
+    # openrouter / gemini: both via the `openai` package pointed at a
+    # different base_url. Imported lazily here so --provider anthropic
+    # (the default) never requires this dependency.
+    try:
+        import openai
+    except ImportError:
+        print("ERROR: openai package not installed (required for --provider openrouter/gemini). "
+              "Run: pip install openai --break-system-packages", file=sys.stderr)
+        sys.exit(1)
+    client = openai.OpenAI(api_key=api_key, base_url=cfg["base_url"])
+    return client, call_model_openai_compatible
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--csv", required=True, type=Path, help="CSV from export_lexicon_csv.py; edited in place")
     ap.add_argument("--language", default="id", help="ISO 639-1 target language code (determines the gloss_<lang> column name)")
-    ap.add_argument("--model", default="claude-opus-4-5")
+    ap.add_argument("--provider", default="anthropic", choices=list(PROVIDER_DEFAULTS.keys()),
+                     help="Which API to call. 'anthropic' (default, production quality) or "
+                          "'openrouter'/'gemini' (free-tier options, useful for testing this "
+                          "script's plumbing cheaply before running the real job).")
+    ap.add_argument("--model", default=None, help="Defaults to a sensible model per --provider if omitted.")
     ap.add_argument("--batch-size", type=int, default=50)
     ap.add_argument("--limit", type=int, help="Only process this many rows (for testing)")
     args = ap.parse_args()
+
+    model = args.model or PROVIDER_DEFAULTS[args.provider]["default_model"]
 
     if not args.csv.exists():
         print(f"ERROR: {args.csv} not found. Run export_lexicon_csv.py first.", file=sys.stderr)
@@ -144,13 +250,14 @@ def main():
     if args.limit:
         pending = pending[: args.limit]
 
+    print(f"Provider: {args.provider}, model: {model}", file=sys.stderr)
     print(f"Total rows: {len(rows)}. Already filled: {already_filled}. Pending this run: {len(pending)}", file=sys.stderr)
 
     if not pending:
         print("Nothing to do -- all rows already have a gloss in this column.", file=sys.stderr)
         return
 
-    client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
+    client, call_model = build_client(args.provider)
 
     batches = [pending[i:i + args.batch_size] for i in range(0, len(pending), args.batch_size)]
     print(f"Processing {len(batches)} batches of up to {args.batch_size} entries each", file=sys.stderr)
@@ -158,7 +265,7 @@ def main():
     for i, batch in enumerate(batches, 1):
         print(f"Batch {i}/{len(batches)} ({len(batch)} entries)...", file=sys.stderr)
         try:
-            results = call_model(client, args.model, batch)
+            results = call_model(client, model, batch)
         except Exception as e:
             print(f"  BATCH FAILED after retries: {e}", file=sys.stderr)
             print(f"  Skipping this batch; re-run later to retry (already-filled rows are skipped automatically).", file=sys.stderr)
