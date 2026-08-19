@@ -263,24 +263,39 @@ AI-translated output can be opened in Excel/Sheets and reviewed/edited
 by a human before it ever touches the database:
 
 ```bash
-# 1. Export lexicon entries to CSV (gloss_id column starts empty)
+# 1. Export lexicon entries to CSV (gloss_id column starts empty,
+#    sorted by real usage frequency in the text so review time goes to
+#    the most-used words first)
 python3 scripts/export_lexicon_csv.py \
   --db output/interlinear.sqlite \
   --out output/staging/lexicon_id.csv \
   --language id
 
-# 2. Fill in the gloss_id column via Claude (writes back to the same
-#    CSV in place; resumable -- only fills rows that are still empty)
+# 2. Fill in the gloss_id column. Two ways:
+
+#    a) Synchronous (immediate, real-time feedback):
 export ANTHROPIC_API_KEY=sk-ant-...
-python3 scripts/translate_lexicon.py \
+python3 scripts/translate_lexicon.py sync \
   --csv output/staging/lexicon_id.csv \
   --language id \
   --model claude-opus-4-5
 
+#    b) Batch API (50% off both input and output tokens, async --
+#       ~455 requests for the full lexicon, comfortably under the
+#       100,000-per-job limit, one batch job):
+python3 scripts/translate_lexicon.py submit \
+  --csv output/staging/lexicon_id.csv \
+  --language id --model claude-opus-4-5
+# ... later, once the job is done (or check status any time) ...
+python3 scripts/translate_lexicon.py retrieve \
+  --csv output/staging/lexicon_id.csv \
+  --language id
+
 # 3. Open output/staging/lexicon_id.csv in Excel/Sheets, review and
 #    hand-edit the gloss_id column as needed. Re-running step 2 later
 #    will NOT overwrite any row you've already filled in by hand --
-#    it only fills rows that are still empty.
+#    it only fills rows that are still empty. Verified: a simulated
+#    hand-edit survived a subsequent run untouched.
 
 # 4. Load the (possibly edited) CSV into the database
 python3 scripts/load_lexicon_translations.py \
@@ -314,7 +329,7 @@ it).
 # Rate limits apply and shift; fine for a small --limit test, not the
 # full run.
 export OPENAI_API_KEY=sk-or-v1-...   # an OpenRouter key, despite the env var name
-python3 scripts/translate_lexicon.py \
+python3 scripts/translate_lexicon.py sync \
   --csv output/staging/lexicon_id_test.csv \
   --language id --provider openrouter --model "openrouter/free" \
   --limit 20 --batch-size 10
@@ -324,7 +339,7 @@ python3 scripts/translate_lexicon.py \
 # rather than trusting a specific number, since they've shifted
 # multiple times through 2026).
 export GEMINI_API_KEY=...
-python3 scripts/translate_lexicon.py \
+python3 scripts/translate_lexicon.py sync \
   --csv output/staging/lexicon_id_test.csv \
   --language id --provider gemini --model "gemini-2.5-flash" \
   --limit 20 --batch-size 10
@@ -366,17 +381,15 @@ proceeding — elsewhere), which a context-free lexicon lookup can't
 capture on its own.
 
 **Batched by chapter, not by verse or an arbitrary window.** Chapters
-average ~390 words; the largest (John 6) is 1,553 words. This is a
+average ~390 words; the largest (John 6) is 1,285 words. This is a
 comfortable size for one API call, and chapter boundaries are natural
 discourse units — a pronoun or ambiguous term in verse 5 often depends
 on something established in verse 1 of the same chapter, so keeping
 the whole chapter in one call's context avoids splitting that
 dependency the way an arbitrary N-verse window could. 1,090 chapters
-total, so ~1,090 base API calls. Oversized chapters are automatically
-split into multiple calls at verse boundaries (never splitting a
-single verse's words across two calls) — verified against the real
-largest chapter (John 6, 1,553 words → 3 batches, confirmed zero verses
-split across the boundary).
+total. Oversized chapters are automatically split into multiple calls
+at verse boundaries (never splitting a single verse's words across two
+calls).
 
 **Grounded in the translated lexicon**, not free-standing: each word's
 prompt includes the already-translated (and human-reviewed) Indonesian
@@ -386,22 +399,84 @@ independently — this is what keeps the same underlying word
 terminologically consistent across all its occurrences instead of
 drifting per-verse.
 
+**A real duplicate-row bug was found and fixed here.** The lexicon
+join (`lx.dstrong = w.strongs OR lx.estrong = w.strongs`) could match
+multiple lexicon rows for one word when a base Strong's number has
+several disambiguated entries sharing it — e.g. `G2491` ("John") has
+four entries (`G2491G/H/I/J`) for different individuals named John,
+the same pattern as the Herod proper-noun disambiguation case
+elsewhere in this project. This silently duplicated affected words in
+the API prompt (confirmed: John 1 was inflated from 844 to 1,065
+words this way). Fixed with a `ROW_NUMBER()`-ranked join that picks
+exactly one lexicon row per word (preferring an exact `dstrong` match,
+which is unambiguous, over a same-`estrong` fallback) — verified
+against all of John 1–6 with zero duplicates remaining.
+
+### Scoping a run: single book, thematic group, testament, or everything
+
+`--book`, `--group`, and `--testament` are mutually exclusive (the
+script errors clearly if more than one is given). Omit all three to
+process the whole Bible.
+
+```bash
+--book GEN                # one book
+--group torah              # Genesis-Deuteronomy
+--testament OT             # all 39 Old Testament books
+# (nothing)                # everything, all 66 books
+```
+
+Valid `--group` values (reusing the same thematic groupings as
+`export_to_markdown.py`'s NotebookLM export, so "the Torah" means the
+same set of books everywhere in this project): `torah`, `historical`,
+`wisdom`, `major_prophets`, `minor_prophets`, `gospels_acts`,
+`pauline_epistles`, `general_epistles_revelation`.
+
+Verified against the real database: `--group torah` returns exactly
+Genesis through Deuteronomy (178 chapters), `--testament OT`/`NT`
+correctly partition all 1,090 chapters with no overlap or gap
+(830 + 260 = 1,090), and a single `--book` returns exactly that book's
+chapters (e.g. John's 21).
+
+### Two ways to run: synchronous or Batch API
+
+**`sync`** — calls the API immediately per chapter-batch, writes
+progress after every call. Simple, real-time visibility, but no cost
+discount.
+
+**`submit` / `retrieve`** — uses Anthropic's Batch API (50% off both
+input and output tokens) instead. `submit` builds one request per
+chapter-batch (~1,090+ requests, comfortably under the 100,000-per-job
+limit) and submits them as a single batch job; `retrieve` polls until
+the job finishes and writes results into the same JSONL format `sync`
+produces, so `load_ai_glosses.py` works identically either way.
+Anthropic-only (the Batch API isn't something OpenRouter/Gemini expose
+identically, so this mode doesn't offer `--provider`).
+
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
 
-# Test against one chapter first
-python3 scripts/generate_ai_glosses.py \
+# Test against one chapter first (sync, immediate feedback)
+python3 scripts/generate_ai_glosses.py sync \
   --db output/interlinear.sqlite \
   --out output/staging/ai_glosses_id_test.jsonl \
   --language id --book GEN --limit-chapters 1
 
-# Full run (resumable -- safe to re-run if interrupted; already-
-# glossed words are skipped automatically)
-python3 scripts/generate_ai_glosses.py \
+# Full run via Batch API (50% cheaper, async)
+python3 scripts/generate_ai_glosses.py submit \
   --db output/interlinear.sqlite \
   --out output/staging/ai_glosses_id.jsonl \
-  --language id \
-  --model claude-opus-4-5
+  --language id --model claude-opus-4-5
+
+# Later (or in a loop), check/retrieve results:
+python3 scripts/generate_ai_glosses.py retrieve \
+  --out output/staging/ai_glosses_id.jsonl \
+  --language id
+
+# Or the full run via sync instead, if preferred:
+python3 scripts/generate_ai_glosses.py sync \
+  --db output/interlinear.sqlite \
+  --out output/staging/ai_glosses_id.jsonl \
+  --language id --model claude-opus-4-5
 
 # Load into the database (idempotent -- upserts by word_id)
 python3 scripts/load_ai_glosses.py \
@@ -425,13 +500,17 @@ lexicon export, adapted to `ai_gloss`) is a reasonable follow-up if
 deeper review is wanted — not built yet, since it depends on which
 passages matter most to check first.
 
-**What's tested vs. not:** batch-splitting logic (verified against the
-real largest chapter with zero verses split across batches), resume/
-skip logic (verified exact word counts across two sequential runs, no
-duplicates), and the loader's upsert behavior were all tested against
-mocked API responses and a real copy of the database. The actual live
-translation quality is untested — that depends on running this for
-real against your API key.
+**What's tested vs. not:** batch-splitting logic (verified against
+real chapter data with zero verses split across batches, and zero
+duplicate words after the join fix above), resume/skip logic (verified
+exact word counts across two sequential runs, no duplicates), all five
+scope modes (book/group/testament/none, each checked against real
+database counts), and the full `submit`→`retrieve` Batch API cycle
+(verified end-to-end with mocked responses matching the real SDK's
+`MessageBatch`/`MessageBatchIndividualResponse` types) were all tested.
+The actual live translation quality, and the real Batch API's
+turnaround time in practice, are untested — that depends on running
+this for real against your API key.
 
 ## OT versification mapping (Hebrew MT vs. standard English numbering)
 

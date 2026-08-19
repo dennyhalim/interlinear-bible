@@ -222,19 +222,9 @@ def build_client(provider):
     return client, call_model_openai_compatible
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--csv", required=True, type=Path, help="CSV from export_lexicon_csv.py; edited in place")
-    ap.add_argument("--language", default="id", help="ISO 639-1 target language code (determines the gloss_<lang> column name)")
-    ap.add_argument("--provider", default="anthropic", choices=list(PROVIDER_DEFAULTS.keys()),
-                     help="Which API to call. 'anthropic' (default, production quality) or "
-                          "'openrouter'/'gemini' (free-tier options, useful for testing this "
-                          "script's plumbing cheaply before running the real job).")
-    ap.add_argument("--model", default=None, help="Defaults to a sensible model per --provider if omitted.")
-    ap.add_argument("--batch-size", type=int, default=50)
-    ap.add_argument("--limit", type=int, help="Only process this many rows (for testing)")
-    args = ap.parse_args()
-
+def cmd_sync(args):
+    """Original synchronous flow: call the API immediately per batch,
+    write results back to the CSV as each batch completes."""
     model = args.model or PROVIDER_DEFAULTS[args.provider]["default_model"]
 
     if not args.csv.exists():
@@ -284,12 +274,163 @@ def main():
                 continue
             by_id[lid][gloss_col] = r["gloss"]
 
-        # Write progress back after every batch, not just at the end,
-        # so an interruption partway through doesn't lose prior batches.
         write_csv(args.csv, fieldnames, list(by_id.values()))
 
     print(f"Done. Updated -> {args.csv}", file=sys.stderr)
     print(f"Review/edit the '{gloss_col}' column in a spreadsheet, then run load_lexicon_translations.py --csv", file=sys.stderr)
+
+
+def cmd_submit(args):
+    """Batch API flow, step 1: build all requests and submit as ONE
+    Anthropic batch job (50% cheaper than sync, results ready
+    asynchronously -- typically much faster than the 24h SLA for a job
+    this size, but not guaranteed). Anthropic-only: the Batch API is an
+    Anthropic-specific endpoint, not something OpenRouter/Gemini expose
+    identically, so --provider is not offered here."""
+    import batch_api_helper as bah
+
+    if anthropic is None:
+        print("ERROR: anthropic package not installed. Run: pip install anthropic --break-system-packages", file=sys.stderr)
+        sys.exit(1)
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("ERROR: ANTHROPIC_API_KEY environment variable not set.", file=sys.stderr)
+        sys.exit(1)
+
+    if not args.csv.exists():
+        print(f"ERROR: {args.csv} not found. Run export_lexicon_csv.py first.", file=sys.stderr)
+        sys.exit(1)
+
+    model = args.model or PROVIDER_DEFAULTS["anthropic"]["default_model"]
+    gloss_col = f"gloss_{args.language}"
+    fieldnames, rows = read_csv(args.csv, gloss_col)
+
+    pending = [r for r in rows if not r[gloss_col].strip()]
+    if args.limit:
+        pending = pending[: args.limit]
+
+    print(f"Model: {model}", file=sys.stderr)
+    print(f"Total rows: {len(rows)}. Pending: {len(pending)}", file=sys.stderr)
+
+    if not pending:
+        print("Nothing to do -- all rows already have a gloss in this column.", file=sys.stderr)
+        return
+
+    sub_batches = [pending[i:i + args.batch_size] for i in range(0, len(pending), args.batch_size)]
+    print(f"Building {len(sub_batches)} requests (one Anthropic batch job, {args.batch_size} entries/request)", file=sys.stderr)
+
+    requests = []
+    for i, sub_batch in enumerate(sub_batches):
+        custom_id = f"lex-{i:05d}"
+        prompt = build_batch_prompt(sub_batch)
+        requests.append((custom_id, SYSTEM_PROMPT, prompt, model, 4096))
+
+    client = anthropic.Anthropic(api_key=api_key)
+    bah.submit_batch_job(client, requests, args.batch_job_file)
+
+    # Save the sub-batch membership (custom_id -> list of lexicon_ids)
+    # alongside the job file, so `retrieve` knows which CSV rows each
+    # request's response corresponds to without re-deriving it.
+    membership = {f"lex-{i:05d}": [r["lexicon_id"] for r in sb] for i, sb in enumerate(sub_batches)}
+    membership_file = args.batch_job_file.with_suffix(".membership.json")
+    membership_file.write_text(json.dumps(membership, ensure_ascii=False), encoding="utf-8")
+    print(f"Saved request membership -> {membership_file}", file=sys.stderr)
+    print(f"\nRun this again with 'retrieve' once the job is done -- check status any time with:", file=sys.stderr)
+    print(f"  python3 scripts/translate_lexicon.py retrieve --csv {args.csv} --language {args.language} --batch-job-file {args.batch_job_file}", file=sys.stderr)
+
+
+def cmd_retrieve(args):
+    """Batch API flow, step 2: poll the submitted job until done, fetch
+    results, write them into the CSV (same skip-if-already-filled and
+    hand-edit-preserving behavior as the sync path)."""
+    import batch_api_helper as bah
+
+    if not args.batch_job_file.exists():
+        print(f"ERROR: {args.batch_job_file} not found. Run 'submit' first.", file=sys.stderr)
+        sys.exit(1)
+    membership_file = args.batch_job_file.with_suffix(".membership.json")
+    if not membership_file.exists():
+        print(f"ERROR: {membership_file} not found (should have been created by 'submit').", file=sys.stderr)
+        sys.exit(1)
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("ERROR: ANTHROPIC_API_KEY environment variable not set.", file=sys.stderr)
+        sys.exit(1)
+
+    job_info = json.loads(args.batch_job_file.read_text())
+    membership = json.loads(membership_file.read_text())
+    batch_id = job_info["batch_id"]
+
+    client = anthropic.Anthropic(api_key=api_key)
+
+    print(f"Polling batch job {batch_id}...", file=sys.stderr)
+    batch = bah.poll_batch_job(client, batch_id, poll_interval_seconds=args.poll_interval, max_wait_seconds=args.max_wait)
+
+    if batch.processing_status != "ended":
+        print("Job not yet finished (see --max-wait). Run 'retrieve' again later to check.", file=sys.stderr)
+        return
+
+    print("Job ended, fetching results...", file=sys.stderr)
+    raw_results = bah.fetch_batch_results(client, batch_id)
+
+    gloss_col = f"gloss_{args.language}"
+    fieldnames, rows = read_csv(args.csv, gloss_col)
+    by_id = {int(r["lexicon_id"]): r for r in rows}
+
+    filled = 0
+    for custom_id, lexicon_ids in membership.items():
+        text = raw_results.get(custom_id)
+        parsed = bah.parse_json_response(text)
+        if parsed is None:
+            print(f"  WARNING: request '{custom_id}' has no usable result, its {len(lexicon_ids)} entries remain untranslated (re-submit a follow-up batch for just these if needed).", file=sys.stderr)
+            continue
+        parsed_by_id = {str(item["lexicon_id"]): item["gloss"] for item in parsed}
+        for lid_str in lexicon_ids:
+            if lid_str in parsed_by_id:
+                by_id[int(lid_str)][gloss_col] = parsed_by_id[lid_str]
+                filled += 1
+            else:
+                print(f"  WARNING: lexicon_id {lid_str} missing from response for '{custom_id}'", file=sys.stderr)
+
+    write_csv(args.csv, fieldnames, list(by_id.values()))
+    print(f"\nFilled {filled} rows -> {args.csv}", file=sys.stderr)
+    print(f"Review/edit the '{gloss_col}' column in a spreadsheet, then run load_lexicon_translations.py --csv", file=sys.stderr)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    sub = ap.add_subparsers(dest="command", required=True)
+
+    sync_p = sub.add_parser("sync", help="Synchronous calls (original behavior, works with any --provider)")
+    sync_p.add_argument("--csv", required=True, type=Path, help="CSV from export_lexicon_csv.py; edited in place")
+    sync_p.add_argument("--language", default="id")
+    sync_p.add_argument("--provider", default="anthropic", choices=list(PROVIDER_DEFAULTS.keys()))
+    sync_p.add_argument("--model", default=None)
+    sync_p.add_argument("--batch-size", type=int, default=50)
+    sync_p.add_argument("--limit", type=int)
+    sync_p.set_defaults(func=cmd_sync)
+
+    submit_p = sub.add_parser("submit", help="Submit a batch job via Anthropic's Batch API (50% cheaper, async)")
+    submit_p.add_argument("--csv", required=True, type=Path)
+    submit_p.add_argument("--language", default="id")
+    submit_p.add_argument("--model", default=None)
+    submit_p.add_argument("--batch-size", type=int, default=50)
+    submit_p.add_argument("--limit", type=int)
+    submit_p.add_argument("--batch-job-file", type=Path, default=Path("output/staging/lexicon_batch_job.json"))
+    submit_p.set_defaults(func=cmd_submit)
+
+    retrieve_p = sub.add_parser("retrieve", help="Poll and retrieve results from a previously submitted batch job")
+    retrieve_p.add_argument("--csv", required=True, type=Path)
+    retrieve_p.add_argument("--language", default="id")
+    retrieve_p.add_argument("--batch-job-file", type=Path, default=Path("output/staging/lexicon_batch_job.json"))
+    retrieve_p.add_argument("--poll-interval", type=int, default=30, help="Seconds between status checks")
+    retrieve_p.add_argument("--max-wait", type=int, default=None, help="Give up polling after this many seconds (job keeps running server-side; just re-run retrieve later)")
+    retrieve_p.set_defaults(func=cmd_retrieve)
+
+    args = ap.parse_args()
+    args.func(args)
 
 
 if __name__ == "__main__":
