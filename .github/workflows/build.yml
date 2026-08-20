@@ -103,14 +103,15 @@ jobs:
       - name: Publish to db branch
         run: |
           rm -rf /tmp/dbpub && mkdir /tmp/dbpub
+          ls output/staging
           cp output/interlinear.sqlite /tmp/dbpub/
-          cp output/staging/*.jsonl /tmp/dbpub/
+          cp output/staging/* /tmp/dbpub/
           cd /tmp/dbpub
           git init -q
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -q -b db
-          git add interlinear.sqlite *.jsonl
+          git add .
           git commit -q -m "Build $(date -u +%Y-%m-%dT%H:%M:%SZ) (${GITHUB_SHA::7})"
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -f origin db
