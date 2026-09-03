@@ -412,7 +412,7 @@ def main():
     sync_p.add_argument("--limit", type=int)
     sync_p.set_defaults(func=cmd_sync)
 
-    submit_p = sub.add_parser("submit", help="Submit a batch job via Anthropic's Batch API (50% cheaper, async)")
+    submit_p = sub.add_parser("submit", help="Submit a batch job via Anthropic's Batch API (50%% cheaper, async)")
     submit_p.add_argument("--csv", required=True, type=Path)
     submit_p.add_argument("--language", default="id")
     submit_p.add_argument("--model", default=None)
