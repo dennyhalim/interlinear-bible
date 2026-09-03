@@ -107,7 +107,7 @@ jobs:
         run: |
           rm -rf /tmp/dbpub && mkdir /tmp/dbpub
           ls output/staging
-#          cp output/interlinear.sqlite /tmp/dbpub/
+          #cp output/interlinear.sqlite /tmp/dbpub/
           cp sources/strong_categories.jsonl /tmp/dbpub/
           cp schema.sql /tmp/dbpub/
           cp output/staging/* /tmp/dbpub/
