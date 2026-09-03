@@ -6,7 +6,9 @@ on:
     paths:
       - "scripts/**"
       - "schema.sql"
-      - ".github/workflows/build.yml"
+      #- ".github/workflows/build.yml"
+    tags:
+      - "v*"
   workflow_dispatch:
     inputs:
       deploy_to_d1:
