@@ -144,7 +144,8 @@ jobs:
     # deploy, which exceeds the D1 free-tier daily row-write limit in
     # one run -- see deploy_to_d1.sh's own comments for the reasoning).
     needs: build
-    if: github.event_name == 'workflow_dispatch' && inputs.deploy_to_d1 == 'true'
+    #if: github.event_name == 'workflow_dispatch' && inputs.deploy_to_d1 == 'true'
+    if: endsWith(github.ref_name, '.0')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
