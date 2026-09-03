@@ -107,7 +107,8 @@ jobs:
       #   https://raw.githubusercontent.com/<owner>/<repo>/db/interlinear.sqlite
       - name: Publish to db branch
         run: |
-          rm -rf /tmp/dbpub && mkdir /tmp/dbpub
+          rm -rf /tmp/dbpub && mkdir -p /tmp/dbpub/obsidian_vault
+          python3 scripts/export_obsidian_vault.py --db output/interlinear.sqlite --out-dir /tmp/dbpub/obsidian_vault
           ls output/staging
           #cp output/interlinear.sqlite /tmp/dbpub/ #sqlite over100m
           cp sources/strong_categories.jsonl /tmp/dbpub/
