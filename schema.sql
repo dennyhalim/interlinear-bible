@@ -76,6 +76,49 @@ CREATE TABLE lexicon_entry (
 CREATE INDEX idx_lexicon_dstrong ON lexicon_entry(dstrong);
 CREATE INDEX idx_lexicon_estrong ON lexicon_entry(estrong);
 
+-- Translated glosses, kept alongside (not replacing) the original
+-- English lexicon_entry.gloss. One row per (lexicon_id, language) so
+-- multiple target languages can coexist without schema changes.
+-- Populated by translate_lexicon.py as a one-time batch job, not part
+-- of the main build pipeline (translation is a deliberate, reviewed
+-- step, not a derived/regenerable artifact like the rest of the DB).
+CREATE TABLE lexicon_gloss_translation (
+    translation_id  INTEGER PRIMARY KEY,
+    lexicon_id      INTEGER NOT NULL REFERENCES lexicon_entry(lexicon_id),
+    language        TEXT NOT NULL,   -- ISO 639-1 code, e.g. "id" for Indonesian
+    gloss           TEXT NOT NULL,
+    model           TEXT NOT NULL,   -- which model generated it, e.g. "claude-opus-4-5"
+    prompt_version  TEXT NOT NULL,   -- tag identifying the prompt/methodology, for regeneration tracking
+    generated_at    TEXT NOT NULL,   -- ISO timestamp
+    reviewed        INTEGER NOT NULL DEFAULT 0,  -- 0/1, for later human-review tracking
+    UNIQUE(lexicon_id, language)
+);
+
+CREATE INDEX idx_lexicon_gloss_translation_lang ON lexicon_gloss_translation(language);
+
+-- Semantic domain classification per Strong's number, e.g.
+-- "person_role>personal_name", "deity_spirit>divine_name". Sourced
+-- from an external dataset (crizin/bible-db strong_categories.jsonl)
+-- keyed at the BASE Strong's level (bare, non-zero-padded, no
+-- disambiguation letter -- e.g. "H430", not "H0430G"), so one row here
+-- can apply to several lexicon_entry rows that share that base number
+-- (e.g. all three H0430G/H/I "Elohim" disambiguations correctly get
+-- the same "deity_spirit>divine_name" domain, since the semantic
+-- domain genuinely doesn't depend on which specific disambiguated
+-- sense a given occurrence resolves to). One row per
+-- (lexicon_id, category) since a Strong's number can belong to
+-- multiple categories (~43% of entries in the source data do).
+CREATE TABLE lexicon_category (
+    category_row_id INTEGER PRIMARY KEY,
+    lexicon_id      INTEGER NOT NULL REFERENCES lexicon_entry(lexicon_id),
+    category        TEXT NOT NULL,   -- e.g. "person_role>personal_name"
+    is_primary      INTEGER NOT NULL DEFAULT 0,  -- 1 if this was the source dataset's "primary" category for this Strong's number
+    UNIQUE(lexicon_id, category)
+);
+
+CREATE INDEX idx_lexicon_category_category ON lexicon_category(category);
+CREATE INDEX idx_lexicon_category_lexicon ON lexicon_category(lexicon_id);
+
 -- Morphology code expansion, e.g. "V-IAI-3S" -> Function=Verb; Tense=Imperfect...
 CREATE TABLE morphology_code (
     morph_id     INTEGER PRIMARY KEY,
@@ -111,6 +154,32 @@ CREATE TABLE versification_note (
     action       TEXT NOT NULL,
     note_text    TEXT
 );
+
+-- OT-only Hebrew<->standard-English versification mapping, derived
+-- from STEPBible TVTMS's Condensed section. See parse_tvtms.py for the
+-- scope reasoning (OT only; TVTMS's "Greek" data is LXX-based, not
+-- Textus Receptus, so has no bearing on this project's NT text).
+-- One row per verse where Hebrew (TAHOT source) and standard English
+-- numbering actually differ -- the vast majority of verses need no
+-- entry here at all, since they already agree.
+CREATE TABLE versification_mapping (
+    mapping_id          INTEGER PRIMARY KEY,
+    section_ref          TEXT NOT NULL,   -- which TVTMS difference-section this came from, e.g. "Mal.4:1-4:6"
+    action                TEXT NOT NULL,   -- OneToOne / MergedPrevVerse / SubdividedVerse / TextMayBeMissing / etc.
+    book_code             TEXT NOT NULL REFERENCES book(code),
+    standard_chapter      INTEGER,         -- English/KJV-convention chapter (NULL if this verse doesn't exist in English)
+    standard_verse        INTEGER,
+    standard_verse_end    INTEGER,         -- only set when a range couldn't be safely expanded 1:1 (range_mismatch=1)
+    hebrew_chapter        INTEGER,         -- chapter as numbered in the Hebrew MT / TAHOT source (NULL if absent in Hebrew)
+    hebrew_verse          INTEGER,
+    hebrew_verse_end      INTEGER,
+    standard_ref_raw      TEXT,            -- original TVTMS cell text, kept for provenance/debugging
+    hebrew_ref_raw        TEXT,
+    range_mismatch         INTEGER NOT NULL DEFAULT 0  -- 1 if standard/hebrew range lengths differed and couldn't be expanded verse-by-verse safely
+);
+
+CREATE INDEX idx_versification_mapping_standard ON versification_mapping(book_code, standard_chapter, standard_verse);
+CREATE INDEX idx_versification_mapping_hebrew ON versification_mapping(book_code, hebrew_chapter, hebrew_verse);
 
 -- Reserved for future proper-noun disambiguation (TIPNR) once that
 -- parser is built; not populated by the current pipeline.

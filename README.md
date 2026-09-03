@@ -181,6 +181,47 @@ python3 scripts/export_to_markdown.py --db output/interlinear.sqlite --out-dir o
 python3 scripts/export_to_markdown.py --db output/interlinear.sqlite --out-dir output/markdown --testament NT
 ```
 
+## Using with OneNote (or other Markdown-incompatible tools)
+
+OneNote has **zero native Markdown support** on any platform (verified
+against multiple current sources) — no import, no rendering, no
+export. Dropping a `.md` file in directly means every heading marker,
+pipe, and bracket shows up as literal text with no structure.
+
+`export_to_docx.py` wraps the Markdown exporter above and converts its
+output to `.docx` via pandoc — OneNote's actual supported import path
+(File → Insert → Printout, or drag-and-drop), with high-fidelity
+heading/list preservation. It's a thin wrapper, not a second
+implementation: it calls the same `render_book()` function the
+Markdown exporter uses, so the content is identical to what NotebookLM/
+Obsidian users see, just repackaged as `.docx`.
+
+```bash
+# Recommended: one .docx per thematic group (8 files, matches the
+# NotebookLM export's own grouping)
+python3 scripts/export_to_docx.py --db output/interlinear.sqlite --out-dir output/docx --group
+
+# Or one .docx per book (66 files)
+python3 scripts/export_to_docx.py --db output/interlinear.sqlite --out-dir output/docx --book GEN
+python3 scripts/export_to_docx.py --db output/interlinear.sqlite --out-dir output/docx --testament NT
+```
+
+**Verified against real output**, not just a toy example: converted
+the actual Genesis export (Hebrew text, mixed RTL/pipe-delimited
+glosses) and rendered the resulting `.docx` to check visually — pandoc's
+default conversion correctly preserves the heading hierarchy (book
+title, chapter headings) and renders Hebrew/Greek text correctly with
+no manual template needed. Also verified the `--group` mode's book-
+combining logic (using a `--book` filter to test without running the
+full 66-book export, which is real work — even the largest single book,
+Psalms, takes ~6.5 seconds, so combined across every 8-group full run
+this is a genuine multi-minute job, not something to expect to
+complete instantly).
+
+Requires `pandoc` (already listed as a project dependency for docx
+work). In OneNote: File → Insert → Printout, or drag the `.docx` file
+directly onto a page.
+
 ## Using with Obsidian (or other Markdown note tools)
 
 The exported Markdown works as-is in Obsidian and similar tools — same
@@ -639,6 +680,51 @@ a Function (and its D1 usage) for every request.
 **Not yet built:** a search endpoint, and pagination/rate-limiting for
 production traffic. Both are reasonable next additions once there's a
 frontend to actually drive their design.
+
+## Semantic domain categories (external dataset)
+
+`lexicon_category` adds a semantic-domain classification per Strong's
+number (e.g. `person_role>personal_name`, `deity_spirit>divine_name`,
+`abstract_quality>color`) — something the STEPBible lexicons don't
+carry at all (they give morphology and glosses, not semantic domain).
+Sourced from an external dataset,
+[crizin/bible-db](https://github.com/crizin/bible-db)'s
+`strong_categories.jsonl` (14,197 entries: 5,523 Greek + 8,674 Hebrew,
+107 distinct categories across 18 top-level domains).
+
+```bash
+python3 scripts/load_lexicon_categories.py \
+  --db output/interlinear.sqlite \
+  --jsonl strong_categories.jsonl
+```
+
+**A real format mismatch was found and fixed during integration.**
+The source file keys categories by a bare Strong's number ("H430", no
+zero-padding, no disambiguation letter), while this project's
+`lexicon_entry.estrong` is zero-padded ("H0430") and sometimes carries
+its own disambiguation suffix in a different style than `dstrong`'s
+uppercase letters — 1,164 rows use a **lowercase** letter (`H0122a`,
+`H0122b`) rather than `dstrong`'s uppercase convention (`H0430G`). The
+first version of the loader missed these, leaving 542 Strong's numbers
+unmatched; stripping any trailing letter (upper or lower) from
+`estrong` before indexing fixed it completely — verified by re-running
+with zero unmatched warnings afterward, up from 542.
+
+Category data is applied to **every** `lexicon_entry` row sharing a
+base Strong's number, not just one — verified against `H0430`
+("Elohim"), which has three disambiguated senses
+(`H0430G`/`H0430H`/`H0430I`) all correctly receiving the same
+`deity_spirit>divine_name` category, since the semantic domain
+genuinely doesn't depend on which specific disambiguated sense a given
+occurrence resolves to. One row per (lexicon_id, category), so a
+Strong's number belonging to multiple categories (43% of the source
+data does) gets multiple rows, with `is_primary` flagging the source
+dataset's designated primary category.
+
+Coverage: 24,992 category assignments across 17,342 of this project's
+22,717 lexicon entries (76%) — the remainder are Strong's numbers in
+this project's lexicon that the source dataset doesn't cover (or
+vice versa; not all Strong's numbers appear in both datasets).
 
 ## Known gaps / next steps
 
