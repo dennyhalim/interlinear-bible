@@ -84,6 +84,9 @@ jobs:
             --staging output/staging \
             --schema schema.sql \
             --out output/interlinear.sqlite
+          python3 scripts/load_lexicon_categories.py \
+            --db output/interlinear.sqlite \
+            --jsonl sources/strong_categories.jsonl
 
       - name: Resolve ambiguous proper nouns
         run: |
