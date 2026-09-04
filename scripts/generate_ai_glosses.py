@@ -501,7 +501,7 @@ def main():
         sync_p.add_argument(flag, **kwargs)
     sync_p.set_defaults(func=cmd_sync)
 
-    submit_p = sub.add_parser("submit", help="Submit a batch job via Anthropic's Batch API (50% cheaper, async)")
+    submit_p = sub.add_parser("submit", help="Submit a batch job via Anthropic's Batch API (50%% cheaper, async)")
     submit_p.add_argument("--db", required=True, type=Path)
     submit_p.add_argument("--out", required=True, type=Path, help="Where results will eventually be written by 'retrieve' (same JSONL format as sync)")
     submit_p.add_argument("--model", default="claude-opus-4-5")
