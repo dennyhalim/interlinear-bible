@@ -1,0 +1,90 @@
+# 1 Samuel 7
+
+[[Old_Testament/1 Samuel/00_Index|<- 1 Samuel index]]
+[[Old_Testament/1 Samuel/1 Samuel 6|<- previous chapter]]
+[[Old_Testament/1 Samuel/1 Samuel 8|next chapter ->]]
+
+## 1SA 7:1
+וַ/יָּבֹ֜אוּ אַנְשֵׁ֣י קִרְיַ֣ת יְעָרִ֗ים וַֽ/יַּעֲלוּ֙ אֶת אֲר֣וֹן יְהוָ֔ה וַ/יָּבִ֣אוּ אֹת֔/וֹ אֶל בֵּ֥ית אֲבִינָדָ֖ב בַּ/גִּבְעָ֑ה וְ/אֶת אֶלְעָזָ֤ר בְּנ/וֹ֙ קִדְּשׁ֔וּ לִ/שְׁמֹ֖ר אֶת אֲר֥וֹן יְהוָֽה
+
+וַ/יָּבֹ֜אוּ=va/i.ya.Vo.'u[H0935G,Hc/Vqw3mp]:"and/ they came" | אַנְשֵׁ֣י='an.Shei[H0582,HNcmpc]:"[the] people of" | קִרְיַ֣ת=kir.Yat[H7157}+,HNpl]:"Kiriath" | יְעָרִ֗ים=ye.'a.Rim[H7157,HNpl]:"Jearim" | וַֽ/יַּעֲלוּ֙=va/i.ya.'a.Lu[H5927H,Hc/Vhw3mp]:"and/ they took up" | אֶת='et-[H0853,HTo]:"<obj.>" | אֲר֣וֹן='a.Ron[H0727,HNcmsc]:"[the] ark of" | יְהוָ֔ה=Yah.weh[H3068G,HNpt]:"Yahweh" | וַ/יָּבִ֣אוּ=va/i.ya.Vi.'u[H0935P,Hc/Vhw3mp]:"and/ they brought" | אֹת֔/וֹ='o.T/o[H0853,HTo/Sp3ms]:"<obj.>/ it" | אֶל='el-[H0413,HR]:"to" | בֵּ֥ית=beit[H1004B,HNcmsc]:"[the] house of" | אֲבִינָדָ֖ב='a.vi.na.Dav[H0041G,HNpm]:"Abinadab" | בַּ/גִּבְעָ֑ה=ba./giv.'Ah[H1389I,HRd/Ncfsa]:"on the/ hill" | וְ/אֶת=ve./'Et[H0853,HC/To]:"and/ <obj.>" | אֶלְעָזָ֤ר='el.'a.Zar[H0499H,HNpm]:"Eleazar" | בְּנ/וֹ֙=be.N/o[H1121A,HNcmsc/Sp3ms]:"son/ his" | קִדְּשׁ֔וּ=ki.de.Shu[H6942G,HVpp3cp]:"they consecrated" | לִ/שְׁמֹ֖ר=li/sh.Mor[H8104H,HR/Vqcc]:"to/ keep" | אֶת='et-[H0853,HTo]:"<obj.>" | אֲר֥וֹן='a.Ron[H0727,HNcmsc]:"[the] ark of" | יְהוָֽה=Yah.weh[H3068G,HNpt]:"Yahweh"
+
+## 1SA 7:2
+וַ/יְהִ֗י מִ/יּ֞וֹם שֶׁ֤בֶת הָֽ/אָרוֹן֙ בְּ/קִרְיַ֣ת יְעָרִ֔ים וַ/יִּרְבּוּ֙ הַ/יָּמִ֔ים וַ/יִּֽהְי֖וּ עֶשְׂרִ֣ים שָׁנָ֑ה וַ/יִּנָּה֛וּ כָּל בֵּ֥ית יִשְׂרָאֵ֖ל אַחֲרֵ֥י יְהוָֽה
+
+וַ/יְהִ֗י=va/y.Hi[H1961,Hc/Vqw3ms]:"and/ it was" | מִ/יּ֞וֹם=mi./Yom[H3117G,HR/Ncmsc]:"from/ [the] day" | שֶׁ֤בֶת=She.vet[H3427,HVqcc]:"dwelt" | הָֽ/אָרוֹן֙=ha./'a.rOn[H0727,HTd/Ncmsa]:"the/ ark" | בְּ/קִרְיַ֣ת=be./kir.Yat[H7157}+,HR/Npl]:"at/ Kiriath" | יְעָרִ֔ים=ye.'a.Rim[H7157,HNpl]:"Jearim" | וַ/יִּרְבּוּ֙=va/i.yir.Bu[H7235A,Hc/Vqw3mp]:"and/ they increased" | הַ/יָּמִ֔ים=hai./ya.Mim[H3117G,HTd/Ncmpa]:"the/ days" | וַ/יִּֽהְי֖וּ=va/i.yih.Yu[H1961,Hc/Vqw3mp]:"and/ they were" | עֶשְׂרִ֣ים='es.Rim[H6242,HNcmpa]:"twenty" | שָׁנָ֑ה=sha.Nah[H8141,HNcfsa]:"year[s]" | וַ/יִּנָּה֛וּ=va/i.yi.na.Hu[H5091,Hc/VNw3mp]:"and/ they mourned" | כָּל=kol-[H3605,HNcmsc]:"all" | בֵּ֥ית=beit[H1004M,HNcmsc]:"[the] house of" | יִשְׂרָאֵ֖ל=Yis.ra.'El[H3478,HNpl]:"Israel" | אַחֲרֵ֥י='a.cha.Rei[H0310A,HAcmpc]:"after" | יְהוָֽה=Yah.weh[H3068G,HNpt]:"Yahweh"
+
+## 1SA 7:3
+וַ/יֹּ֣אמֶר שְׁמוּאֵ֗ל אֶל כָּל בֵּ֣ית יִשְׂרָאֵל֮ לֵ/אמֹר֒ אִם בְּ/כָל לְבַבְ/כֶ֗ם אַתֶּ֤ם שָׁבִים֙ אֶל יְהוָ֔ה הָסִ֜ירוּ אֶת אֱלֹהֵ֧י הַ/נֵּכָ֛ר מִ/תּוֹכְ/כֶ֖ם וְ/הָ/עַשְׁתָּר֑וֹת וְ/הָכִ֨ינוּ לְבַבְ/כֶ֤ם אֶל יְהוָה֙ וְ/עִבְדֻ֣/הוּ לְ/בַדּ֔/וֹ וְ/יַצֵּ֥ל אֶתְ/כֶ֖ם מִ/יַּ֥ד פְּלִשְׁתִּֽים
+
+וַ/יֹּ֣אמֶר=va/i.Yo.mer[H0559,Hc/Vqw3ms]:"and/ he said" | שְׁמוּאֵ֗ל=she.mu.'El[H8050G,HNpm]:"Samuel" | אֶל='el-[H0413,HR]:"to" | כָּל=kol-[H3605,HNcmsc]:"all" | בֵּ֣ית=beit[H1004M,HNcmsc]:"[the] house of" | יִשְׂרָאֵל֮=Yis.ra.'El[H3478,HNpl]:"Israel" | לֵ/אמֹר֒=le./Mor[H0559,HR/Vqcc]:"<to>/ saying" | אִם='im-[H0518A,HTc]:"if" | בְּ/כָל=be./khol[H3605,HR/Ncmsc]:"with/ all" | לְבַבְ/כֶ֗ם=le.vav./Khem[H3824,HNcmsc/Sp2mp]:"heart/ your" | אַתֶּ֤ם='a.Tem[H0859D,HPp2mp]:"you" | שָׁבִים֙=sha.Vim[H7725G,HVqrmpa]:"[are] turning back" | אֶל='el-[H0413,HR]:"to" | יְהוָ֔ה=Yah.weh[H3068G,HNpt]:"Yahweh" | הָסִ֜ירוּ=ha.Si.ru[H5493G,HVhv2mp]:"remove" | אֶת='et-[H0853,HTo]:"<obj.>" | אֱלֹהֵ֧י='e.lo.Hei[H0430J,HNcmpc]:"[the] gods of" | הַ/נֵּכָ֛ר=ha./ne.Khar[H5236,HTd/Ncmsa]:"<the>/ foreignness" | מִ/תּוֹכְ/כֶ֖ם=mi./tokh./Khem[H8432,HR/Ncmsc/Sp2mp]:"from/ among/ you" | וְ/הָ/עַשְׁתָּר֑וֹת=ve./ha./'ash.ta.Rot[H6252G,HC/Td/Ncfpa]:"and/ the/ Ashtaroth" | וְ/הָכִ֨ינוּ=ve./ha.Khi.nu[H3559J,HC/Vhv2mp]:"and/ direct" | לְבַבְ/כֶ֤ם=le.vav./Khem[H3824,HNcmsc/Sp2mp]:"heart/ your" | אֶל='el-[H0413,HR]:"to" | יְהוָה֙=Yah.weh[H3068G,HNpt]:"Yahweh" | וְ/עִבְדֻ֣/הוּ=ve./'iv.Du./hu[H5647G,HC/Vqv2mp/Sp3ms]:"and/ serve/ him" | לְ/בַדּ֔/וֹ=le./va.D/o[H0905H,HR/Ncmsc/Sp3ms]:"to/ only/ him" | וְ/יַצֵּ֥ל=ve./ya.Tzel[H5337,HC/Vhj3ms]:"so/ may he deliver" | אֶתְ/כֶ֖ם='et./Khem[H0853,HTo/Sp2mp]:"<obj.>/ you" | מִ/יַּ֥ד=mi./Yad[H3027H,HR/Ncbsc]:"from/ [the] hand of" | פְּלִשְׁתִּֽים=pe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines"
+
+## 1SA 7:4
+וַ/יָּסִ֙ירוּ֙ בְּנֵ֣י יִשְׂרָאֵ֔ל אֶת הַ/בְּעָלִ֖ים וְ/אֶת הָ/עַשְׁתָּרֹ֑ת וַ/יַּעַבְד֥וּ אֶת יְהוָ֖ה לְ/בַדּֽ/וֹ
+
+וַ/יָּסִ֙ירוּ֙=va/i.ya.Si.ru[H5493G,Hc/Vhw3mp]:"and/ they removed" | בְּנֵ֣י=be.Nei[H1121G,HNcmpc]:"[the] people of" | יִשְׂרָאֵ֔ל=Yis.ra.'El[H3478,HNpl]:"Israel" | אֶת='et-[H0853,HTo]:"<obj.>" | הַ/בְּעָלִ֖ים=ha./be.'a.Lim[H1168A,HTd/Ntmpa]:"the/ Baals" | וְ/אֶת=ve./'Et[H0853,HC/To]:"and/ <obj.>" | הָ/עַשְׁתָּרֹ֑ת=ha./'ash.ta.Rot[H6252G,HTd/Ncfpa]:"the/ Ashtaroth" | וַ/יַּעַבְד֥וּ=va/i.ya.'av.Du[H5647G,Hc/Vqw3mp]:"and/ they served" | אֶת='et-[H0853,HTo]:"<obj.>" | יְהוָ֖ה=Yah.weh[H3068G,HNpt]:"Yahweh" | לְ/בַדּֽ/וֹ=le./va.D/o[H0905H,HR/Ncmsc/Sp3ms]:"to/ only/ him"
+
+## 1SA 7:5
+וַ/יֹּ֣אמֶר שְׁמוּאֵ֔ל קִבְצ֥וּ אֶת כָּל יִשְׂרָאֵ֖ל הַ/מִּצְפָּ֑תָ/ה וְ/אֶתְפַּלֵּ֥ל בַּעַדְ/כֶ֖ם אֶל יְהוָֽה
+
+וַ/יֹּ֣אמֶר=va/i.Yo.mer[H0559,Hc/Vqw3ms]:"and/ he said" | שְׁמוּאֵ֔ל=she.mu.'El[H8050G,HNpm]:"Samuel" | קִבְצ֥וּ=kiv.Tzu[H6908,HVqv2mp]:"gather" | אֶת='et-[H0853,HTo]:"<obj.>" | כָּל=kol-[H3605,HNcmsc]:"all" | יִשְׂרָאֵ֖ל=Yis.ra.'El[H3478,HNpl]:"Israel" | הַ/מִּצְפָּ֑תָ/ה=ha./mitz.Pa.ta/h[H4709G,HTd/Npl/Sd]:"<the>/ Mizpah/ towards" | וְ/אֶתְפַּלֵּ֥ל=ve./'et.pa.Lel[H6419,HC/Vtu1cs]:"so/ I may pray" | בַּעַדְ/כֶ֖ם=ba.'ad./Khem[H1157,HAcbsc/Sp2mp]:"for/ you" | אֶל='el-[H0413,HR]:"to" | יְהוָֽה=Yah.weh[H3068G,HNpt]:"Yahweh"
+
+## 1SA 7:6
+וַ/יִּקָּבְצ֣וּ הַ֠/מִּצְפָּתָ/ה וַ/יִּֽשְׁאֲבוּ מַ֜יִם וַֽ/יִּשְׁפְּכ֣וּ לִ/פְנֵ֣י יְהוָ֗ה וַ/יָּצ֙וּמוּ֙ בַּ/יּ֣וֹם הַ/ה֔וּא וַ/יֹּ֣אמְרוּ שָׁ֔ם חָטָ֖אנוּ לַ/יהוָ֑ה וַ/יִּשְׁפֹּ֧ט שְׁמוּאֵ֛ל אֶת בְּנֵ֥י יִשְׂרָאֵ֖ל בַּ/מִּצְפָּֽה
+
+וַ/יִּקָּבְצ֣וּ=va/i.yi.ka.ve.Tzu[H6908,Hc/VNw3mp]:"and/ they gathered together" | הַ֠/מִּצְפָּתָ/ה=Ha./mitz.pa.ta/h[H4709G,HTd/Npl/Sd]:"<the>/ Mizpah/ towards" | וַ/יִּֽשְׁאֲבוּ=va/i.yish.'a.vu-[H7579,Hc/Vqw3mp]:"and/ they drew" | מַ֜יִם=Ma.yim[H4325G,HNcmpa]:"water" | וַֽ/יִּשְׁפְּכ֣וּ=va/i.yish.pe.Khu[H8210G,Hc/Vqw3mp]:"and/ they poured [it] out" | לִ/פְנֵ֣י=li/f.Nei[H6440G,HR/Ncmpc]:"<to>/ before" | יְהוָ֗ה=Yah.weh[H3068G,HNpt]:"Yahweh" | וַ/יָּצ֙וּמוּ֙=va/i.ya.Tzu.mu[H6684,Hc/Vqw3mp]:"and/ they fasted" | בַּ/יּ֣וֹם=ba/i.Yom[H3117G,HRd/Ncmsa]:"on the/ day" | הַ/ה֔וּא=ha./Hu'[H1931,HTd/Pp3ms]:"<the>/ that" | וַ/יֹּ֣אמְרוּ=va/i.Yo.me.ru[H0559,Hc/Vqw3mp]:"and/ they said" | שָׁ֔ם=Sham[H8033G,HD]:"there" | חָטָ֖אנוּ=cha.Ta.nu[H2398,HVqp1cp]:"we have sinned" | לַ/יהוָ֑ה=la./Yah.weh[H3068G,HR/Npt]:"to/ Yahweh" | וַ/יִּשְׁפֹּ֧ט=va/i.yish.Pot[H8199,Hc/Vqw3ms]:"and/ he judged" | שְׁמוּאֵ֛ל=she.mu.'El[H8050G,HNpm]:"Samuel" | אֶת='et-[H0853,HTo]:"<obj.>" | בְּנֵ֥י=be.Nei[H1121G,HNcmpc]:"[the] people of" | יִשְׂרָאֵ֖ל=Yis.ra.'El[H3478,HNpl]:"Israel" | בַּ/מִּצְפָּֽה=ba./mitz.Pah[H4709G,HRd/Npl]:"at <the>/ Mizpah"
+
+## 1SA 7:7
+וַ/יִּשְׁמְע֣וּ פְלִשְׁתִּ֗ים כִּֽי הִתְקַבְּצ֤וּ בְנֵֽי יִשְׂרָאֵל֙ הַ/מִּצְפָּ֔תָ/ה וַ/יַּעֲל֥וּ סַרְנֵֽי פְלִשְׁתִּ֖ים אֶל יִשְׂרָאֵ֑ל וַֽ/יִּשְׁמְעוּ֙ בְּנֵ֣י יִשְׂרָאֵ֔ל וַ/יִּֽרְא֖וּ מִ/פְּנֵ֥י פְלִשְׁתִּֽים
+
+וַ/יִּשְׁמְע֣וּ=va/i.yish.me.'U[H8085G,Hc/Vqw3mp]:"and/ they heard" | פְלִשְׁתִּ֗ים=fe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines" | כִּֽי=ki-[H3588A,HTc]:"that" | הִתְקַבְּצ֤וּ=hit.ka.be.Tzu[H6908,HVtp3cp]:"they had gathered together" | בְנֵֽי=ve.nei-[H1121G,HNcmpc]:"[the] people of" | יִשְׂרָאֵל֙=Yis.ra.'El[H3478,HNpl]:"Israel" | הַ/מִּצְפָּ֔תָ/ה=ha./mitz.Pa.ta/h[H4709G,HTd/Npl/Sd]:"<the>/ Mizpah/ towards" | וַ/יַּעֲל֥וּ=va/i.ya.'a.Lu[H5927G,Hc/Vqw3mp]:"and/ they went up" | סַרְנֵֽי=sar.nei-[H5633A,HNcmpc]:"[the] rulers of" | פְלִשְׁתִּ֖ים=fe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines" | אֶל='el-[H0413,HR]:"against" | יִשְׂרָאֵ֑ל=Yis.ra.'El[H3478,HNpl]:"Israel" | וַֽ/יִּשְׁמְעוּ֙=va/i.yish.me.'U[H8085G,Hc/Vqw3mp]:"and/ they heard" | בְּנֵ֣י=be.Nei[H1121G,HNcmpc]:"[the] people of" | יִשְׂרָאֵ֔ל=Yis.ra.'El[H3478,HNpl]:"Israel" | וַ/יִּֽרְא֖וּ=va/i.yir.'U[H3372G,Hc/Vqw3mp]:"and/ they were afraid" | מִ/פְּנֵ֥י=mi./pe.Nei[H6440L,HR/Ncmpc]:"of/ <the face of>" | פְלִשְׁתִּֽים=fe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines"
+
+## 1SA 7:8
+וַ/יֹּאמְר֤וּ בְנֵֽי יִשְׂרָאֵל֙ אֶל שְׁמוּאֵ֔ל אַל תַּחֲרֵ֣שׁ מִמֶּ֔/נּוּ מִ/זְּעֹ֖ק אֶל יְהוָ֣ה אֱלֹהֵ֑י/נוּ וְ/יֹשִׁעֵ֖/נוּ מִ/יַּ֥ד פְּלִשְׁתִּֽים
+
+וַ/יֹּאמְר֤וּ=va/i.yo.me.Ru[H0559,Hc/Vqw3mp]:"and/ they said" | בְנֵֽי=ve.nei-[H1121G,HNcmpc]:"[the] people of" | יִשְׂרָאֵל֙=Yis.ra.'El[H3478,HNpl]:"Israel" | אֶל='el-[H0413,HR]:"to" | שְׁמוּאֵ֔ל=she.mu.'El[H8050G,HNpm]:"Samuel" | אַל='al-[H0408,HTn]:"may not" | תַּחֲרֵ֣שׁ=ta.cha.Resh[H2790B,HVhj2ms]:"you keep silent" | מִמֶּ֔/נּוּ=mi.Me./nu[H4480A,HRd/Sp1bp]:"from/ us" | מִ/זְּעֹ֖ק=mi./ze.'Ok[H2199,HR/Vqcc]:"from/ crying out" | אֶל='el-[H0413,HR]:"to" | יְהוָ֣ה=Yah.weh[H3068G,HNpt]:"Yahweh" | אֱלֹהֵ֑י/נוּ='e.lo.Hei./nu[H0430G,HNcmpc/Sp1bp]:"God/ our" | וְ/יֹשִׁעֵ֖/נוּ=ve./yo.shi.'E./nu[H3467,HC/Vhu3ms/Sp1bp]:"so/ he may deliver/ us" | מִ/יַּ֥ד=mi./Yad[H3027H,HR/Ncbsc]:"from/ [the] hand of" | פְּלִשְׁתִּֽים=pe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines"
+
+## 1SA 7:9
+וַ/יִּקַּ֣ח שְׁמוּאֵ֗ל טְלֵ֤ה חָלָב֙ אֶחָ֔ד וַ/יַּעֲלֵ֧/הוּ עוֹלָ֛ה כָּלִ֖יל לַֽ/יהוָ֑ה וַ/יִּזְעַ֨ק שְׁמוּאֵ֤ל אֶל יְהוָה֙ בְּעַ֣ד יִשְׂרָאֵ֔ל וַֽ/יַּעֲנֵ֖/הוּ יְהוָֽה
+
+וַ/יִּקַּ֣ח=va/i.yi.Kach[H3947G,Hc/Vqw3ms]:"and/ he took" | שְׁמוּאֵ֗ל=she.mu.'El[H8050G,HNpm]:"Samuel" | טְלֵ֤ה=te.Leh[H2924,HNcmsc]:"a lamb of" | חָלָב֙=cha.Lav[H2461,HNcmsa]:"milk" | אֶחָ֔ד='e.Chad[H0259,HNcfsa]:"one" | וַ/יַּעֲלֵ֧/הוּ=va/i.ya.'a.le./hu[H5927I,Hc/Vhw3ms/Sp3ms]:"and/ he offered up/ it" | עוֹלָ֛ה=o.Lah[H5930A,HNcfsa]:"a burnt offering" | כָּלִ֖יל=ka.Lil[H3632,HAamsa]:"a whole offering" | לַֽ/יהוָ֑ה=la./Yah.weh[H3068G,HR/Npt]:"to/ Yahweh" | וַ/יִּזְעַ֨ק=va/i.yiz.'Ak[H2199,Hc/Vqw3ms]:"and/ he cried out" | שְׁמוּאֵ֤ל=she.mu.'El[H8050G,HNpm]:"Samuel" | אֶל='el-[H0413,HR]:"to" | יְהוָה֙=Yah.weh[H3068G,HNpt]:"Yahweh" | בְּעַ֣ד=be.'Ad[H1157,HAcbsc]:"for" | יִשְׂרָאֵ֔ל=Yis.ra.'El[H3478,HNpl]:"Israel" | וַֽ/יַּעֲנֵ֖/הוּ=va/i.ya.'a.Ne./hu[H6030B,Hc/Vqw3ms/Sp3ms]:"and/ he answered/ him" | יְהוָֽה=Yah.weh[H3068G,HNpt]:"Yahweh"
+
+## 1SA 7:10
+וַ/יְהִ֤י שְׁמוּאֵל֙ מַעֲלֶ֣ה הָ/עוֹלָ֔ה וּ/פְלִשְׁתִּ֣ים נִגְּשׁ֔וּ לַ/מִּלְחָמָ֖ה בְּ/יִשְׂרָאֵ֑ל וַ/יַּרְעֵ֣ם יְהוָ֣ה בְּ/קוֹל גָּ֠דוֹל בַּ/יּ֨וֹם הַ/ה֤וּא עַל פְּלִשְׁתִּים֙ וַ/יְהֻמֵּ֔/ם וַ/יִּנָּגְפ֖וּ לִ/פְנֵ֥י יִשְׂרָאֵֽל
+
+וַ/יְהִ֤י=va/y.Hi[H1961,Hc/Vqw3ms]:"and/ he was" | שְׁמוּאֵל֙=she.mu.'El[H8050G,HNpm]:"Samuel" | מַעֲלֶ֣ה=ma.'a.Leh[H5927I,HVhrmsa]:"offering up" | הָ/עוֹלָ֔ה=ha./'o.Lah[H5930A,HTd/Ncfsa]:"the/ burnt offering" | וּ/פְלִשְׁתִּ֣ים=u./fe.lish.Tim[H6430G,HC/Ngmpa]:"and/ [the] Philistines" | נִגְּשׁ֔וּ=ni.ge.Shu[H5066G,HVNp3cp]:"they drew near" | לַ/מִּלְחָמָ֖ה=la./mil.cha.Mah[H4421,HRd/Ncfsa]:"for <the>/ battle" | בְּ/יִשְׂרָאֵ֑ל=be./Yis.ra.'El[H3478,HR/Npl]:"in/ Israel" | וַ/יַּרְעֵ֣ם=va/i.yar.'Em[H7481,Hc/Vhw3ms]:"and/ he thundered" | יְהוָ֣ה=Yah.weh[H3068G,HNpt]:"Yahweh" | בְּ/קוֹל=be./kol-[H6963H,HR/Ncmsa]:"with/ a sound" | גָּ֠דוֹל=Ga.dol[H1419A,HAamsa]:"great" | בַּ/יּ֨וֹם=ba/i.Yom[H3117G,HRd/Ncmsa]:"on the/ day" | הַ/ה֤וּא=ha./Hu'[H1931,HTd/Pp3ms]:"<the>/ that" | עַל='al-[H5921A,HR]:"on" | פְּלִשְׁתִּים֙=pe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines" | וַ/יְהֻמֵּ֔/ם=va/y.hu.Me/m[H2000,Hc/Vqw3ms/Sp3mp]:"and/ he routed/ them" | וַ/יִּנָּגְפ֖וּ=va/i.yi.na.ge.Fu[H5062,Hc/VNw3mp]:"and/ they were defeated" | לִ/פְנֵ֥י=li/f.Nei[H6440G,HR/Ncmpc]:"<to>/ before" | יִשְׂרָאֵֽל=Yis.ra.'El[H3478,HNpl]:"Israel"
+
+## 1SA 7:11
+וַ/יֵּ֨צְא֜וּ אַנְשֵׁ֤י יִשְׂרָאֵל֙ מִן הַ/מִּצְפָּ֔ה וַֽ/יִּרְדְּפ֖וּ אֶת פְּלִשְׁתִּ֑ים וַ/יַּכּ֕וּ/ם עַד מִ/תַּ֖חַת לְ/בֵ֥ית כָּֽר
+
+וַ/יֵּ֨צְא֜וּ=va/i.Ye.tze.'U[H3318G,Hc/Vqw3mp]:"and/ they went out" | אַנְשֵׁ֤י='an.Shei[H0582,HNcmpc]:"[the] men of" | יִשְׂרָאֵל֙=Yis.ra.'El[H3478,HNpl]:"Israel" | מִן=min-[H4480A,HR]:"from" | הַ/מִּצְפָּ֔ה=ha./mitz.Pah[H4709G,HTd/Npl]:"<the>/ Mizpah" | וַֽ/יִּרְדְּפ֖וּ=va/i.yir.de.Fu[H7291,Hc/Vqw3mp]:"and/ they pursued" | אֶת='et-[H0853,HTo]:"<obj.>" | פְּלִשְׁתִּ֑ים=pe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines" | וַ/יַּכּ֕וּ/ם=va/i.ya.Ku/m[H5221,Hc/Vhw3mp/Sp3mp]:"and/ they struck down/ them" | עַד='ad-[H5704,HR]:"to" | מִ/תַּ֖חַת=mi./Ta.chat[H8478G,HR/Ncmsc]:"from/ below" | לְ/בֵ֥ית=le./Veit[H1033}+,HR/Npl]:"to/ Beth" | כָּֽר=Kar[H1033,HNpl]:"Car"
+
+## 1SA 7:12
+וַ/יִּקַּ֨ח שְׁמוּאֵ֜ל אֶ֣בֶן אַחַ֗ת וַ/יָּ֤שֶׂם בֵּֽין הַ/מִּצְפָּה֙ וּ/בֵ֣ין הַ/שֵּׁ֔ן וַ/יִּקְרָ֥א אֶת שְׁמָ֖/הּ אֶ֣בֶן הָעָ֑זֶר וַ/יֹּאמַ֕ר עַד הֵ֖נָּה עֲזָרָ֥/נוּ יְהוָֽה
+
+וַ/יִּקַּ֨ח=va/i.yi.Kach[H3947G,Hc/Vqw3ms]:"and/ he took" | שְׁמוּאֵ֜ל=she.mu.'El[H8050G,HNpm]:"Samuel" | אֶ֣בֶן='E.ven[H0068G,HNcfsc]:"a stone" | אַחַ֗ת='a.Chat[H0259,HNcfsa]:"one" | וַ/יָּ֤שֶׂם=va/i.Ya.sem[H7760A,Hc/Vqw3ms]:"and/ he put [it]" | בֵּֽין=bein-[H0996G,HAcmsc]:"between" | הַ/מִּצְפָּה֙=ha./mitz.Pah[H4709G,HTd/Npl]:"<the>/ Mizpah" | וּ/בֵ֣ין=u./Vein[H0996G,HC/Acmsc]:"and/ between" | הַ/שֵּׁ֔ן=ha./Shen[H8129,HTd/Npl]:"<the>/ Shen" | וַ/יִּקְרָ֥א=va/i.yik.Ra'[H7121H,Hc/Vqw3ms]:"and/ he called" | אֶת='et-[H0853,HTo]:"<obj.>" | שְׁמָ֖/הּ=she.Ma/h[H8034,HNcmsc/Sp3fs]:"name/ its" | אֶ֣בֶן='E.ven[H0072}+,HNpl]:"Eben-" | הָעָ֑זֶר=ha.'A.zer[H0072,HNpl]:"-ezer" | וַ/יֹּאמַ֕ר=va/i.yo.Mar[H0559,Hc/Vqw3ms]:"and/ he said" | עַד='ad-[H5704,HR]:"until" | הֵ֖נָּה=He.nah[H2008,HD]:"now" | עֲזָרָ֥/נוּ='a.za.Ra./nu[H5826,HVqp3ms/Sp1bp]:"he has helped/ us" | יְהוָֽה=Yah.weh[H3068G,HNpt]:"Yahweh"
+
+## 1SA 7:13
+וַ/יִּכָּֽנְעוּ֙ הַ/פְּלִשְׁתִּ֔ים וְ/לֹא יָסְפ֣וּ ע֔וֹד לָ/ב֖וֹא בִּ/גְב֣וּל יִשְׂרָאֵ֑ל וַ/תְּהִ֤י יַד יְהוָה֙ בַּ/פְּלִשְׁתִּ֔ים כֹּ֖ל יְמֵ֥י שְׁמוּאֵֽל
+
+וַ/יִּכָּֽנְעוּ֙=va/i.yi.ka.ne.'U[H3665,Hc/VNw3mp]:"and/ they were subdued" | הַ/פְּלִשְׁתִּ֔ים=ha./pe.lish.Tim[H6430G,HTd/Ngmpa]:"the/ Philistines" | וְ/לֹא=ve./lo'-[H3808,HC/Tn]:"and/ not" | יָסְפ֣וּ=ya.se.Fu[H3254G,HVqp3cp]:"they repeated" | ע֔וֹד=od[H5750,HAcmsa]:"again" | לָ/ב֖וֹא=la./Vo'[H0935G,HR/Vqcc]:"to/ come" | בִּ/גְב֣וּל=bi/g.Vul[H1366H,HR/Ncmsc]:"in/ [the] territory of" | יִשְׂרָאֵ֑ל=Yis.ra.'El[H3478,HNpl]:"Israel" | וַ/תְּהִ֤י=va./te.Hi[H1961,Hc/Vqw3fs]:"and/ it was" | יַד=yad-[H3027H,HNcbsc]:"[the] hand of" | יְהוָה֙=Yah.weh[H3068G,HNpt]:"Yahweh" | בַּ/פְּלִשְׁתִּ֔ים=ba./pe.lish.Tim[H6430G,HRd/Ngmpa]:"on the/ Philistines" | כֹּ֖ל=kol[H3605,HNcmsc]:"all" | יְמֵ֥י=ye.Mei[H3117G,HNcmpc]:"[the] days of" | שְׁמוּאֵֽל=she.mu.'El[H8050G,HNpm]:"Samuel"
+
+## 1SA 7:14
+וַ/תָּשֹׁ֣בְנָה הֶ/עָרִ֡ים אֲשֶׁ֣ר לָֽקְחוּ פְלִשְׁתִּים֩ מֵ/אֵ֨ת יִשְׂרָאֵ֤ל לְ/יִשְׂרָאֵל֙ מֵ/עֶקְר֣וֹן וְ/עַד גַּ֔ת וְ/אֶ֨ת גְּבוּלָ֔/ן הִצִּ֥יל יִשְׂרָאֵ֖ל מִ/יַּ֣ד פְּלִשְׁתִּ֑ים וַ/יְהִ֣י שָׁל֔וֹם בֵּ֥ין יִשְׂרָאֵ֖ל וּ/בֵ֥ין הָ/אֱמֹרִֽי
+
+וַ/תָּשֹׁ֣בְנָה=va./ta.Shoe.nah[H7725H,Hc/Vqw3fp]:"and/ they went back" | הֶ/עָרִ֡ים=he./'a.Rim[H5892B,HTd/Ncmpa]:"the/ cities" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"which" | לָֽקְחוּ=la.ke.chu-[H3947G,HVqp3cp]:"they had taken" | פְלִשְׁתִּים֩=fe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines" | מֵ/אֵ֨ת=me./'Et[H0854,HR/R]:"from/ with" | יִשְׂרָאֵ֤ל=Yis.ra.'El[H3478,HNpl]:"Israel" | לְ/יִשְׂרָאֵל֙=le./Yis.ra.'El[H3478,HR/Npl]:"to/ Israel" | מֵ/עֶקְר֣וֹן=me./'ek.Ron[H6138,HR/Npl]:"from/ Ekron" | וְ/עַד=ve./'ad-[H5704,HC/R]:"and/ to" | גַּ֔ת=Gat[H1661,HNpl]:"Gath" | וְ/אֶ֨ת=ve./'Et[H0853,HC/To]:"and/ <obj.>" | גְּבוּלָ֔/ן=ge.vu.La/n[H1366H,HNcmsc/Sp3fp]:"territory/ their" | הִצִּ֥יל=hi.Tzil[H5337,HVhp3ms]:"he delivered" | יִשְׂרָאֵ֖ל=Yis.ra.'El[H3478,HNpl]:"Israel" | מִ/יַּ֣ד=mi./Yad[H3027H,HR/Ncbsc]:"from/ [the] hand of" | פְּלִשְׁתִּ֑ים=pe.lish.Tim[H6430G,HNgmpa]:"[the] Philistines" | וַ/יְהִ֣י=va/y.Hi[H1961,Hc/Vqw3ms]:"and/ it was" | שָׁל֔וֹם=sha.Lom[H7965G,HNcmsa]:"peace" | בֵּ֥ין=bein[H0996G,HAcmsc]:"between" | יִשְׂרָאֵ֖ל=Yis.ra.'El[H3478,HNpl]:"Israel" | וּ/בֵ֥ין=u./Vein[H0996G,HC/Acmsc]:"and/ between" | הָ/אֱמֹרִֽי=ha./'e.mo.Ri[H0567,HTd/Ngmsa]:"the/ Amorite[s]"
+
+## 1SA 7:15
+וַ/יִּשְׁפֹּ֤ט שְׁמוּאֵל֙ אֶת יִשְׂרָאֵ֔ל כֹּ֖ל יְמֵ֥י חַיָּֽי/ו
+
+וַ/יִּשְׁפֹּ֤ט=va/i.yish.Pot[H8199,Hc/Vqw3ms]:"and/ he judged" | שְׁמוּאֵל֙=she.mu.'El[H8050G,HNpm]:"Samuel" | אֶת='et-[H0853,HTo]:"<obj.>" | יִשְׂרָאֵ֔ל=Yis.ra.'El[H3478,HNpl]:"Israel" | כֹּ֖ל=kol[H3605,HNcmsc]:"all" | יְמֵ֥י=ye.Mei[H3117G,HNcmpc]:"[the] days of" | חַיָּֽי/ו=chai.Ya/v[H2416E,HNcmpc/Sp3ms]:"life/ his"
+
+## 1SA 7:16
+וְ/הָלַ֗ךְ מִ/דֵּ֤י שָׁנָה֙ בְּ/שָׁנָ֔ה וְ/סָבַב֙ בֵּֽית אֵ֔ל וְ/הַ/גִּלְגָּ֖ל וְ/הַ/מִּצְפָּ֑ה וְ/שָׁפַט֙ אֶת יִשְׂרָאֵ֔ל אֵ֥ת כָּל הַ/מְּקוֹמ֖וֹת הָ/אֵֽלֶּה
+
+וְ/הָלַ֗ךְ=ve./ha.Lakh[H1980G,Hc/Vqq3ms]:"and/ he went" | מִ/דֵּ֤י=mi./Dei[H1767,HR/Ncmsc]:"as/ often as" | שָׁנָה֙=sha.Nah[H8141,HNcfsa]:"a year" | בְּ/שָׁנָ֔ה=be./sha.Nah[H8141,HR/Ncfsa]:"in/ a year" | וְ/סָבַב֙=ve./sa.Vav[H5437H,Hc/Vqq3ms]:"and/ he went round" | בֵּֽית=beit-[H1008G}+,HNpl]:"Beth-" | אֵ֔ל='El[H1008G,HNpl]:"-el" | וְ/הַ/גִּלְגָּ֖ל=ve./ha./gil.Gal[H1537G,HC/Td/Npl]:"and/ <the>/ Gilgal" | וְ/הַ/מִּצְפָּ֑ה=ve./ha./mitz.Pah[H4709G,HC/Td/Npl]:"and/ <the>/ Mizpah" | וְ/שָׁפַט֙=ve./sha.Fat[H8199,Hc/Vqq3ms]:"and/ he judged" | אֶת='et-[H0853,HTo]:"<obj.>" | יִשְׂרָאֵ֔ל=Yis.ra.'El[H3478,HNpl]:"Israel" | אֵ֥ת='et[H0853,HTo]:"<obj.>" | כָּל=kol-[H3605,HNcmsc]:"all" | הַ/מְּקוֹמ֖וֹת=ha./me.ko.Mot[H4725,HTd/Ncfpa]:"the/ places" | הָ/אֵֽלֶּה=ha./'E.leh[H0428,HTd/Tm]:"<the>/ these"
+
+## 1SA 7:17
+וּ/תְשֻׁבָת֤/וֹ הָ/רָמָ֙תָ/ה֙ כִּֽי שָׁ֣ם בֵּית֔/וֹ וְ/שָׁ֖ם שָׁפָ֣ט אֶת יִשְׂרָאֵ֑ל וַ/יִּֽבֶן שָׁ֥ם מִזְבֵּ֖חַ לַֽ/יהוָֽה
+
+וּ/תְשֻׁבָת֤/וֹ=u./te.shu.va.T/o[H8666,HC/Ncfsc/Sp3ms]:"and/ return/ his" | הָ/רָמָ֙תָ/ה֙=ha./ra.Ma.ta/h[H7414J,HTd/Npl/Sd]:"[was] <the>/ Ramah/ towards" | כִּֽי=ki-[H3588A,HTc]:"for" | שָׁ֣ם=sham[H8033G,HD]:"[was] there" | בֵּית֔/וֹ=bei.T/o[H1004B,HNcmsc/Sp3ms]:"house/ his" | וְ/שָׁ֖ם=ve./Sham[H8033G,HC/D]:"and/ there" | שָׁפָ֣ט=sha.Fat[H8199,HVqp3ms]:"he judged" | אֶת='et-[H0853,HTo]:"<obj.>" | יִשְׂרָאֵ֑ל=Yis.ra.'El[H3478,HNpl]:"Israel" | וַ/יִּֽבֶן=va/i.yi.ven-[H1129,Hc/Vqw3ms]:"and/ he built" | שָׁ֥ם=sham[H8033G,HD]:"there" | מִזְבֵּ֖חַ=miz.Be.ach[H4196,HNcmsa]:"an altar" | לַֽ/יהוָֽה=la./Yah.weh[H3068G,HR/Npt]:"to/ Yahweh"

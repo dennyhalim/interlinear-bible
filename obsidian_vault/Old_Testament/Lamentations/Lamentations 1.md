@@ -1,0 +1,114 @@
+# Lamentations 1
+
+[[Old_Testament/Lamentations/00_Index|<- Lamentations index]]
+[[Old_Testament/Lamentations/Lamentations 2|next chapter ->]]
+
+## LAM 1:1
+אֵיכָ֣ה יָשְׁבָ֣ה בָדָ֗ד הָ/עִיר֙ רַבָּ֣תִי עָ֔ם הָיְתָ֖ה כְּ/אַלְמָנָ֑ה רַּבָּ֣תִי בַ/גּוֹיִ֗ם שָׂרָ֙תִי֙ בַּ/מְּדִינ֔וֹת הָיְתָ֖ה לָ/מַֽס
+
+אֵיכָ֣ה='ei.Khah[H0349B,HTi]:"how!" | יָשְׁבָ֣ה=ya.she.Vah[H3427,HVqp3fs]:"she sits" | בָדָ֗ד=va.Dad[H0910,HNcmsa]:"alone" | הָ/עִיר֙=ha./'Ir[H5892B,HTd/Ncfsa]:"the/ city" | רַבָּ֣תִי=ra.Ba.ti[H7227A,HAafsc]:"great of" | עָ֔ם='Am[H5971A,HNcmsa]:"people" | הָיְתָ֖ה=ha.ye.Tah[H1961,HVqp3fs]:"she has become" | כְּ/אַלְמָנָ֑ה=ke./'al.ma.Nah[H0490,HR/Ncfsa]:"like/ a widow" | רַּבָּ֣תִי=ra.Ba.ti[H7227A,HAafsc]:"[one] great" | בַ/גּוֹיִ֗ם=va./go.Yim[H1471A,HRd/Ncmpa]:"among the/ nations" | שָׂרָ֙תִי֙=sa.Ra.ti[H8282,HNcfsc]:"a princess" | בַּ/מְּדִינ֔וֹת=ba./me.di.Not[H4082,HRd/Ncfpa]:"among the/ provinces" | הָיְתָ֖ה=ha.ye.Tah[H1961,HVqp3fs]:"she has become" | לָ/מַֽס=la./Mas[H4522,HR/Ncmsa]:"<into>/ forced labor"
+
+## LAM 1:2
+בָּכ֨וֹ תִבְכֶּ֜ה בַּ/לַּ֗יְלָה וְ/דִמְעָתָ/הּ֙ עַ֣ל לֶֽחֱיָ֔/הּ אֵֽין לָ֥/הּ מְנַחֵ֖ם מִ/כָּל אֹהֲבֶ֑י/הָ כָּל רֵעֶ֙י/הָ֙ בָּ֣גְדוּ בָ֔/הּ הָ֥יוּ לָ֖/הּ לְ/אֹיְבִֽים
+
+בָּכ֨וֹ=ba.Kho[H1058,HVqaa]:"bitterly <weep>" | תִבְכֶּ֜ה=tiv.Keh[H1058,HVqi3fs]:"she weeps" | בַּ/לַּ֗יְלָה=ba./Lay.lah[H3915,HRd/Ncmsa]:"in the/ night" | וְ/דִמְעָתָ/הּ֙=ve./dim.'a.Ta/h[H1832,HC/Ncfsc/Sp3fs]:"and/ tear[s]/ her" | עַ֣ל='al[H5921A,HR]:"[are] on" | לֶֽחֱיָ֔/הּ=le.che.Ya/h[H3895H,HNcmsc/Sp3fs]:"cheek/ her" | אֵֽין='ein-[H0369,HNcmsc]:"not" | לָ֥/הּ=la/h[H9034,HR/Sp3fs]:"[belongs] to/ her" | מְנַחֵ֖ם=me.na.Chem[H5162G,HVprmsa]:"a comforter" | מִ/כָּל=mi./kol[H3605,HR/Ncmsc]:"from/ all" | אֹהֲבֶ֑י/הָ='o.ha.Vei./ha[H0157G,HVqrmpc/Sp3fs]:"lovers/ her" | כָּל=kol-[H3605,HNcmsc]:"all" | רֵעֶ֙י/הָ֙=re.'Ei./ha[H7453,HNcmpc/Sp3fs]:"friends/ her" | בָּ֣גְדוּ=Ba.ge.du[H0898,HVqp3cp]:"they have dealt treacherously" | בָ֔/הּ=Va/h[H9034,HR/Sp3fs]:"with/ her" | הָ֥יוּ=Ha.yu[H1961,HVqp3cp]:"they have become" | לָ֖/הּ=la/h[H9034,HR/Sp3fs]:"of/ her" | לְ/אֹיְבִֽים=le./'o.ye.Vim[H0341,HR/Vqrmpa]:"<into>/ enemies"
+
+## LAM 1:3
+גָּֽלְתָ֨ה יְהוּדָ֤ה מֵ/עֹ֙נִי֙ וּ/מֵ/רֹ֣ב עֲבֹדָ֔ה הִ֚יא יָשְׁבָ֣ה בַ/גּוֹיִ֔ם לֹ֥א מָצְאָ֖ה מָנ֑וֹחַ כָּל רֹדְפֶ֥י/הָ הִשִּׂיג֖וּ/הָ בֵּ֥ין הַ/מְּצָרִֽים
+
+גָּֽלְתָ֨ה=gal.Tah[H1540K,HVqp3fs]:"she has gone into exile" | יְהוּדָ֤ה=ye.hu.Dah[H3063G,HNpl]:"Judah" | מֵ/עֹ֙נִי֙=me./'O.ni[H6040,HR/Ncmsa]:"from/ affliction" | וּ/מֵ/רֹ֣ב=u./me./Ro[H7230,HC/R/Ncmsc]:"and/ from/ an abundance of" | עֲבֹדָ֔ה='a.vo.Dah[H5656G,HNcfsa]:"servitude" | הִ֚יא=hi'[H1931,HPp3fs]:"her" | יָשְׁבָ֣ה=ya.she.Vah[H3427,HVqp3fs]:"she dwells" | בַ/גּוֹיִ֔ם=va./go.Yim[H1471A,HRd/Ncmpa]:"among the/ nations" | לֹ֥א=lo'[H3808,HTn]:"not" | מָצְאָ֖ה=ma.tze.'Ah[H4672,HVqp3fs]:"she has found" | מָנ֑וֹחַ=ma.No.ach[H4494,HNcmsa]:"a resting place" | כָּל=kol-[H3605,HNcmsc]:"all" | רֹדְפֶ֥י/הָ=ro.de.Fei./ha[H7291,HVqrmpc/Sp3fs]:"pursuers/ her" | הִשִּׂיג֖וּ/הָ=hi.si.Gu./ha[H5381,HVhp3cp/Sp3fs]:"they have overtaken/ her" | בֵּ֥ין=bein[H0996H,HAcmsc]:"between" | הַ/מְּצָרִֽים=ha./me.tza.Rim[H4712,HTd/Ncmpa]:"the/ narrow places"
+
+## LAM 1:4
+דַּרְכֵ֨י צִיּ֜וֹן אֲבֵל֗וֹת מִ/בְּלִי֙ בָּאֵ֣י מוֹעֵ֔ד כָּל שְׁעָרֶ֙י/הָ֙ שֽׁוֹמֵמִ֔ין כֹּהֲנֶ֖י/הָ נֶאֱנָחִ֑ים בְּתוּלֹתֶ֥י/הָ נּוּג֖וֹת וְ/הִ֥יא מַר לָֽ/הּ
+
+דַּרְכֵ֨י=dar.Khei[H1870K,HNcbpc]:"[the] roads of" | צִיּ֜וֹן=tzi.Yon[H6726,HNpl]:"Zion" | אֲבֵל֗וֹת='a.ve.Lot[H0057,HAafpa]:"[are] mourning" | מִ/בְּלִי֙=mi./be.Li[H1097,HR/Ncmsc]:"because/ not" | בָּאֵ֣י=ba.'Ei[H0935G,HVqrmpc]:"[those who] come" | מוֹעֵ֔ד=mo.'Ed[H4150H,HNcmsa]:"<of> an appointed feast" | כָּל=kol-[H3605,HNcmsc]:"all" | שְׁעָרֶ֙י/הָ֙=she.'a.Rei./ha[H8179G,HNcmpc/Sp3fs]:"gates/ her" | שֽׁוֹמֵמִ֔ין=sho.me.Min[H8074G,HVqrmpa]:"[are] desolate" | כֹּהֲנֶ֖י/הָ=ko.ha.Nei./ha[H3548,HNcmpc/Sp3fs]:"priests/ her" | נֶאֱנָחִ֑ים=ne.'e.na.Chim[H0584,HVNrmpa]:"[are] groaning" | בְּתוּלֹתֶ֥י/הָ=be.tu.lo.Tei./ha[H1330,HNcfpc/Sp3fs]:"virgins/ her" | נּוּג֖וֹת=nu.Got[H3013,HVNrfpa]:"[are] grieving" | וְ/הִ֥יא=ve./Hi'[H1931,HC/Pp3fs]:"and/ she" | מַר=mar-[H4843,HVqp3ms]:"it is bitter" | לָֽ/הּ=La/h[H9034,HR/Sp3fs]:"to/ her"
+
+## LAM 1:5
+הָי֨וּ צָרֶ֤י/הָ לְ/רֹאשׁ֙ אֹיְבֶ֣י/הָ שָׁל֔וּ כִּֽי יְהוָ֥ה הוֹגָ֖/הּ עַ֣ל רֹב פְּשָׁעֶ֑י/הָ עוֹלָלֶ֛י/הָ הָלְכ֥וּ שְׁבִ֖י לִ/פְנֵי צָֽר
+
+הָי֨וּ=ha.Yu[H1961,HVqp3cp]:"they have become" | צָרֶ֤י/הָ=tza.Rei./ha[H6862C,HNcmpc/Sp3fs]:"opponents/ her" | לְ/רֹאשׁ֙=le./roSh[H7218H,HR/Ncmsa]:"<into>/ a head" | אֹיְבֶ֣י/הָ='o.ye.Vei./ha[H0341,HVqrmpc/Sp3fs]:"enemies/ her" | שָׁל֔וּ=sha.Lu[H7951,HVqp3cp]:"they are at ease" | כִּֽי=ki-[H3588A,HTc]:"for" | יְהוָ֥ה=Yah.weh[H3068G,HNpt]:"Yahweh" | הוֹגָ֖/הּ=ho.Ga/h[H3013,HVhp3ms/Sp3fs]:"he has caused grief/ to her" | עַ֣ל='al[H5921A,HR]:"on" | רֹב=rov-[H7230,HNcmsc]:"[the] multitude of" | פְּשָׁעֶ֑י/הָ=pe.sha.'Ei./ha[H6588,HNcmpc/Sp3fs]:"transgressions/ her" | עוֹלָלֶ֛י/הָ=o.la.Lei./ha[H5768,HNcmpc/Sp3fs]:"children/ her" | הָלְכ֥וּ=ha.le.Khu[H1980G,HVqp3cp]:"they have gone" | שְׁבִ֖י=she.Vi[H7628A,HNcmsa]:"captivity" | לִ/פְנֵי=li/f.nei-[H6440G,HR/Ncmpc]:"<to>/ before" | צָֽר=Tzar[H6862C,HNcmsa]:"an opponent"
+
+## LAM 1:6
+וַ/יֵּצֵ֥א  מִ/בַּת צִיּ֖וֹן כָּל הֲדָרָ֑/הּ הָי֣וּ שָׂרֶ֗י/הָ כְּ/אַיָּלִים֙ לֹא מָצְא֣וּ מִרְעֶ֔ה וַ/יֵּלְכ֥וּ בְ/לֹא כֹ֖חַ לִ/פְנֵ֥י רוֹדֵֽף
+
+וַ/יֵּצֵ֥א=va/i.ye.Tze'[H3318G,Hc/Vqw3ms]:"and/ it has gone out" | =[ ][,]:"[ ]" | מִ/בַּת=mi./vat-[H1323G,HR/Ncfsc]:"from/ [the] daughter of" | צִיּ֖וֹן=tzi.Yon[H6726,HNpl]:"Zion" | כָּל=kol-[H3605,HNcmsc]:"all" | הֲדָרָ֑/הּ=ha.da.Ra/h[H1926,HNcmsc/Sp3fs]:"splendor/ her" | הָי֣וּ=ha.Yu[H1961,HVqp3cp]:"they have become" | שָׂרֶ֗י/הָ=sa.Rei./ha[H8269,HNcmpc/Sp3fs]:"princes/ her" | כְּ/אַיָּלִים֙=ke./'ai.ya.Lim[H0354,HR/Ncmpa]:"like/ deer" | לֹא=lo'-[H3808,HTn]:"[which] not" | מָצְא֣וּ=ma.tze.'U[H4672,HVqp3cp]:"they have found" | מִרְעֶ֔ה=mir.'Eh[H4829,HNcmsa]:"pasture" | וַ/יֵּלְכ֥וּ=va/i.ye.le.Khu[H1980G,Hc/Vqw3mp]:"and/ they have gone" | בְ/לֹא=ve./lo'-[H3808,HR/Tn]:"with/ not" | כֹ֖חַ=Kho.ach[H3581B,HNcmsa]:"strength" | לִ/פְנֵ֥י=li/f.Nei[H6440G,HR/Ncmpc]:"<to>/ before" | רוֹדֵֽף=ro.Def[H7291,HVqrmsa]:"a pursuer"
+
+## LAM 1:7
+זָֽכְרָ֣ה יְרוּשָׁלִַ֗ם יְמֵ֤י עָנְיָ/הּ֙ וּ/מְרוּדֶ֔י/הָ כֹּ֚ל מַחֲמֻדֶ֔י/הָ אֲשֶׁ֥ר הָי֖וּ מִ֣/ימֵי קֶ֑דֶם בִּ/נְפֹ֧ל עַמָּ֣/הּ בְּ/יַד צָ֗ר וְ/אֵ֤ין עוֹזֵר֙ לָ֔/הּ רָא֣וּ/הָ צָרִ֔ים שָׂחֲק֖וּ עַ֥ל מִשְׁבַּתֶּֽ/הָ
+
+זָֽכְרָ֣ה=za.khe.Rah[H2142,HVqp3fs]:"she has remembered" | יְרוּשָׁלִַ֗ם=ye.ru.sha.Lim[H3389,HNpl]:"Jerusalem" | יְמֵ֤י=ye.Mei[H3117G,HNcmpc]:"[the] days of" | עָנְיָ/הּ֙='a.ne.Ya/h[H6040,HNcmsc/Sp3fs]:"affliction/ her" | וּ/מְרוּדֶ֔י/הָ=u./me.ru.Dei./ha[H4788,HC/Ncmpc/Sp3fs]:"and/ homelessness<es>/ her" | כֹּ֚ל=kol[H3605,HNcmsc]:"all" | מַחֲמֻדֶ֔י/הָ=ma.cha.mu.Dei./ha[H4262,HNcmpc/Sp3fs]:"precious things/ her" | אֲשֶׁ֥ר='a.Sher[H0834A,HTr]:"which" | הָי֖וּ=ha.Yu[H1961,HVqp3cp]:"they were" | מִ֣/ימֵי=Mi./mei[H3117G,HR/Ncmpc]:"from/ days of" | קֶ֑דֶם=Ke.dem[H6924H,HNcmsa]:"antiquity" | בִּ/נְפֹ֧ל=bi/n.Fol[H5307G,HR/Vqcc]:"when/ fell" | עַמָּ֣/הּ='a.Ma/h[H5971A,HNcmsc/Sp3fs]:"people/ her" | בְּ/יַד=be./yad-[H3027H,HR/Ncbsc]:"in/ [the] hand of" | צָ֗ר=Tzar[H6862C,HNcmsa]:"an opponent" | וְ/אֵ֤ין=ve./'Ein[H0369,HC/Ncmsc]:"and/ not" | עוֹזֵר֙=o.Zer[H5826,HVqrmsa]:"a helper" | לָ֔/הּ=La/h[H9034,HR/Sp3fs]:"[belonged] to/ her" | רָא֣וּ/הָ=ra.'U./ha[H7200G,HVqp3cp/Sp3fs]:"they saw/ her" | צָרִ֔ים=tza.Rim[H6862C,HNcmpa]:"opponents" | שָׂחֲק֖וּ=sa.cha.Ku[H7832,HVqp3cp]:"they laughed" | עַ֥ל='al[H5921A,HR]:"at" | מִשְׁבַּתֶּֽ/הָ=mish.ba.Te./ha[H4868,HNcmsc/Sp3fs]:"annihilation<s>/ her"
+
+## LAM 1:8
+חֵ֤טְא חָֽטְאָה֙ יְר֣וּשָׁלִַ֔ם עַל כֵּ֖ן לְ/נִידָ֣ה הָיָ֑תָה כָּֽל מְכַבְּדֶ֤י/הָ הִזִּיל֙וּ/הָ֙ כִּי רָא֣וּ עֶרְוָתָ֔/הּ גַּם הִ֥יא נֶאֶנְחָ֖ה וַ/תָּ֥שָׁב אָחֽוֹר
+
+חֵ֤טְא=chet'[H2399,HNcmsa]:"sin" | חָֽטְאָה֙=cha.te.'Ah[H2398,HVqp3fs]:"she has sinned" | יְר֣וּשָׁלִַ֔ם=ye.Ru.sha.Lim[H3389,HNpl]:"Jerusalem" | עַל='al-[H5921A,HR]:"there-" | כֵּ֖ן=ken[H3651C,HD]:"-fore" | לְ/נִידָ֣ה=le./ni.Dah[H5206,HR/Ncfsa]:"<into>/ impurity" | הָיָ֑תָה=ha.Ya.tah[H1961,HVqp3fs]:"she has become" | כָּֽל=kal-[H3605,HNcmsc]:"all" | מְכַבְּדֶ֤י/הָ=me.kha.be.Dei./ha[H3513G,HVprmpc/Sp3fs]:"[those who] honored/ her" | הִזִּיל֙וּ/הָ֙=hi.zi.Lu./ha[H2107,HVhp3cp/Sp3fs]:"they despise/ her" | כִּי=ki-[H3588A,HTc]:"for" | רָא֣וּ=ra.'U[H7200G,HVqp3cp]:"they have seen" | עֶרְוָתָ֔/הּ='er.va.Ta/h[H6172,HNcfsc/Sp3fs]:"nakedness/ her" | גַּם=gam-[H1571,HD]:"also" | הִ֥יא=hi'[H1931,HPp3fs]:"she" | נֶאֶנְחָ֖ה=ne.'en.Chah[H0584,HVNp3fs]:"<she> has groaned" | וַ/תָּ֥שָׁב=va./Ta.shov[H7725O,Hc/Vqw3fs]:"and/ she has turned away" | אָחֽוֹר='a.Chor[H0268,HNcmsa]:"backward"
+
+## LAM 1:9
+טֻמְאָתָ֣/הּ בְּ/שׁוּלֶ֗י/הָ לֹ֤א זָֽכְרָה֙ אַחֲרִיתָ֔/הּ וַ/תֵּ֣רֶד פְּלָאִ֔ים אֵ֥ין מְנַחֵ֖ם לָ֑/הּ רְאֵ֤ה יְהוָה֙ אֶת עָנְיִ֔/י כִּ֥י הִגְדִּ֖יל אוֹיֵֽב
+
+טֻמְאָתָ֣/הּ=tum.'a.Ta/h[H2932,HNcfsc/Sp3fs]:"uncleanness/ her" | בְּ/שׁוּלֶ֗י/הָ=be./shu.Lei./ha[H7757,HR/Ncmpc/Sp3fs]:"[was] on/ skirts/ her" | לֹ֤א=lo'[H3808,HTn]:"not" | זָֽכְרָה֙=za.khe.Rah[H2142,HVqp3fs]:"she remembered" | אַחֲרִיתָ֔/הּ='a.cha.ri.Ta/h[H0319,HNcfsc/Sp3fs]:"outcome/ her" | וַ/תֵּ֣רֶד=va./Te.red[H3381,Hc/Vqw3fs]:"and/ she has come down" | פְּלָאִ֔ים=pe.la.'Im[H6382,HNcmpa]:"wonders" | אֵ֥ין='ein[H0369,HNcmsc]:"not" | מְנַחֵ֖ם=me.na.Chem[H5162G,HVprmsa]:"a comforter" | לָ֑/הּ=La/h[H9034,HR/Sp3fs]:"[belonged] to/ her" | רְאֵ֤ה=re.'Eh[H7200G,HVqv2ms]:"see" | יְהוָה֙=Yah.weh[H3068G,HNpt]:"O Yahweh" | אֶת='et-[H0853,HTo]:"<obj.>" | עָנְיִ֔/י='a.ne.Y/i[H6040,HNcmsc/Sp1bs]:"affliction/ my" | כִּ֥י=ki[H3588A,HTc]:"for" | הִגְדִּ֖יל=hig.Dil[H1431,HVhp3ms]:"it has magnified itself" | אוֹיֵֽב='o.Yev[H0341,HVqrmsa]:"[the] enemy"
+
+## LAM 1:10
+יָד/וֹ֙ פָּ֣רַשׂ צָ֔ר עַ֖ל כָּל מַחֲמַדֶּ֑י/הָ כִּֽי רָאֲתָ֤ה גוֹיִם֙ בָּ֣אוּ מִקְדָּשָׁ֔/הּ אֲשֶׁ֣ר צִוִּ֔יתָה לֹא יָבֹ֥אוּ בַ/קָּהָ֖ל לָֽ/ךְ
+
+יָד/וֹ֙=ya.D/o[H3027G,HNcbsc/Sp3ms]:"hand/ his" | פָּ֣רַשׂ=Pa.ras[H6566,HVqp3ms]:"he has spread out" | צָ֔ר=Tzar[H6862C,HNcmsa]:"[the] opponent" | עַ֖ל='al[H5921A,HR]:"over" | כָּל=kol-[H3605,HNcmsc]:"all" | מַחֲמַדֶּ֑י/הָ=ma.cha.ma.Dei./ha[H4261,HNcmpc/Sp3fs]:"precious things/ her" | כִּֽי=ki-[H3588A,HTc]:"for" | רָאֲתָ֤ה=ra.'a.Tah[H7200G,HVqp3fs]:"it saw" | גוֹיִם֙=go.Yim[H1471A,HNcmpa]:"nations" | בָּ֣אוּ=Ba.'u[H0935G,HVqp3cp]:"[which] they went" | מִקְדָּשָׁ֔/הּ=mik.da.Sha/h[H4720,HNcmsc/Sp3fs]:"sanctuary/ its" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"which" | צִוִּ֔יתָה=tzi.Vi.tah[H6680,HVpp2ms]:"you had commanded" | לֹא=lo'-[H3808,HTn]:"not" | יָבֹ֥אוּ=ya.Vo.'u[H0935G,HVqi3mp]:"they will come" | בַ/קָּהָ֖ל=va./ka.Hal[H6951,HRd/Ncmsa]:"in the/ assembly" | לָֽ/ךְ=La/kh[H9032,HR/Sp2fs]:"of/ you"
+
+## LAM 1:11
+כָּל עַמָּ֤/הּ נֶאֱנָחִים֙ מְבַקְּשִׁ֣ים לֶ֔חֶם נָתְנ֧וּ מַחֲמַדֵּי/הֶ֛ם בְּ/אֹ֖כֶל לְ/הָשִׁ֣יב נָ֑פֶשׁ רְאֵ֤ה יְהוָה֙ וְֽ/הַבִּ֔יטָ/ה כִּ֥י הָיִ֖יתִי זוֹלֵלָֽה
+
+כָּל=kol-[H3605,HNcmsc]:"all" | עַמָּ֤/הּ='a.Ma/h[H5971A,HNcmsc/Sp3fs]:"people/ its" | נֶאֱנָחִים֙=ne.'e.na.Chim[H0584,HVNrmpa]:"[are] groaning" | מְבַקְּשִׁ֣ים=me.va.ke.Shim[H1245,HVprmpa]:"[are] seeking" | לֶ֔חֶם=Le.chem[H3899H,HNcmsa]:"bread" | נָתְנ֧וּ=na.te.Nu[H5414G,HVqp3cp]:"they have given" | מַחֲמַדֵּי/הֶ֛ם=ma.cha.mo.dei./hem[H4261,HNcmpc/Sp3mp]:"precious things/ their" | בְּ/אֹ֖כֶל=be./'O.khel[H0400,HR/Ncmsa]:"for/ food" | לְ/הָשִׁ֣יב=le./ha.Shiv[H7725H,HR/Vhcc]:"to/ restore" | נָ֑פֶשׁ=Na.fesh[H5315H,HNcfsa]:"life" | רְאֵ֤ה=re.'Eh[H7200G,HVqv2ms]:"see" | יְהוָה֙=Yah.weh[H3068G,HNpt]:"O Yahweh" | וְֽ/הַבִּ֔יטָ/ה=ve./ha.Bi.ta/h[H5027,HC/Vhv2ms/Sh]:"and/ look/ !" | כִּ֥י=ki[H3588A,HTc]:"for" | הָיִ֖יתִי=ha.Yi.ti[H1961,HVqp1cs]:"I am" | זוֹלֵלָֽה=zo.le.Lah[H2151B,HVqrfsa]:"despised"
+
+## LAM 1:12
+ל֣וֹא אֲלֵי/כֶם֮ כָּל עֹ֣בְרֵי דֶרֶךְ֒ הַבִּ֣יטוּ וּ/רְא֗וּ אִם יֵ֤שׁ מַכְאוֹב֙ כְּ/מַכְאֹבִ֔/י אֲשֶׁ֥ר עוֹלַ֖ל לִ֑/י אֲשֶׁר֙ הוֹגָ֣ה יְהוָ֔ה בְּ/י֖וֹם חֲר֥וֹן אַפּֽ/וֹ
+
+ל֣וֹא=Lo'[H3808,HTn]:"not" | אֲלֵי/כֶם֮='a.lei./Khem[H0413,HR/Sp2mp]:"to/ you" | כָּל=kol-[H3605,HNcmsc]:"O all" | עֹ֣בְרֵי=oe.rei[H5674A,HVqrmpc]:"[those who] pass by of" | דֶרֶךְ֒=de.reKh[H1870L,HNcbsa]:"[the] road" | הַבִּ֣יטוּ=ha.Bi.tu[H5027,HVhv2mp]:"look" | וּ/רְא֗וּ=u./re.'U[H7200G,HC/Vqv2mp]:"and/ see" | אִם='im-[H0518A,HTc]:"if" | יֵ֤שׁ=yesh[H3426,HAcbsa]:"there" | מַכְאוֹב֙=makh.'Ov[H4341,HNcmsa]:"[is] pain" | כְּ/מַכְאֹבִ֔/י=ke./makh.'o.V/i[H4341,HR/Ncmsc/Sp1bs]:"like/ pain/ my" | אֲשֶׁ֥ר='a.Sher[H0834A,HTr]:"which" | עוֹלַ֖ל=o.Lal[H5953A,HVPp3ms]:"it has been done" | לִ֑/י=L/i[H9030,HR/Sp1bs]:"to/ me" | אֲשֶׁר֙='a.Sher[H0834A,HTr]:"which" | הוֹגָ֣ה=ho.Gah[H3013,HVhp3ms]:"he has caused grief" | יְהוָ֔ה=Yah.weh[H3068G,HNpt]:"Yahweh" | בְּ/י֖וֹם=be./Yom[H3117G,HR/Ncmsc]:"on/ [the] day of" | חֲר֥וֹן=cha.Ron[H2740,HNcmsc]:"[the] burning of" | אַפּֽ/וֹ='a.P/o[H0639G,HNcmsc/Sp3ms]:"anger/ his"
+
+## LAM 1:13
+מִ/מָּר֛וֹם שָֽׁלַח אֵ֥שׁ בְּ/עַצְמֹתַ֖/י וַ/יִּרְדֶּ֑/נָּה פָּרַ֨שׂ רֶ֤שֶׁת לְ/רַגְלַ/י֙ הֱשִׁיבַ֣/נִי אָח֔וֹר נְתָנַ֙/נִי֙ שֹֽׁמֵמָ֔ה כָּל הַ/יּ֖וֹם דָּוָֽה
+
+מִ/מָּר֛וֹם=mi./ma.Rom[H4791,HR/Ncmsa]:"from/ a high place" | שָֽׁלַח=sha.lach-[H7971G,HVqp3ms]:"he sent" | אֵ֥שׁ='esh[H0784,HNcbsa]:"fire" | בְּ/עַצְמֹתַ֖/י=be./'atz.mo.Ta/i[H6106G,HR/Ncfpc/Sp1bs]:"in/ bones/ my" | וַ/יִּרְדֶּ֑/נָּה=va/i.yir.De./nah[H7287A,Hc/Vqw3ms/Sp3fs]:"and/ he mastered/ it" | פָּרַ֨שׂ=pa.Ras[H6566,HVqp3ms]:"he spread out" | רֶ֤שֶׁת=Re.shet[H7568,HNcfsa]:"a net" | לְ/רַגְלַ/י֙=le./rag.La/i[H7272,HR/Ncfdc/Sp1bs]:"for/ feet/ my" | הֱשִׁיבַ֣/נִי=he.shi.Va./ni[H7725G,HVhp3ms/Sp1bs]:"he made turn back/ me" | אָח֔וֹר='a.Chor[H0268,HNcmsa]:"backward" | נְתָנַ֙/נִי֙=ne.ta.Na./ni[H5414I,HVqp3ms/Sp1bs]:"he made/ me" | שֹֽׁמֵמָ֔ה=sho.me.Mah[H8076,HVqrfsa]:"desolate" | כָּל=kol-[H3605,HNcmsc]:"all" | הַ/יּ֖וֹם=hai./Yom[H3117G,HTd/Ncmsa]:"the/ day" | דָּוָֽה=da.Vah[H1739,HAafsa]:"faint"
+
+## LAM 1:14
+נִשְׂקַד֩ עֹ֨ל פְּשָׁעַ֜/י בְּ/יָד֗/וֹ יִשְׂתָּֽרְג֛וּ עָל֥וּ עַל צַוָּארִ֖/י הִכְשִׁ֣יל כֹּחִ֑/י נְתָנַ֣/נִי אֲדֹנָ֔י בִּ/ידֵ֖י לֹא אוּכַ֥ל קֽוּם
+
+נִשְׂקַד֩=nis.Kad[H8244,HVNp3ms]:"it has been bound on" | עֹ֨ל='ol[H5923,HNcmsc]:"[the] yoke of" | פְּשָׁעַ֜/י=pe.sha.'A/i[H6588,HNcmpc/Sp1bs]:"transgressions/ my" | בְּ/יָד֗/וֹ=be./ya.D/o[H3027G,HR/Ncbsc/Sp3ms]:"by/ hand/ his" | יִשְׂתָּֽרְג֛וּ=yis.Ta.re.Gu[H8276,HVti3mp]:"they are woven together" | עָל֥וּ='a.Lu[H5927H,HVqp3cp]:"they have come up" | עַל='al-[H5921A,HR]:"on" | צַוָּארִ֖/י=tza.va.R/i[H6677A,HNcmsc/Sp1bs]:"neck/ my" | הִכְשִׁ֣יל=hikh.Shil[H3782,HVhp3ms]:"he has made feeble" | כֹּחִ֑/י=ko.Ch/i[H3581B,HNcmsc/Sp1bs]:"strength/ my" | נְתָנַ֣/נִי=ne.ta.Na./ni[H5414G,HVqp3ms/Sp1bs]:"he has given/ me" | אֲדֹנָ֔י='a.do.Nai[H0136,HNpt]:"[the] Lord" | בִּ/ידֵ֖י=bi./Dei[H3027H,HR/Ncbdc]:"in/ [the] hands of" | לֹא=lo'-[H3808,HTn]:"[those whom] not" | אוּכַ֥ל='u.Khal[H3201,HVqi1cs]:"I am able" | קֽוּם=Kum[H6965I,HVqcc]:"to stand"
+
+## LAM 1:15
+סִלָּ֨ה כָל אַבִּירַ֤/י אֲדֹנָי֙ בְּ/קִרְבִּ֔/י קָרָ֥א עָלַ֛/י מוֹעֵ֖ד לִ/שְׁבֹּ֣ר בַּחוּרָ֑/י גַּ֚ת דָּרַ֣ךְ אֲדֹנָ֔י לִ/בְתוּלַ֖ת בַּת יְהוּדָֽה
+
+סִלָּ֨ה=si.Lah[H5541A,HVpp3ms]:"he has thrown away" | כָל=khol-[H3605,HNcmsc]:"all" | אַבִּירַ֤/י='a.bi.Ra/i[H0047I,HAampc/Sp1bs]:"mighty [ones]/ my" | אֲדֹנָי֙='a.do.Nai[H0136,HNpt]:"[the] Lord" | בְּ/קִרְבִּ֔/י=be./kir.B/i[H7130G,HR/Ncmsc/Sp1bs]:"in/ midst/ my" | קָרָ֥א=ka.Ra'[H7121G,HVqp3ms]:"he has proclaimed" | עָלַ֛/י='a.La/i[H5921A,HR/Sp1bs]:"on/ me" | מוֹעֵ֖ד=mo.'Ed[H4150I,HNcmsa]:"an appointed meeting" | לִ/שְׁבֹּ֣ר=li/sh.Bor[H7665,HR/Vqcc]:"to/ break" | בַּחוּרָ֑/י=ba.chu.Ra/i[H0970,HNcmpc/Sp1bs]:"young men/ my" | גַּ֚ת=gat[H1660,HNcfsa]:"a winepress" | דָּרַ֣ךְ=da.Rakh[H1869,HVqp3ms]:"he has trodden" | אֲדֹנָ֔י='a.do.Nai[H0136,HNpt]:"[the] Lord" | לִ/בְתוּלַ֖ת=li/v.tu.Lat[H1330,HR/Ncfsc]:"for/ [the] virgin of" | בַּת=bat-[H1323G,HNcfsc]:"[the] daughter of" | יְהוּדָֽה=ye.hu.Dah[H3063G,HNpl]:"Judah"
+
+## LAM 1:16
+עַל אֵ֣לֶּה אֲנִ֣י בוֹכִיָּ֗ה עֵינִ֤/י עֵינִ/י֙ יֹ֣רְדָה מַּ֔יִם כִּֽי רָחַ֥ק מִמֶּ֛/נִּי מְנַחֵ֖ם מֵשִׁ֣יב נַפְשִׁ֑/י הָי֤וּ בָנַ/י֙ שֽׁוֹמֵמִ֔ים כִּ֥י גָבַ֖ר אוֹיֵֽב
+
+עַל='al-[H5921A,HR]:"on" | אֵ֣לֶּה='E.leh[H0428,HTm]:"these [things]" | אֲנִ֣י='a.Ni[H0589,HPp1bs]:"I" | בוֹכִיָּ֗ה=vo.khi.Yah[H1058,HVqrfsa]:"[am] weeping" | עֵינִ֤/י='ei.N/i[H5869A,HNcfsc/Sp1bs]:"eye/ my" | עֵינִ/י֙='ei.N/i[H5869A,HNcfsc/Sp1bs]:"eye/ my" | יֹ֣רְדָה=Yo.re.dah[H3381,HVqrfsa]:"[is] going down" | מַּ֔יִם=Ma.yim[H4325G,HNcmpa]:"water" | כִּֽי=ki-[H3588A,HTc]:"for" | רָחַ֥ק=ra.Chak[H7368,HVqp3ms]:"he is far" | מִמֶּ֛/נִּי=mi.Me./ni[H4480A,HR/Sp1bs]:"from/ me" | מְנַחֵ֖ם=me.na.Chem[H5162G,HVprmsa]:"a comforter" | מֵשִׁ֣יב=me.Shiv[H7725H,HVhrmsa]:"[one who] restores" | נַפְשִׁ֑/י=naf.Sh/i[H5315G,HNcfsc/Sp1bs]:"life/ my" | הָי֤וּ=ha.Yu[H1961,HVqp3cp]:"they are" | בָנַ/י֙=va.Na/i[H1121A,HNcmpc/Sp1bs]:"children/ my" | שֽׁוֹמֵמִ֔ים=sho.me.Mim[H8074G,HVqrmpa]:"desolate" | כִּ֥י=ki[H3588A,HTc]:"for" | גָבַ֖ר=ga.Var[H1396,HVqp3ms]:"he has prevailed" | אוֹיֵֽב='o.Yev[H0341,HVqrmsa]:"[the] enemy"
+
+## LAM 1:17
+פֵּֽרְשָׂ֨ה צִיּ֜וֹן בְּ/יָדֶ֗י/הָ אֵ֤ין מְנַחֵם֙ לָ֔/הּ צִוָּ֧ה יְהוָ֛ה לְ/יַעֲקֹ֖ב סְבִיבָ֣י/ו צָרָ֑י/ו הָיְתָ֧ה יְרוּשָׁלִַ֛ם לְ/נִדָּ֖ה בֵּינֵי/הֶֽם
+
+פֵּֽרְשָׂ֨ה=pe.re.Sah[H6566,HVpp3fs]:"it has spread out" | צִיּ֜וֹן=tzi.Yon[H6726,HNpl]:"Zion" | בְּ/יָדֶ֗י/הָ=be./ya.Dei./ha[H3027G,HR/Ncbdc/Sp3fs]:"<in>/ hands/ its" | אֵ֤ין='ein[H0369,HNcmsc]:"not" | מְנַחֵם֙=me.na.Chem[H5162G,HVprmsa]:"a comforter" | לָ֔/הּ=La/h[H9034,HR/Sp3fs]:"[belongs] to/ it" | צִוָּ֧ה=tzi.Vah[H6680,HVpp3ms]:"he has commanded" | יְהוָ֛ה=Yah.weh[H3068G,HNpt]:"Yahweh" | לְ/יַעֲקֹ֖ב=le./ya.'a.Ko[H3290,HR/Npm]:"of/ Jacob" | סְבִיבָ֣י/ו=se.vi.Va/v[H5439J,HNcmpc/Sp3ms]:"[those] around/ him" | צָרָ֑י/ו=tza.Ra/v[H6862C,HNcmpc/Sp3ms]:"[will be] opponents/ his" | הָיְתָ֧ה=ha.ye.Tah[H1961,HVqp3fs]:"it has become" | יְרוּשָׁלִַ֛ם=ye.ru.sha.Lim[H3389,HNpl]:"Jerusalem" | לְ/נִדָּ֖ה=le./ni.Dah[H5079,HR/Ncfsa]:"<into>/ an impure thing" | בֵּינֵי/הֶֽם=bei.nei./Hem[H0996G,HAcmpc/Sp3mp]:"between/ them"
+
+## LAM 1:18
+צַדִּ֥יק ה֛וּא יְהוָ֖ה כִּ֣י פִ֣י/הוּ מָרִ֑יתִי שִׁמְעוּ נָ֣א כָל הָֽ/עַמִּ֗ים וּ/רְאוּ֙ מַכְאֹבִ֔/י בְּתוּלֹתַ֥/י וּ/בַחוּרַ֖/י הָלְכ֥וּ בַ/שֶּֽׁבִי
+
+צַדִּ֥יק=tza.Dik[H6662,HAamsa]:"[is] righteous" | ה֛וּא=hu'[H1931,HPp3ms]:"he" | יְהוָ֖ה=Yah.weh[H3068G,HNpt]:"Yahweh" | כִּ֣י=ki[H3588A,HTc]:"for" | פִ֣י/הוּ=Fi./hu[H6310I,HNcmsc/Sp3ms]:"mouth/ his" | מָרִ֑יתִי=ma.Ri.ti[H4784,HVqp1cs]:"I have been rebellious" | שִׁמְעוּ=shim.'u-[H8085G,HVqv2mp]:"listen" | נָ֣א=na'[H4994,HTj]:"please" | כָל=khol-[H3605,HNcmsc]:"O all" | הָֽ/עַמִּ֗ים=ha./'a.mim[H5971A,HTd/Ncmpa]:"the/ peoples" | וּ/רְאוּ֙=u./re.'U[H7200G,HC/Vqv2mp]:"and/ see" | מַכְאֹבִ֔/י=makh.'o.V/i[H4341,HNcmsc/Sp1bs]:"pain/ my" | בְּתוּלֹתַ֥/י=be.tu.lo.Ta/i[H1330,HNcfpc/Sp1bs]:"young women/ my" | וּ/בַחוּרַ֖/י=u./va.chu.Ra/i[H0970,HC/Ncmpc/Sp1bs]:"and/ young men/ my" | הָלְכ֥וּ=ha.le.Khu[H1980G,HVqp3cp]:"they have gone" | בַ/שֶּֽׁבִי=va./She.vi[H7628A,HRd/Ncmsa]:"in <the>/ captivity"
+
+## LAM 1:19
+קָרָ֤אתִי לַֽ/מְאַהֲבַ/י֙ הֵ֣מָּה רִמּ֔וּ/נִי כֹּהֲנַ֥/י וּ/זְקֵנַ֖/י בָּ/עִ֣יר גָּוָ֑עוּ כִּֽי בִקְשׁ֥וּ אֹ֙כֶל֙ לָ֔/מוֹ וְ/יָשִׁ֖יבוּ אֶת נַפְשָֽׁ/ם
+
+קָרָ֤אתִי=ka.Ra.ti[H7121G,HVqp1cs]:"I called" | לַֽ/מְאַהֲבַ/י֙=la/m.'a.ha.Va/i[H0157G,HRd/Vprmpc/Sp1bs]:"to <the>/ lovers/ my" | הֵ֣מָּה=He.mah[H1992,HPp3mp]:"they" | רִמּ֔וּ/נִי=ri.Mu./ni[H7411B,HVpp3cp/Sp1bs]:"they deceived/ me" | כֹּהֲנַ֥/י=ko.ha.Na/i[H3548,HNcmpc/Sp1bs]:"priests/ my" | וּ/זְקֵנַ֖/י=u./ze.ke.Na/i[H2205G,HC/Aampc/Sp1bs]:"and/ elders/ my" | בָּ/עִ֣יר=ba./'Ir[H5892B,HRd/Ncfsa]:"in the/ city" | גָּוָ֑עוּ=ga.Va.'u[H1478,HVqp3cp]:"they perished" | כִּֽי=ki-[H3588A,HTc]:"for" | בִקְשׁ֥וּ=vik.Shu[H1245,HVpp3cp]:"they sought" | אֹ֙כֶל֙='o.khel[H0400,HNcmsa]:"food" | לָ֔/מוֹ=la./mo[H9038,HR/Sp3mp]:"for/ themselves" | וְ/יָשִׁ֖יבוּ=ve./ya.Shi.vu[H7725H,HC/Vhu3mp]:"so/ they may be restored" | אֶת='et-[H0853,HTo]:"<obj.>" | נַפְשָֽׁ/ם=naf.Sha/m[H5315H,HNcfsc/Sp3mp]:"life/ their"
+
+## LAM 1:20
+רְאֵ֨ה יְהוָ֤ה כִּֽי צַר לִ/י֙ מֵעַ֣/י חֳמַרְמָ֔רוּ נֶהְפַּ֤ךְ לִבִּ/י֙ בְּ/קִרְבִּ֔/י כִּ֥י מָר֖וֹ מָרִ֑יתִי מִ/ח֥וּץ שִׁכְּלָה חֶ֖רֶב בַּ/בַּ֥יִת כַּ/מָּֽוֶת
+
+רְאֵ֨ה=re.'Eh[H7200G,HVqv2ms]:"see" | יְהוָ֤ה=Yah.weh[H3068G,HNpt]:"O Yahweh" | כִּֽי=ki-[H3588A,HTc]:"for" | צַר=tzar-[H6862B,HNcbsa]:"distress" | לִ/י֙=l/i[H9030,HR/Sp1bs]:"[belongs] to/ me" | מֵעַ֣/י=me.'A/i[H4578,HNcmpc/Sp1bs]:"inward parts/ my" | חֳמַרְמָ֔רוּ=cho.mar.Ma.ru[H2560A,HVpp3cp]:"they are in turmoil" | נֶהְפַּ֤ךְ=neh.Pakh[H2015,HVNp3ms]:"it has been overturned" | לִבִּ/י֙=li.B/i[H3820A,HNcmsc/Sp1bs]:"heart/ my" | בְּ/קִרְבִּ֔/י=be./kir.B/i[H7130G,HR/Ncmsc/Sp1bs]:"in/ inner being/ my" | כִּ֥י=ki[H3588A,HTc]:"for" | מָר֖וֹ=ma.Ro[H4784,HVqaa]:"extremely <be rebellious>" | מָרִ֑יתִי=ma.Ri.ti[H4784,HVqp1cs]:"I have been rebellious" | מִ/ח֥וּץ=mi./Chutz[H2351,HR/Ncmsa]:"from/ outside" | שִׁכְּלָה=shi.ke.lah-[H7921A,HVpp3fs]:"it has bereaved" | חֶ֖רֶב=Che.rev[H2719,HNcfsa]:"a sword" | בַּ/בַּ֥יִת=ba./Ba.yit[H1004B,HRd/Ncmsa]:"[is] in the/ house" | כַּ/מָּֽוֶת=ka./Ma.vet[H4194,HRd/Ncmsa]:"like <the>/ death"
+
+## LAM 1:21
+שָׁמְע֞וּ כִּ֧י נֶאֱנָחָ֣ה אָ֗נִי אֵ֤ין מְנַחֵם֙ לִ֔/י כָּל אֹ֨יְבַ֜/י שָׁמְע֤וּ רָֽעָתִ/י֙ שָׂ֔שׂוּ כִּ֥י אַתָּ֖ה עָשִׂ֑יתָ הֵבֵ֥אתָ יוֹם קָרָ֖אתָ וְ/יִֽהְי֥וּ כָמֽוֹ/נִי
+
+שָׁמְע֞וּ=sha.me.'U[H8085G,HVqp3cp]:"they heard" | כִּ֧י=ki[H3588A,HTc]:"that" | נֶאֱנָחָ֣ה=ne.'e.na.Chah[H0584,HVNrfsa]:"[was] groaning" | אָ֗נִי='A.ni[H0589,HPp1bs]:"I" | אֵ֤ין='ein[H0369,HNcmsc]:"not" | מְנַחֵם֙=me.na.Chem[H5162G,HVprmsa]:"a comforter" | לִ֔/י=L/i[H9030,HR/Sp1bs]:"[belonged] to/ me" | כָּל=kol-[H3605,HNcmsc]:"all" | אֹ֨יְבַ֜/י='o.ye.Va/i[H0341,HVqrmpc/Sp1bs]:"enemies/ my" | שָׁמְע֤וּ=sha.me.'U[H8085G,HVqp3cp]:"they heard" | רָֽעָתִ/י֙=ra.'a.T/i[H7451C,HNcfsc/Sp1bs]:"distress/ my" | שָׂ֔שׂוּ=Sa.su[H7797,HVqp3cp]:"they rejoiced" | כִּ֥י=ki[H3588A,HTc]:"for" | אַתָּ֖ה='a.Tah[H0859A,HPp2ms]:"you" | עָשִׂ֑יתָ='a.Si.ta[H6213A,HVqp2ms]:"you have acted" | הֵבֵ֥אתָ=he.Ve.ta[H0935P,HVhp2ms]:"you have brought" | יוֹם=yom-[H3117G,HNcmsa]:"[the] day" | קָרָ֖אתָ=ka.Ra.ta[H7121I,HVqp2ms]:"[which] you proclaimed" | וְ/יִֽהְי֥וּ=ve./yih.Yu[H1961,HC/Vqu3mp]:"and/ they may be" | כָמֽוֹ/נִי=kha.Mo./ni[H3644G,HR/Sp1bs]:"like/ me"
+
+## LAM 1:22
+תָּבֹ֨א כָל רָעָתָ֤/ם לְ/פָנֶ֙י/ךָ֙ וְ/עוֹלֵ֣ל לָ֔/מוֹ כַּ/אֲשֶׁ֥ר עוֹלַ֛לְתָּ לִ֖/י עַ֣ל כָּל פְּשָׁעָ֑/י כִּֽי רַבּ֥וֹת אַנְחֹתַ֖/י וְ/לִבִּ֥/י דַוָּֽי
+
+תָּבֹ֨א=ta.Vo'[H0935G,HVqi3fs]:"may it come" | כָל=khol-[H3605,HNcmsc]:"all" | רָעָתָ֤/ם=ra.'a.Ta/m[H7451I,HNcfsc/Sp3mp]:"wickedness/ their" | לְ/פָנֶ֙י/ךָ֙=le./fa.Nei./kha[H6440G,HR/Ncmpc/Sp2ms]:"<to>/ before/ you" | וְ/עוֹלֵ֣ל=ve./'o.Lel[H5953A,HC/Vpv2ms]:"and/ deal severely" | לָ֔/מוֹ=la./mo[H9038,HR/Sp3mp]:"to/ them" | כַּ/אֲשֶׁ֥ר=ka./'a.Sher[H0834D,HR/Tr]:"just/ as" | עוֹלַ֛לְתָּ=o.Lal.ta[H5953A,HVpp2ms]:"you have dealt severely" | לִ֖/י=l/i[H9030,HR/Sp1bs]:"to/ me" | עַ֣ל='al[H5921A,HR]:"on" | כָּל=kol-[H3605,HNcmsc]:"all" | פְּשָׁעָ֑/י=pe.sha.'A/i[H6588,HNcmpc/Sp1bs]:"transgressions/ my" | כִּֽי=ki-[H3588A,HTc]:"for" | רַבּ֥וֹת=ra.Bot[H7227A,HAafpa]:"[are] many" | אַנְחֹתַ֖/י='an.cho.Ta/i[H0585,HNcfpc/Sp1bs]:"groaning<s>/ my" | וְ/לִבִּ֥/י=ve./li.B/i[H3820A,HC/Ncmsc/Sp1bs]:"and/ heart/ my" | דַוָּֽי=da.Vai[H1742,HAamsa]:"[is] faint"

@@ -1,0 +1,79 @@
+# Amos 9
+
+[[Old_Testament/Amos/00_Index|<- Amos index]]
+[[Old_Testament/Amos/Amos 8|<- previous chapter]]
+
+## AMO 9:1
+רָאִ֨יתִי אֶת אֲדֹנָ֜י נִצָּ֣ב עַֽל הַ/מִּזְבֵּ֗חַ וַ/יֹּאמֶר֩ הַ֨ךְ הַ/כַּפְתּ֜וֹר וְ/יִרְעֲשׁ֣וּ הַ/סִּפִּ֗ים וּ/בְצַ֙עַ/ם֙ בְּ/רֹ֣אשׁ כֻּלָּ֔/ם וְ/אַחֲרִיתָ֖/ם בַּ/חֶ֣רֶב אֶהֱרֹ֑ג לֹֽא יָנ֤וּס לָ/הֶם֙ נָ֔ס וְ/לֹֽא יִמָּלֵ֥ט לָ/הֶ֖ם פָּלִֽיט
+
+רָאִ֨יתִי=ra.'I.ti[H7200G,HVqp1cs]:"I saw" | אֶת='et-[H0853,HTo]:"<obj.>" | אֲדֹנָ֜י='a.do.Nai[H0136,HNpt]:"[the] Lord" | נִצָּ֣ב=ni.Tzav[H5324,HVNrmsa]:"standing" | עַֽל='al-[H5921A,HR]:"on" | הַ/מִּזְבֵּ֗חַ=ha./miz.Be.ach[H4196,HTd/Ncmsa]:"the/ altar" | וַ/יֹּאמֶר֩=va/i.yo.Mer[H0559,Hc/Vqw3ms]:"and/ he said" | הַ֨ךְ=hakh[H5221,HVhv2ms]:"strike" | הַ/כַּפְתּ֜וֹר=ha./kaf.Tor[H3730,HTd/Ncmsa]:"the/ capital" | וְ/יִרְעֲשׁ֣וּ=ve./yir.'a.Shu[H7493,HC/Vqu3mp]:"so/ they may shake" | הַ/סִּפִּ֗ים=ha./si.Pim[H5592B,HTd/Ncmpa]:"the/ thresholds" | וּ/בְצַ֙עַ/ם֙=u./ve.Tza.'a/m[H1214G,HC/Vqcc/Sp3mp]:"and/ break off/ them" | בְּ/רֹ֣אשׁ=be./Rosh[H7218A,HR/Ncmsc]:"on/ [the] head of" | כֻּלָּ֔/ם=ku.La/m[H3605,HNcmsc/Sp3mp]:"all of/ them" | וְ/אַחֲרִיתָ֖/ם=ve./'a.cha.ri.Ta/m[H0319,HC/Ncfsc/Sp3mp]:"and/ posterity/ their" | בַּ/חֶ֣רֶב=ba./Che.rev[H2719,HRd/Ncfsa]:"by the/ sword" | אֶהֱרֹ֑ג='e.he.Rog[H2026,HVqi1cs]:"I will kill" | לֹֽא=lo'-[H3808,HTn]:"not" | יָנ֤וּס=ya.Nus[H5127,HVqi3ms]:"he will flee" | לָ/הֶם֙=la./Hem[H9038,HR/Sp3mp]:"of/ them" | נָ֔ס=Nas[H5127,HVqrmsa]:"[one who] flees" | וְ/לֹֽא=ve./lo'-[H3808,HC/Tn]:"and/ not" | יִמָּלֵ֥ט=yi.ma.Let[H4422,HVNi3ms]:"he will escape" | לָ/הֶ֖ם=la./Hem[H9038,HR/Sp3mp]:"of/ them" | פָּלִֽיט=pa.Lit[H6412A,HNcmsa]:"an escapee"
+
+## AMO 9:2
+אִם יַחְתְּר֣וּ בִ/שְׁא֔וֹל מִ/שָּׁ֖ם יָדִ֣/י תִקָּחֵ֑/ם וְ/אִֽם יַעֲלוּ֙ הַ/שָּׁמַ֔יִם מִ/שָּׁ֖ם אוֹרִידֵֽ/ם
+
+אִם='im-[H0518A,HTc]:"if" | יַחְתְּר֣וּ=yach.te.Ru[H2864,HVqi3mp]:"they will dig" | בִ/שְׁא֔וֹל=vi/sh.'ol[H7585,HR/Ncbsa]:"in/ Sheol" | מִ/שָּׁ֖ם=mi./Sham[H8033G,HR/D]:"from/ there" | יָדִ֣/י=ya.D/i[H3027H,HNcbsc/Sp1bs]:"hand/ my" | תִקָּחֵ֑/ם=ti.ka.Che/m[H3947G,HVqi3fs/Sp3mp]:"it will take/ them" | וְ/אִֽם=ve./'im-[H0518A,HC/Tc]:"and/ if" | יַעֲלוּ֙=ya.'a.Lu[H5927G,HVqi3mp]:"they will go up" | הַ/שָּׁמַ֔יִם=ha./sha.Ma.yim[H8064,HTd/Ncmpa]:"the/ heavens" | מִ/שָּׁ֖ם=mi./Sham[H8033G,HR/D]:"from/ there" | אוֹרִידֵֽ/ם='o.ri.De/m[H3381,HVhi1cs/Sp3mp]:"I will bring down/ them"
+
+## AMO 9:3
+וְ/אִם יֵחָֽבְאוּ֙ בְּ/רֹ֣אשׁ הַ/כַּרְמֶ֔ל מִ/שָּׁ֥ם אֲחַפֵּ֖שׂ וּ/לְקַחְתִּ֑י/ם וְ/אִם יִסָּ֨תְר֜וּ מִ/נֶּ֤גֶד עֵינַ/י֙ בְּ/קַרְקַ֣ע הַ/יָּ֔ם מִ/שָּׁ֛ם אֲצַוֶּ֥ה אֶת הַ/נָּחָ֖שׁ וּ/נְשָׁכָֽ/ם
+
+וְ/אִם=ve./'im-[H0518A,HC/Tc]:"and/ if" | יֵחָֽבְאוּ֙=ye.cha.ve.'U[H2244,HVNi3mp]:"they will hide themselves" | בְּ/רֹ֣אשׁ=be./Rosh[H7218I,HR/Ncmsc]:"on/ [the] top of" | הַ/כַּרְמֶ֔ל=ha./kar.Mel[H3760G,HTd/Npl]:"<the>/ Carmel" | מִ/שָּׁ֥ם=mi./Sham[H8033G,HR/D]:"from/ there" | אֲחַפֵּ֖שׂ='a.cha.Pes[H2664,HVpi1cs]:"I will search for [them]" | וּ/לְקַחְתִּ֑י/ם=u./le.kach.Ti/m[H3947G,Hc/Vqq1cs/Sp3mp]:"and/ I will take/ them" | וְ/אִם=ve./'im-[H0518A,HC/Tc]:"and/ if" | יִסָּ֨תְר֜וּ=yi.Sa.te.Ru[H5641,HVNi3mp]:"they will hide themselves" | מִ/נֶּ֤גֶד=mi./Ne.ged[H5048,HR/Acmsc]:"from/ before" | עֵינַ/י֙='ei.Na/i[H5869H,HNcfdc/Sp1bs]:"eyes/ my" | בְּ/קַרְקַ֣ע=be./kar.Ka'[H7172,HR/Ncmsc]:"at/ [the] bottom of" | הַ/יָּ֔ם=hai./Yam[H3220G,HTd/Ncmsa]:"the/ sea" | מִ/שָּׁ֛ם=mi./Sham[H8033G,HR/D]:"from/ there" | אֲצַוֶּ֥ה='a.tza.Veh[H6680,HVpi1cs]:"I will command" | אֶת='et-[H0853,HTo]:"<obj.>" | הַ/נָּחָ֖שׁ=ha./na.Chash[H5175,HTd/Ncmsa]:"the/ snake" | וּ/נְשָׁכָֽ/ם=u./ne.sha.Kha/m[H5391A,Hc/Vqq3ms/Sp3mp]:"and/ it will bite/ them"
+
+## AMO 9:4
+וְ/אִם יֵלְכ֤וּ בַ/שְּׁבִי֙ לִ/פְנֵ֣י אֹֽיבֵי/הֶ֔ם מִ/שָּׁ֛ם אֲצַוֶּ֥ה אֶת הַ/חֶ֖רֶב וַ/הֲרָגָ֑תַ/ם וְ/שַׂמְתִּ֨י עֵינִ֧/י עֲלֵי/הֶ֛ם לְ/רָעָ֖ה וְ/לֹ֥א לְ/טוֹבָֽה
+
+וְ/אִם=ve./'im-[H0518A,HC/Tc]:"and/ if" | יֵלְכ֤וּ=ye.le.Khu[H1980G,HVqi3mp]:"they will go" | בַ/שְּׁבִי֙=va./she.Vi[H7628A,HRd/Ncmsa]:"in <the>/ captivity" | לִ/פְנֵ֣י=li/f.Nei[H6440G,HR/Ncmpc]:"<to>/ before" | אֹֽיבֵי/הֶ֔ם='.vei./Hem[H0341,HVqrmpc/Sp3mp]:"enemies/ their" | מִ/שָּׁ֛ם=mi./Sham[H8033G,HR/D]:"from/ there" | אֲצַוֶּ֥ה='a.tza.Veh[H6680,HVpi1cs]:"I will command" | אֶת='et-[H0853,HTo]:"<obj.>" | הַ/חֶ֖רֶב=ha./Che.rev[H2719,HTd/Ncfsa]:"the/ sword" | וַ/הֲרָגָ֑תַ/ם=va./ha.ra.Ga.ta/m[H2026,Hc/Vqq3fs/Sp3mp]:"and/ it will kill/ them" | וְ/שַׂמְתִּ֨י=ve./sam.Ti[H7760A,Hc/Vqq1cs]:"and/ I will set" | עֵינִ֧/י='ei.N/i[H5869A,HNcfsc/Sp1bs]:"eye/ my" | עֲלֵי/הֶ֛ם='a.lei./Hem[H5921A,HR/Sp3mp]:"on/ them" | לְ/רָעָ֖ה=le./ra.'Ah[H7451I,HR/Ncfsa]:"for/ evil" | וְ/לֹ֥א=ve./Lo'[H3808,HC/Tn]:"and/ not" | לְ/טוֹבָֽה=le./to.Vah[H2896C,HR/Ncfsa]:"for/ good"
+
+## AMO 9:5
+וַ/אדֹנָ֨י יְהוִ֜ה הַ/צְּבָא֗וֹת הַ/נּוֹגֵ֤עַ בָּ/אָ֙רֶץ֙ וַ/תָּמ֔וֹג וְ/אָבְל֖וּ כָּל י֣וֹשְׁבֵי בָ֑/הּ וְ/עָלְתָ֤ה כַ/יְאֹר֙ כֻּלָּ֔/הּ וְ/שָׁקְעָ֖ה כִּ/יאֹ֥ר מִצְרָֽיִם
+
+וַ/אדֹנָ֨י=va./do.Nai[H0136,HC/Npt]:"and/ [the] Lord" | יְהוִ֜ה=Yah.weh[H3069,HNpt]:"Yahweh" | הַ/צְּבָא֗וֹת=ha./tze.va.'ot[H6635B,HTd/Ncfpa]:"of <the>/ hosts" | הַ/נּוֹגֵ֤עַ=ha./no.Ge.a'[H5060,HTd/Vqrmsa]:"who/ touches" | בָּ/אָ֙רֶץ֙=ba./'A.retz[H0776G,HRd/Ncfsa]:"<in> the/ earth" | וַ/תָּמ֔וֹג=va./ta.Mog[H4127,Hc/Vqw3fs]:"and/ it melted" | וְ/אָבְל֖וּ=ve./'a.ve.Lu[H0056,Hc/Vqq3cp]:"and/ they mourn" | כָּל=kol-[H3605,HNcmsc]:"all" | י֣וֹשְׁבֵי=Yo.o.she.vei[H3427,HVqrmpc]:"[the] inhabitants" | בָ֑/הּ=Va/h[H9034,HR/Sp3fs]:"in/ it" | וְ/עָלְתָ֤ה=ve./'al.Tah[H5927G,Hc/Vqq3fs]:"and/ it rises" | כַ/יְאֹר֙=kha/y.'Or[H2975G,HRd/Npl]:"like the/ River" | כֻּלָּ֔/הּ=ku.La/h[H3605,HNcmsc/Sp3fs]:"all of/ it" | וְ/שָׁקְעָ֖ה=ve./sha.ke.'Ah[H8257,Hc/Vqq3fs]:"and/ it sinks" | כִּ/יאֹ֥ר=ki./'Or[H2975G,HR/Npl]:"like/ [the] River" | מִצְרָֽיִם=mitz.Ra.yim[H4714G,HNpl]:"of Egypt"
+
+## AMO 9:6
+הַ/בּוֹנֶ֤ה בַ/שָּׁמַ֙יִם֙ מַעֲלוֹתָ֔י/ו וַ/אֲגֻדָּת֖/וֹ עַל אֶ֣רֶץ יְסָדָ֑/הּ הַ/קֹּרֵ֣א לְ/מֵֽי הַ/יָּ֗ם וַֽ/יִּשְׁפְּכֵ֛/ם עַל פְּנֵ֥י הָ/אָ֖רֶץ יְהוָ֥ה שְׁמֽ/וֹ
+
+הַ/בּוֹנֶ֤ה=ha./bo.Neh[H1129,HTd/Vqrmsa]:"who/ builds" | בַ/שָּׁמַ֙יִם֙=va./sha.Ma.yim[H8064,HRd/Ncmpa]:"in the/ heavens" | מַעֲלוֹתָ֔י/ו=ma.'a.lo.to/v[H4609B,HNcfpc/Sp3ms]:"stairs/ his" | וַ/אֲגֻדָּת֖/וֹ=va./'a.gu.da.T/o[H0092,HC/Ncfsc/Sp3ms]:"and/ vault/ his" | עַל='al-[H5921A,HR]:"on" | אֶ֣רֶץ='E.retz[H0776G,HNcfsa]:"[the] earth" | יְסָדָ֑/הּ=ye.sa.Da/h[H3245,HVqp3ms/Sp3fs]:"he has founds/ it" | הַ/קֹּרֵ֣א=ha./ko.Re'[H7121G,HTd/Vqrmsa]:"who/ summons" | לְ/מֵֽי=le./mei-[H4325G,HR/Ncmpc]:"<to>/ [the] waters of" | הַ/יָּ֗ם=hai./Yam[H3220G,HTd/Ncmsa]:"the/ sea" | וַֽ/יִּשְׁפְּכֵ֛/ם=va/i.yish.pe.Khe/m[H8210G,Hc/Vqw3ms/Sp3mp]:"and/ he poured out/ them" | עַל='al-[H5921A,HR]:"on" | פְּנֵ֥י=pe.Nei[H6440J,HNcmpc]:"[the] surface of" | הָ/אָ֖רֶץ=ha./'A.retz[H0776G,HTd/Ncfsa]:"the/ earth" | יְהוָ֥ה=Yah.weh[H3068G,HNpt]:"[is] Yahweh" | שְׁמֽ/וֹ=she.M/o[H8034,HNcmsc/Sp3ms]:"name/ his"
+
+## AMO 9:7
+הֲ/ל֣וֹא כִ/בְנֵי֩ כֻשִׁיִּ֨ים אַתֶּ֥ם לִ֛/י בְּנֵ֥י יִשְׂרָאֵ֖ל נְאֻם יְהוָ֑ה הֲ/ל֣וֹא אֶת יִשְׂרָאֵ֗ל הֶעֱלֵ֙יתִי֙ מֵ/אֶ֣רֶץ מִצְרַ֔יִם וּ/פְלִשְׁתִּיִּ֥ים מִ/כַּפְתּ֖וֹר וַ/אֲרָ֥ם מִ/קִּֽיר
+
+הֲ/ל֣וֹא=ha./Lo'[H3808,HTi/Tn]:"¿/ not" | כִ/בְנֵי֩=khi/v.Nei[H1121G,HR/Ncmpc]:"like/ [the] sons of" | כֻשִׁיִּ֨ים=khu.shi.Yim[H3569G,HNgmpa]:"[the] Cushites" | אַתֶּ֥ם='a.Tem[H0859D,HPp2mp]:"[are] you" | לִ֛/י=l/i[H9030,HR/Sp1bs]:"to/ me" | בְּנֵ֥י=be.Nei[H1121G,HNcmpc]:"O people of" | יִשְׂרָאֵ֖ל=Yis.ra.'El[H3478,HNpl]:"Israel" | נְאֻם=ne.'um-[H5002,HNcmsc]:"[the] utterance of" | יְהוָ֑ה=Yah.weh[H3068G,HNpt]:"Yahweh" | הֲ/ל֣וֹא=ha./Lo'[H3808,HTi/Tn]:"¿/ not" | אֶת='et-[H0853,HTo]:"<obj.>" | יִשְׂרָאֵ֗ל=Yis.ra.'El[H3478,HNpl]:"Israel" | הֶעֱלֵ֙יתִי֙=he.'e.Lei.ti[H5927H,HVhp1cs]:"did I bring up" | מֵ/אֶ֣רֶץ=me./'E.retz[H0776G,HR/Ncfsc]:"from/ [the] land of" | מִצְרַ֔יִם=mitz.Ra.yim[H4714G,HNpl]:"Egypt" | וּ/פְלִשְׁתִּיִּ֥ים=u./fe.lish.ti.Yim[H6430G,HC/Ngmpa]:"and/ [the] Philistines" | מִ/כַּפְתּ֖וֹר=mi./kaf.Tor[H3731,HR/Npl]:"from/ Caphtor" | וַ/אֲרָ֥ם=va./'a.Ram[H0758I,HC/Npl]:"and/ Aram" | מִ/קִּֽיר=mi./Kir[H7024B,HR/Npl]:"from/ Kir"
+
+## AMO 9:8
+הִנֵּ֞ה עֵינֵ֣י אֲדֹנָ֣י יְהוִ֗ה בַּ/מַּמְלָכָה֙ הַֽ/חַטָּאָ֔ה וְ/הִשְׁמַדְתִּ֣י אֹתָ֔/הּ מֵ/עַ֖ל פְּנֵ֣י הָ/אֲדָמָ֑ה אֶ֗פֶס כִּ֠י לֹ֣א הַשְׁמֵ֥יד אַשְׁמִ֛יד אֶת בֵּ֥ית יַעֲקֹ֖ב נְאֻם יְהוָֽה
+
+הִנֵּ֞ה=hi.Neh[H2009,HTj]:"here!" | עֵינֵ֣י='ei.Nei[H5869A,HNcfdc]:"[the] eyes of" | אֲדֹנָ֣י='a.do.Nai[H0136,HNpt]:"[the] Lord" | יְהוִ֗ה=Yah.weh[H3069,HNpt]:"Yahweh" | בַּ/מַּמְלָכָה֙=ba./mam.la.Khah[H4467,HRd/Ncfsa]:"[are] on the/ kingdom" | הַֽ/חַטָּאָ֔ה=ha./cha.ta.'Ah[H2400,HTd/Aafsa]:"<the>/ sinful" | וְ/הִשְׁמַדְתִּ֣י=ve./hish.mad.Ti[H8045,Hc/Vhq1cs]:"and/ I will destroy" | אֹתָ֔/הּ='o.Ta/h[H0853,HTo/Sp3fs]:"<obj.>/ it" | מֵ/עַ֖ל=me./'Al[H5921A,HR/R]:"from/ on" | פְּנֵ֣י=pe.Nei[H6440J,HNcmpc]:"[the] surface of" | הָ/אֲדָמָ֑ה=ha./'a.da.Mah[H0127G,HTd/Ncfsa]:"the/ ground" | אֶ֗פֶס='E.fes[H0657A,HNcmsa]:"nevertheless" | כִּ֠י=ki[H3588A,HTc]:"for" | לֹ֣א=lo'[H3808,HTn]:"not" | הַשְׁמֵ֥יד=hash.Meid[H8045,HVhaa]:"certainly <to be destroying>" | אַשְׁמִ֛יד='ash.Mid[H8045,HVhi1cs]:"I will destroy" | אֶת='et-[H0853,HTo]:"<obj.>" | בֵּ֥ית=beit[H1004M,HNcmsc]:"[the] house of" | יַעֲקֹ֖ב=ya.'a.Ko[H3290,HNpm]:"Jacob" | נְאֻם=ne.'um-[H5002,HNcmsc]:"[the] utterance of" | יְהוָֽה=Yah.weh[H3068G,HNpt]:"Yahweh"
+
+## AMO 9:9
+כִּֽי הִנֵּ֤ה אָֽנֹכִי֙ מְצַוֶּ֔ה וַ/הֲנִע֥וֹתִי בְ/כָֽל הַ/גּוֹיִ֖ם אֶת בֵּ֣ית יִשְׂרָאֵ֑ל כַּ/אֲשֶׁ֤ר יִנּ֙וֹעַ֙ בַּ/כְּבָרָ֔ה וְ/לֹֽא יִפּ֥וֹל צְר֖וֹר אָֽרֶץ
+
+כִּֽי=ki-[H3588A,HTc]:"that" | הִנֵּ֤ה=hi.Neh[H2009,HTj]:"here!" | אָֽנֹכִי֙='a.no.Khi[H0595,HPp1bs]:"I" | מְצַוֶּ֔ה=me.tza.Veh[H6680,HVprmsa]:"[am] about to command" | וַ/הֲנִע֥וֹתִי=va./ha.ni.'o.ti[H5128,Hc/Vhq1cs]:"and/ I will shake" | בְ/כָֽל=ve./khal-[H3605,HR/Ncmsc]:"among/ all" | הַ/גּוֹיִ֖ם=ha./go.Yim[H1471A,HTd/Ncmpa]:"the/ nations" | אֶת='et-[H0853,HTo]:"<obj.>" | בֵּ֣ית=beit[H1004M,HNcmsc]:"[the] house of" | יִשְׂרָאֵ֑ל=Yis.ra.'El[H3478,HNpl]:"Israel" | כַּ/אֲשֶׁ֤ר=ka./'a.Sher[H0834D,HR/Tr]:"just/ as" | יִנּ֙וֹעַ֙=yi.No.a'[H5128,HVNi3ms]:"it is shaken" | בַּ/כְּבָרָ֔ה=ba./ke.va.Rah[H3531,HRd/Ncfsa]:"in <the>/ sieve" | וְ/לֹֽא=ve./lo'-[H3808,HC/Tn]:"and/ not" | יִפּ֥וֹל=yi.Pol[H5307G,HVqi3ms]:"it will fall" | צְר֖וֹר=tze.Ror[H6872B,HNcmsa]:"a pebble" | אָֽרֶץ='A.retz[H0776G,HNcfsa]:"[the] ground"
+
+## AMO 9:10
+בַּ/חֶ֣רֶב יָמ֔וּתוּ כֹּ֖ל חַטָּאֵ֣י עַמִּ֑/י הָ/אֹמְרִ֗ים לֹֽא תַגִּ֧ישׁ וְ/תַקְדִּ֛ים בַּעֲדֵ֖י/נוּ הָ/רָעָֽה
+
+בַּ/חֶ֣רֶב=ba./Che.rev[H2719,HRd/Ncfsa]:"by the/ sword" | יָמ֔וּתוּ=ya.Mu.tu[H4191,HVqi3mp]:"they will die" | כֹּ֖ל=kol[H3605,HNcmsc]:"all" | חַטָּאֵ֣י=cha.ta.'Ei[H2400,HAampc]:"[the] sinners of" | עַמִּ֑/י='a.M/i[H5971A,HNcmsc/Sp1bs]:"people/ my" | הָ/אֹמְרִ֗ים=ha./'o.me.Rim[H0559,HTd/Vqrmpa]:"who/ say" | לֹֽא=lo'-[H3808,HTn]:"not" | תַגִּ֧ישׁ=ta.Gish[H5066G,HVhi2ms]:"it will bring near" | וְ/תַקְדִּ֛ים=ve./tak.Dim[H6923,HC/Vhu2ms]:"and/ it may meet" | בַּעֲדֵ֖י/נוּ=ba.'a.Dei./nu[H1157,HNcbsc/Sp1bp]:"through/ us" | הָ/רָעָֽה=ha./ra.'Ah[H7451C,HTd/Ncfsa]:"the/ calamity"
+
+## AMO 9:11
+בַּ/יּ֣וֹם הַ/ה֔וּא אָקִ֛ים אֶת סֻכַּ֥ת דָּוִ֖יד הַ/נֹּפֶ֑לֶת וְ/גָדַרְתִּ֣י אֶת פִּרְצֵי/הֶ֗ן וַ/הֲרִֽסֹתָי/ו֙ אָקִ֔ים וּ/בְנִיתִ֖י/הָ כִּ/ימֵ֥י עוֹלָֽם
+
+בַּ/יּ֣וֹם=ba/i.Yom[H3117G,HRd/Ncmsa]:"on the/ day" | הַ/ה֔וּא=ha./Hu'[H1931,HTd/Pp3ms]:"<the>/ that" | אָקִ֛ים='a.Kim[H6965I,HVhi1cs]:"I will raise up" | אֶת='et-[H0853,HTo]:"<obj.>" | סֻכַּ֥ת=su.Kat[H5521,HNcfsc]:"[the] booth of" | דָּוִ֖יד=da.Vid[H1732,HNpm]:"David" | הַ/נֹּפֶ֑לֶת=ha./no.Fe.let[H5307G,HTd/Vqrfsa]:"<the>/ falling" | וְ/גָדַרְתִּ֣י=ve./ga.dar.Ti[H1443,Hc/Vqq1cs]:"and/ I will wall up" | אֶת='et-[H0853,HTo]:"<obj.>" | פִּרְצֵי/הֶ֗ן=pir.tzei./Hen[H6556,HNcmpc/Sp3fp]:"breaches/ their" | וַ/הֲרִֽסֹתָי/ו֙=va./ha.ri.so.Ta/v[H2034,HC/Ncfpc/Sp3ms]:"and/ ruins/ his" | אָקִ֔ים='a.Kim[H6965I,HVhi1cs]:"I will raise up" | וּ/בְנִיתִ֖י/הָ=u./ve.ni.Ti./ha[H1129,Hc/Vqq1cs/Sp3fs]:"and/ I will rebuild/ it" | כִּ/ימֵ֥י=ki./Mei[H3117G,HR/Ncmpc]:"like/ [the] days of" | עוֹלָֽם=o.Lam[H5769J,HNcmsa]:"antiquity"
+
+## AMO 9:12
+לְמַ֨עַן יִֽירְשׁ֜וּ אֶת שְׁאֵרִ֤ית אֱדוֹם֙ וְ/כָל הַ/גּוֹיִ֔ם אֲשֶׁר נִקְרָ֥א שְׁמִ֖/י עֲלֵי/הֶ֑ם נְאֻם יְהוָ֖ה עֹ֥שֶׂה זֹּֽאת
+
+לְמַ֨עַן=le.Ma.'an[H4616,HTc]:"so that" | יִֽירְשׁ֜וּ=yi.re.Shu[H3423G,HVqj3mp]:"they may dispossess" | אֶת='et-[H0853,HTo]:"<obj.>" | שְׁאֵרִ֤ית=she.'e.Rit[H7611,HNcfsc]:"[the] remnant of" | אֱדוֹם֙='e.dOm[H0123G,HNpm]:"Edom" | וְ/כָל=ve./khol[H3605,HC/Ncmsc]:"and/ all" | הַ/גּוֹיִ֔ם=ha./go.Yim[H1471A,HTd/Ncmpa]:"the/ nations" | אֲשֶׁר='a.Sher-[H0834A,HTr]:"which" | נִקְרָ֥א=nik.Ra'[H7121H,HVNp3ms]:"it is called" | שְׁמִ֖/י=she.M/i[H8034,HNcmsc/Sp1bs]:"name/ my" | עֲלֵי/הֶ֑ם='a.lei./Hem[H5921A,HR/Sp3mp]:"on/ them" | נְאֻם=ne.'um-[H5002,HNcmsc]:"[the] utterance of" | יְהוָ֖ה=Yah.weh[H3068G,HNpt]:"Yahweh" | עֹ֥שֶׂה='O.seh[H6213A,HVqrmsa]:"[who is] about to do" | זֹּֽאת=Zot[H2063,HTm]:"this"
+
+## AMO 9:13
+הִנֵּ֨ה יָמִ֤ים בָּאִים֙ נְאֻם יְהוָ֔ה וְ/נִגַּ֤שׁ חוֹרֵשׁ֙ בַּ/קֹּצֵ֔ר וְ/דֹרֵ֥ךְ עֲנָבִ֖ים בְּ/מֹשֵׁ֣ךְ הַ/זָּ֑רַע וְ/הִטִּ֤יפוּ הֶֽ/הָרִים֙ עָסִ֔יס וְ/כָל הַ/גְּבָע֖וֹת תִּתְמוֹגַֽגְנָה
+
+הִנֵּ֨ה=hi.Neh[H2009,HTj]:"here!" | יָמִ֤ים=ya.Mim[H3117G,HNcmpa]:"days" | בָּאִים֙=ba.'Im[H0935G,HVqrmpa]:"[are] coming" | נְאֻם=ne.'um-[H5002,HNcmsc]:"[the] utterance of" | יְהוָ֔ה=Yah.weh[H3068G,HNpt]:"Yahweh" | וְ/נִגַּ֤שׁ=ve./ni.Gash[H5066G,Hc/VNq3ms]:"and/ he will approach" | חוֹרֵשׁ֙=cho.Resh[H2790A,HVqrmsa]:"[the] plowman" | בַּ/קֹּצֵ֔ר=ba./ko.Tzer[H7114B,HRd/Vqrmsa]:"<in> the/ reaper" | וְ/דֹרֵ֥ךְ=ve./do.Rekh[H1869,HC/Vqrmsc]:"and/ [the] treader of" | עֲנָבִ֖ים='a.na.Vim[H6025,HNcmpa]:"grapes" | בְּ/מֹשֵׁ֣ךְ=be./mo.Shekh[H4900,HR/Vqrmsc]:"<in>/ [the] sower of" | הַ/זָּ֑רַע=ha./Za.ra'[H2233G,HTd/Ncmsa]:"the/ seed" | וְ/הִטִּ֤יפוּ=ve./hi.Ti.fu[H5197,Hc/Vhq3cp]:"and/ they will drip" | הֶֽ/הָרִים֙=he./ha.Rim[H2022G,HTd/Ncmpa]:"the/ mountains" | עָסִ֔יס='a.Sis[H6071,HNcmsa]:"sweet wine" | וְ/כָל=ve./khol[H3605,HC/Ncmsc]:"and/ all" | הַ/גְּבָע֖וֹת=ha./ge.va.'ot[H1389I,HTd/Ncfpa]:"the/ hills" | תִּתְמוֹגַֽגְנָה=tit.mo.Gag.nah[H4127,HVti3fp]:"they will flow with [it]"
+
+## AMO 9:14
+וְ/שַׁבְתִּי֮ אֶת שְׁב֣וּת עַמִּ֣/י יִשְׂרָאֵל֒ וּ/בָנ֞וּ עָרִ֤ים נְשַׁמּוֹת֙ וְ/יָשָׁ֔בוּ וְ/נָטְע֣וּ כְרָמִ֔ים וְ/שָׁת֖וּ אֶת יֵינָ֑/ם וְ/עָשׂ֣וּ גַנּ֔וֹת וְ/אָכְל֖וּ אֶת פְּרִי/הֶֽם
+
+וְ/שַׁבְתִּי֮=ve./shav.Ti[H7725H,Hc/Vqq1cs]:"and/ I will turn back" | אֶת='et-[H0853,HTo]:"<obj.>" | שְׁב֣וּת=she.Vut[H7622,HNcfsc]:"[the] captivity of" | עַמִּ֣/י='a.M/i[H5971A,HNcmsc/Sp1bs]:"people/ my" | יִשְׂרָאֵל֒=Yis.ra.'El[H3478,HNpl]:"Israel" | וּ/בָנ֞וּ=u./va.Nu[H1129,Hc/Vqq3cp]:"and/ they will rebuild" | עָרִ֤ים='a.Rim[H5892B,HNcmpa]:"cities" | נְשַׁמּוֹת֙=ne.sha.mOt[H8074G,HVNrfpa]:"desolated" | וְ/יָשָׁ֔בוּ=ve./ya.Sha.vu[H3427,Hc/Vqq3cp]:"and/ they will dwell [in them]" | וְ/נָטְע֣וּ=ve./na.te.'U[H5193,Hc/Vqq3cp]:"and/ they will plant" | כְרָמִ֔ים=khe.ra.Mim[H3754,HNcmpa]:"vineyards" | וְ/שָׁת֖וּ=ve./sha.Tu[H8354,Hc/Vqq3cp]:"and/ they will drink" | אֶת='et-[H0853,HTo]:"<obj.>" | יֵינָ֑/ם=yei.Na/m[H3196,HNcmsc/Sp3mp]:"wine/ their" | וְ/עָשׂ֣וּ=ve./'a.Su[H6213H,Hc/Vqq3cp]:"and/ they will make" | גַנּ֔וֹת=ga.Not[H1593,HNcfpa]:"gardens" | וְ/אָכְל֖וּ=ve./'a.khe.Lu[H0398,Hc/Vqq3cp]:"and/ they will eat" | אֶת='et-[H0853,HTo]:"<obj.>" | פְּרִי/הֶֽם=pe.ri./Hem[H6529,HNcmsc/Sp3mp]:"fruit/ their"
+
+## AMO 9:15
+וּ/נְטַעְתִּ֖י/ם עַל אַדְמָתָ֑/ם וְ/לֹ֨א יִנָּתְשׁ֜וּ ע֗וֹד מֵ/עַ֤ל אַדְמָתָ/ם֙ אֲשֶׁ֣ר נָתַ֣תִּי לָ/הֶ֔ם אָמַ֖ר יְהוָ֥ה אֱלֹהֶֽי/ךָ
+
+וּ/נְטַעְתִּ֖י/ם=u./ne.ta'.Ti/m[H5193,Hc/Vqq1cs/Sp3mp]:"and/ I will plant/ them" | עַל='al-[H5921A,HR]:"on" | אַדְמָתָ֑/ם='ad.ma.Ta/m[H0127G,HNcfsc/Sp3mp]:"own land/ their" | וְ/לֹ֨א=ve./Lo'[H3808,HC/Tn]:"and/ not" | יִנָּתְשׁ֜וּ=yi.na.te.Shu[H5428,HVNi3mp]:"they will be plucked up" | ע֗וֹד=od[H5750,HAcmsa]:"again" | מֵ/עַ֤ל=me./'Al[H5921A,HR/R]:"from/ on" | אַדְמָתָ/ם֙='ad.ma.Ta/m[H0127G,HNcfsc/Sp3mp]:"land/ their" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"which" | נָתַ֣תִּי=na.Ta.ti[H5414G,HVqp1cs]:"I have given" | לָ/הֶ֔ם=la./Hem[H9038,HR/Sp3mp]:"to/ them" | אָמַ֖ר='a.Mar[H0559,HVqp3ms]:"he says" | יְהוָ֥ה=Yah.weh[H3068G,HNpt]:"Yahweh" | אֱלֹהֶֽי/ךָ='e.lo.Hei./kha[H0430G,HNcmpc/Sp2ms]:"God/ your"

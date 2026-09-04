@@ -1,0 +1,90 @@
+# Esther 4
+
+[[Old_Testament/Esther/00_Index|<- Esther index]]
+[[Old_Testament/Esther/Esther 3|<- previous chapter]]
+[[Old_Testament/Esther/Esther 5|next chapter ->]]
+
+## EST 4:1
+וּ/מָרְדֳּכַ֗י יָדַע֙ אֶת כָּל אֲשֶׁ֣ר נַעֲשָׂ֔ה וַ/יִּקְרַ֤ע מָרְדֳּכַי֙ אֶת בְּגָדָ֔י/ו וַ/יִּלְבַּ֥שׁ שַׂ֖ק וָ/אֵ֑פֶר וַ/יֵּצֵא֙ בְּ/ת֣וֹךְ הָ/עִ֔יר וַ/יִּזְעַ֛ק זְעָקָ֥ה גְדֹלָ֖ה וּ/מָרָֽה
+
+וּ/מָרְדֳּכַ֗י=u./ma.re.do.Khai[H4782H,HC/Npm]:"and/ Mordecai" | יָדַע֙=ya.Da'[H3045,HVqp3ms]:"he knew" | אֶת='et-[H0853,HTo]:"<obj.>" | כָּל=kol-[H3605,HNcmsa]:"all" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"that" | נַעֲשָׂ֔ה=na.'a.Sah[H6213A,HVNp3ms]:"it had been done" | וַ/יִּקְרַ֤ע=va/i.yik.Ra'[H7167,Hc/Vqw3ms]:"and/ he tore" | מָרְדֳּכַי֙=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | אֶת='et-[H0853,HTo]:"<obj.>" | בְּגָדָ֔י/ו=be.ga.Da/v[H0899B,HNcmpc/Sp3ms]:"clothes/ his" | וַ/יִּלְבַּ֥שׁ=va/i.yil.Bash[H3847,Hc/Vqw3ms]:"and/ he put on" | שַׂ֖ק=sak[H8242,HNcmsa]:"sackcloth" | וָ/אֵ֑פֶר=va./'E.fer[H0665,HC/Ncmsa]:"and/ ash[es]" | וַ/יֵּצֵא֙=va/i.ye.Tze'[H3318G,Hc/Vqw3ms]:"and/ he went out" | בְּ/ת֣וֹךְ=be./Tokh[H8432,HR/Ncmsc]:"in/ [the] midst of" | הָ/עִ֔יר=ha./'Ir[H5892B,HTd/Ncfsa]:"the/ city" | וַ/יִּזְעַ֛ק=va/i.yiz.'Ak[H2199,Hc/Vqw3ms]:"and/ he cried" | זְעָקָ֥ה=ze.'a.Kah[H2201,HNcfsa]:"a cry" | גְדֹלָ֖ה=ge.do.Lah[H1419A,HAafsa]:"loud" | וּ/מָרָֽה=u./ma.Rah[H4751,HC/Aafsa]:"and/ bitter"
+
+## EST 4:2
+וַ/יָּב֕וֹא עַ֖ד לִ/פְנֵ֣י שַֽׁעַר הַ/מֶּ֑לֶךְ כִּ֣י אֵ֥ין לָ/ב֛וֹא אֶל שַׁ֥עַר הַ/מֶּ֖לֶךְ בִּ/לְב֥וּשׁ שָֽׂק
+
+וַ/יָּב֕וֹא=va/i.ya.Vo'[H0935G,Hc/Vqw3ms]:"and/ he went" | עַ֖ד='ad[H5704,HR]:"to" | לִ/פְנֵ֣י=li/f.Nei[H6440G,HR/Ncmpc]:"<to>/ before" | שַֽׁעַר=sha.'ar-[H8179G,HNcmsc]:"[the] gate of" | הַ/מֶּ֑לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | כִּ֣י=ki[H3588A,HTc]:"for" | אֵ֥ין='ein[H0369,HNcmsc]:"not" | לָ/ב֛וֹא=la./Vo'[H0935G,HR/Vqcc]:"to/ go" | אֶל='el-[H0413,HR]:"into" | שַׁ֥עַר=Sha.'ar[H8179G,HNcmsc]:"[the] gate of" | הַ/מֶּ֖לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | בִּ/לְב֥וּשׁ=bi/l.Vush[H3830,HR/Ncmsc]:"in/ clothing of" | שָֽׂק=Sak[H8242,HNcmsa]:"sackcloth"
+
+## EST 4:3
+וּ/בְ/כָל מְדִינָ֣ה וּ/מְדִינָ֗ה מְקוֹם֙ אֲשֶׁ֨ר דְּבַר הַ/מֶּ֤לֶךְ וְ/דָת/וֹ֙ מַגִּ֔יעַ אֵ֤בֶל גָּדוֹל֙ לַ/יְּהוּדִ֔ים לַ/יְּהוּדִ֔ים לַ/יְּהוּדִ֔ים וְ/צ֥וֹם וּ/בְכִ֖י וּ/מִסְפֵּ֑ד שַׂ֣ק וָ/אֵ֔פֶר יֻצַּ֖ע לָֽ/רַבִּֽים
+
+וּ/בְ/כָל=u./ve./Khol-[H3605,HC/R/Ncmsc]:"and/ in/ every" | מְדִינָ֣ה=me.di.Nah[H4082,HNcfsa]:"province" | וּ/מְדִינָ֗ה=u./me.di.Nah[H4082,HC/Ncfsa]:"and/ province" | מְקוֹם֙=me.kOm[H4725,HNcmsc]:"[the] place" | אֲשֶׁ֨ר='a.Sher[H0834A,HTr]:"<of> where" | דְּבַר=de.var-[H1697G,HNcmsc]:"[the] word of" | הַ/מֶּ֤לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | וְ/דָת/וֹ֙=ve./da.T/o[H1881,HC/Ncfsc/Sp3ms]:"and/ law/ his" | מַגִּ֔יעַ=ma.Gi.a'[H5060,HVhrmsa]:"[were] reaching" | אֵ֤בֶל='E.vel[H0060,HNcmsa]:"mourning" | גָּדוֹל֙=ga.dOl[H1419A,HAamsa]:"great" | לַ/יְּהוּדִ֔ים=la/i.ye.hu.Dim[H3064,HRd/Ngmpa]:"[belonged] to the/ Jews" | לַ/יְּהוּדִ֔ים=la/i.ye.hu.Dim[H3064,HRd/Ngmpa]:"[belonged] to the/ Jews" | לַ/יְּהוּדִ֔ים=la/i.ye.hu.Dim[H3064,HRd/Ngmpa]:"[belonged] to the/ Jews" | וְ/צ֥וֹם=ve./Tzom[H6685,HC/Ncmsa]:"and/ fasting" | וּ/בְכִ֖י=u./ve.Khi[H1065,HC/Ncmsa]:"and/ weeping" | וּ/מִסְפֵּ֑ד=u./mis.Ped[H4553,HC/Ncmsa]:"and/ wailing" | שַׂ֣ק=sak[H8242,HNcmsa]:"sackcloth" | וָ/אֵ֔פֶר=va./'E.fer[H0665,HC/Ncmsa]:"and/ ash[es]" | יֻצַּ֖ע=yu.Tza'[H3331,HVHi3ms]:"it was spread as a bed" | לָֽ/רַבִּֽים=La./ra.Bim[H7227A,HRd/Aampa]:"by <the>/ many [people]"
+
+## EST 4:4
+וַ֠/תָּבֹאינָה נַעֲר֨וֹת אֶסְתֵּ֤ר וְ/סָרִיסֶ֙י/הָ֙ וַ/יַּגִּ֣ידוּ לָ֔/הּ וַ/תִּתְחַלְחַ֥ל הַ/מַּלְכָּ֖ה מְאֹ֑ד וַ/תִּשְׁלַ֨ח בְּגָדִ֜ים לְ/הַלְבִּ֣ישׁ אֶֽת מָרְדֳּכַ֗י וּ/לְ/הָסִ֥יר שַׂקּ֛/וֹ מֵ/עָלָ֖י/ו וְ/לֹ֥א קִבֵּֽל
+
+וַ֠/תָּבֹאינָה=va./te.vo.'ei.nah[H0935G,Hc/Vqw3fp]:"and/ they came" | נַעֲר֨וֹת=na.'a.Rot[H5291,HNcfpc]:"[the] maids of" | אֶסְתֵּ֤ר='es.Ter[H0635,HNpf]:"Esther" | וְ/סָרִיסֶ֙י/הָ֙=ve./sa.ri.Sei./ha[H5631,HC/Ncmpc/Sp3fs]:"and/ eunuchs/ her" | וַ/יַּגִּ֣ידוּ=va/i.ya.Gi.du[H5046,Hc/Vhw3mp]:"and/ they told" | לָ֔/הּ=La/h[H9034,HR/Sp3fs]:"to/ her" | וַ/תִּתְחַלְחַ֥ל=va./tit.chal.Chal[H2342A,Hc/Vtw3fs]:"and/ she agonized" | הַ/מַּלְכָּ֖ה=ha./mal.Kah[H4436H,HTd/Ncfsa]:"the/ queen" | מְאֹ֑ד=me.'Od[H3966,HAcmsa]:"exceedingly" | וַ/תִּשְׁלַ֨ח=va./tish.Lach[H7971G,Hc/Vqw3fs]:"and/ she sent" | בְּגָדִ֜ים=be.ga.Dim[H0899B,HNcmpa]:"garments" | לְ/הַלְבִּ֣ישׁ=le./hal.Bish[H3847,HR/Vhcc]:"to/ clothe" | אֶֽת='et-[H0853,HTo]:"<obj.>" | מָרְדֳּכַ֗י=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | וּ/לְ/הָסִ֥יר=u./le./ha.Sir[H5493G,HC/R/Vhcc]:"and/ to/ remove" | שַׂקּ֛/וֹ=sa.K/o[H8242,HNcmsc/Sp3ms]:"sackcloth/ his" | מֵ/עָלָ֖י/ו=me./'a.La/v[H5921A,HR/Rd/Sp3ms]:"from/ on <the>/ him" | וְ/לֹ֥א=ve./Lo'[H3808,HC/Tn]:"and/ not" | קִבֵּֽל=ki.Bel[H6901,HVpp3ms]:"he accepted [them]"
+
+## EST 4:5
+וַ/תִּקְרָא֩ אֶסְתֵּ֨ר לַ/הֲתָ֜ךְ מִ/סָּרִיסֵ֤י הַ/מֶּ֙לֶךְ֙ אֲשֶׁ֣ר הֶעֱמִ֣יד לְ/פָנֶ֔י/הָ וַ/תְּצַוֵּ֖/הוּ עַֽל מָרְדֳּכָ֑י לָ/דַ֥עַת מַה זֶּ֖ה וְ/עַל מַה זֶּֽה
+
+וַ/תִּקְרָא֩=va./tik.Ra'[H7121G,Hc/Vqw3fs]:"and/ she summoned" | אֶסְתֵּ֨ר='es.Ter[H0635,HNpf]:"Esther" | לַ/הֲתָ֜ךְ=la./ha.Takh[H2047,HR/Npm]:"<to>/ Hathach" | מִ/סָּרִיסֵ֤י=mi./sa.ri.Sei[H5631,HR/Ncmpc]:"one of/ [the] eunuchs of" | הַ/מֶּ֙לֶךְ֙=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"whom" | הֶעֱמִ֣יד=he.'e.Mid[H5975H,HVhp3ms]:"he had made stand" | לְ/פָנֶ֔י/הָ=le./fa.Nei./ha[H6440G,HR/Ncmpc/Sp3fs]:"<to>/ before/ her" | וַ/תְּצַוֵּ֖/הוּ=va./te.tza.Ve./hu[H6680,Hc/Vpw3fs/Sp3ms]:"and/ she commanded/ him" | עַֽל='al-[H5921A,HR]:"on" | מָרְדֳּכָ֑י=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | לָ/דַ֥עַת=la./Da.'at[H3045,HR/Vqcc]:"to/ know" | מַה=mah-[H4100,HPi]:"what?" | זֶּ֖ה=zeh[H2088,HTm]:"[was] this" | וְ/עַל=ve./'al-[H5921A,HC/R]:"and/ concerning" | מַה=mah-[H4100,HPi]:"what?" | זֶּֽה=Zeh[H2088,HTm]:"[was] this"
+
+## EST 4:6
+וַ/יֵּצֵ֥א הֲתָ֖ךְ אֶֽל מָרְדֳּכָ֑י אֶל רְח֣וֹב הָ/עִ֔יר אֲשֶׁ֖ר לִ/פְנֵ֥י שַֽׁעַר הַ/מֶּֽלֶךְ
+
+וַ/יֵּצֵ֥א=va/i.ye.Tze'[H3318G,Hc/Vqw3ms]:"and/ he went out" | הֲתָ֖ךְ=ha.Takh[H2047,HNpm]:"Hathach" | אֶֽל='el-[H0413,HR]:"to" | מָרְדֳּכָ֑י=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | אֶל='el-[H0413,HR]:"to" | רְח֣וֹב=re.Chov[H7339,HNcfsc]:"[the] open place of" | הָ/עִ֔יר=ha./'Ir[H5892B,HTd/Ncfsa]:"the/ city" | אֲשֶׁ֖ר='a.Sher[H0834A,HTr]:"which" | לִ/פְנֵ֥י=li/f.Nei[H6440G,HR/Ncmpc]:"[was] <to>/ before" | שַֽׁעַר=sha.'ar-[H8179G,HNcmsc]:"[the] gate of" | הַ/מֶּֽלֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king"
+
+## EST 4:7
+וַ/יַּגֶּד ל֣/וֹ מָרְדֳּכַ֔י אֵ֖ת כָּל אֲשֶׁ֣ר קָרָ֑/הוּ וְ/אֵ֣ת פָּרָשַׁ֣ת הַ/כֶּ֗סֶף אֲשֶׁ֨ר אָמַ֤ר הָמָן֙ לִ֠/שְׁקוֹל עַל גִּנְזֵ֥י הַ/מֶּ֛לֶךְ בַּ/יְּהוּדִ֖ים בַּ/יְּהוּדִ֖ים בַּ/יְּהוּדִ֖ים לְ/אַבְּדָֽ/ם
+
+וַ/יַּגֶּד=va/i.ya.ged-[H5046,Hc/Vhw3ms]:"and/ he told" | ל֣/וֹ=l/o[H9033,HR/Sp3ms]:"to/ him" | מָרְדֳּכַ֔י=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | אֵ֖ת='et[H0853,HTo]:"<obj.>" | כָּל=kol-[H3605,HNcmsa]:"all" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"that" | קָרָ֑/הוּ=ka.Ra./hu[H7136A,HVqp3ms/Sp3ms]:"it had happened to/ him" | וְ/אֵ֣ת=ve./'Et[H0853,HC/To]:"and/ <obj.>" | פָּרָשַׁ֣ת=pa.ra.Shat[H6575,HNcfsc]:"[the] exact amount of" | הַ/כֶּ֗סֶף=ha./Ke.sef[H3701G,HTd/Ncmsa]:"the/ silver" | אֲשֶׁ֨ר='a.Sher[H0834A,HTr]:"which" | אָמַ֤ר='a.Mar[H0559,HVqp3ms]:"he had said" | הָמָן֙=ha.Man[H2001,HNpm]:"Haman" | לִ֠/שְׁקוֹל=Li/sh.kol[H8254,HR/Vqcc]:"to/ weigh out" | עַל='al-[H5921A,HR]:"to" | גִּנְזֵ֥י=gin.Zei[H1595,HNcmpc]:"[the] treasuries of" | הַ/מֶּ֛לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | בַּ/יְּהוּדִ֖ים=ba/i.ye.hu.di.yim[H3064,HRd/Ngmpa]:"for the/ Jews" | בַּ/יְּהוּדִ֖ים=ba/i.ye.hu.di.yim[H3064,HRd/Ngmpa]:"for the/ Jews" | בַּ/יְּהוּדִ֖ים=ba/i.ye.hu.di.yim[H3064,HRd/Ngmpa]:"for the/ Jews" | לְ/אַבְּדָֽ/ם=le./'a.be.Da/m[H0006,HR/Vpcc/Sp3mp]:"to/ destroy/ them"
+
+## EST 4:8
+וְ/אֶת פַּתְשֶׁ֣גֶן כְּתָֽב הַ֠/דָּת אֲשֶׁר נִתַּ֨ן בְּ/שׁוּשָׁ֤ן לְ/הַשְׁמִידָ/ם֙ נָ֣תַן ל֔/וֹ לְ/הַרְא֥וֹת אֶת אֶסְתֵּ֖ר וּ/לְ/הַגִּ֣יד לָ֑/הּ וּ/לְ/צַוּ֣וֹת עָלֶ֗י/הָ לָ/ב֨וֹא אֶל הַ/מֶּ֧לֶךְ לְ/הִֽתְחַנֶּן ל֛/וֹ וּ/לְ/בַקֵּ֥שׁ מִ/לְּ/פָנָ֖י/ו עַל עַמָּֽ/הּ
+
+וְ/אֶת=ve./'Et[H0853,HC/To]:"and/ <obj.>" | פַּתְשֶׁ֣גֶן=pat.She.gen[H6572B,HNcmsc]:"<the> copy of" | כְּתָֽב=ke.tav-[H3791,HNcmsc]:"[the] writing of" | הַ֠/דָּת=Ha./dot[H1881,HTd/Ncfsa]:"the/ law" | אֲשֶׁר='a.Sher-[H0834A,HTr]:"which" | נִתַּ֨ן=ni.Tan[H5414G,HVNp3ms]:"it had been given" | בְּ/שׁוּשָׁ֤ן=be./shu.Shan[H7800,HR/Npl]:"in/ Susa" | לְ/הַשְׁמִידָ/ם֙=le./hash.mi.Da/m[H8045,HR/Vhcc/Sp3mp]:"to/ annihilate/ them" | נָ֣תַן=Na.tan[H5414G,HVqp3ms]:"he gave" | ל֔/וֹ=l/o[H9033,HR/Sp3ms]:"to/ him" | לְ/הַרְא֥וֹת=le./har.'ot[H7200G,HR/Vhcc]:"to/ show" | אֶת='et-[H0853,HTo]:"<obj.>" | אֶסְתֵּ֖ר='es.Ter[H0635,HNpf]:"Esther" | וּ/לְ/הַגִּ֣יד=u./le./ha.Gid[H5046,HC/R/Vhcc]:"and/ to/ tell" | לָ֑/הּ=La/h[H9034,HR/Sp3fs]:"to/ her" | וּ/לְ/צַוּ֣וֹת=u./le./tza.Vot[H6680,HC/R/Vpcc]:"and/ to/ command" | עָלֶ֗י/הָ='a.Lei./ha[H5921A,HR/Sp3fs]:"to/ her" | לָ/ב֨וֹא=la./Vo'[H0935G,HR/Vqcc]:"to/ go" | אֶל='el-[H0413,HR]:"to" | הַ/מֶּ֧לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | לְ/הִֽתְחַנֶּן=le./hit.cha.nen-[H2603A,HR/Vtcc]:"to/ seek favor" | ל֛/וֹ=l/o[H9033,HR/Sp3ms]:"to/ him" | וּ/לְ/בַקֵּ֥שׁ=u./le./va.Kesh[H1245,HC/R/Vpcc]:"and/ to/ request" | מִ/לְּ/פָנָ֖י/ו=mi./le./fa.Na/v[H6440G,HR/R/Ncmpc/Sp3ms]:"from/ to/ before/ him" | עַל='al-[H5921A,HR]:"on" | עַמָּֽ/הּ='a.Ma/h[H5971A,HNcmsc/Sp3fs]:"people/ her"
+
+## EST 4:9
+וַ/יָּב֖וֹא הֲתָ֑ךְ וַ/יַּגֵּ֣ד לְ/אֶסְתֵּ֔ר אֵ֖ת דִּבְרֵ֥י מָרְדֳּכָֽי
+
+וַ/יָּב֖וֹא=va/i.ya.Vo'[H0935G,Hc/Vqw3ms]:"and/ he came" | הֲתָ֑ךְ=ha.Takh[H2047,HNpm]:"Hathach" | וַ/יַּגֵּ֣ד=va/i.ya.Ged[H5046,Hc/Vhw3ms]:"and/ he told" | לְ/אֶסְתֵּ֔ר=le./'es.Ter[H0635,HR/Npf]:"to/ Esther" | אֵ֖ת='et[H0853,HTo]:"<obj.>" | דִּבְרֵ֥י=div.Rei[H1697H,HNcmpc]:"[the] words of" | מָרְדֳּכָֽי=ma.re.do.Khai[H4782H,HNpm]:"Mordecai"
+
+## EST 4:10
+וַ/תֹּ֤אמֶר אֶסְתֵּר֙ לַ/הֲתָ֔ךְ וַ/תְּצַוֵּ֖/הוּ אֶֽל מָרְדֳּכָֽי
+
+וַ/תֹּ֤אמֶר=va./To.mer[H0559,Hc/Vqw3fs]:"and/ she said" | אֶסְתֵּר֙='es.Ter[H0635,HNpf]:"Esther" | לַ/הֲתָ֔ךְ=la./ha.Takh[H2047,HR/Npm]:"to/ Hathach" | וַ/תְּצַוֵּ֖/הוּ=va./te.tza.Ve./hu[H6680,Hc/Vpw3fs/Sp3ms]:"and/ she commanded/ him" | אֶֽל='el-[H0413,HR]:"to" | מָרְדֳּכָֽי=ma.re.do.Khai[H4782H,HNpm]:"Mordecai"
+
+## EST 4:11
+כָּל עַבְדֵ֣י הַ/מֶּ֡לֶךְ וְ/עַם מְדִינ֨וֹת הַ/מֶּ֜לֶךְ יֽוֹדְעִ֗ים אֲשֶׁ֣ר כָּל אִ֣ישׁ וְ/אִשָּׁ֡ה אֲשֶׁ֣ר יָבֽוֹא אֶל הַ/מֶּלֶךְ֩ אֶל הֶ/חָצֵ֨ר הַ/פְּנִימִ֜ית אֲשֶׁ֣ר לֹֽא יִקָּרֵ֗א אַחַ֤ת דָּת/וֹ֙ לְ/הָמִ֔ית לְ֠/בַד מֵ/אֲשֶׁ֨ר יֽוֹשִׁיט ל֥/וֹ הַ/מֶּ֛לֶךְ אֶת שַׁרְבִ֥יט הַ/זָּהָ֖ב וְ/חָיָ֑ה וַ/אֲנִ֗י לֹ֤א נִקְרֵ֙אתי֙ לָ/ב֣וֹא אֶל הַ/מֶּ֔לֶךְ זֶ֖ה שְׁלוֹשִׁ֥ים יֽוֹם
+
+כָּל=kol-[H3605,HNcmsc]:"all" | עַבְדֵ֣י='av.Dei[H5650,HNcmpc]:"[the] servants of" | הַ/מֶּ֡לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | וְ/עַם=ve./'am-[H5971A,HC/Ncmsc]:"and/ [the] people of" | מְדִינ֨וֹת=me.di.Not[H4082,HNcfpc]:"[the] provinces of" | הַ/מֶּ֜לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | יֽוֹדְעִ֗ים=yod.'Im[H3045,HVqrmpa]:"[are] knowing" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"that" | כָּל=kol-[H3605,HNcmsc]:"every" | אִ֣ישׁ='ish[H0376G,HNcmsa]:"man" | וְ/אִשָּׁ֡ה=ve./'i.Shah[H0802G,HC/Ncfsa]:"and/ woman" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"who" | יָבֽוֹא=ya.Vo'-[H0935G,HVqi3ms]:"he goes" | אֶל='el-[H0413,HR]:"to" | הַ/מֶּלֶךְ֩=ha./me.leKh[H4428G,HTd/Ncmsa]:"the/ king" | אֶל='el-[H0413,HR]:"into" | הֶ/חָצֵ֨ר=he./cha.Tzer[H2691A,HTd/Ncbsa]:"the/ court" | הַ/פְּנִימִ֜ית=ha./pe.ni.Mit[H6442,HTd/Aafsa]:"<the>/ inner" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"who" | לֹֽא=lo'-[H3808,HTn]:"not" | יִקָּרֵ֗א=yi.ka.Re'[H7121G,HVNi3ms]:"he is summoned" | אַחַ֤ת='a.Chat[H0259,HAcfsa]:"[is] one" | דָּת/וֹ֙=da.T/o[H1881,HNcfsc/Sp3ms]:"law/ his" | לְ/הָמִ֔ית=le./ha.Mit[H4191,HR/Vhcc]:"to/ put to death" | לְ֠/בַד=Le./vad[H0905H,HR/Ncmsa]:"<to>/ apart" | מֵ/אֲשֶׁ֨ר=me./'a.Sher[H0834C,HR/Tr]:"from/ that" | יֽוֹשִׁיט=yo.shit-[H3447,HVhi3ms]:"he extends" | ל֥/וֹ=l/o[H9033,HR/Sp3ms]:"to/ him" | הַ/מֶּ֛לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | אֶת='et-[H0853,HTo]:"<obj.>" | שַׁרְבִ֥יט=shar.Vit[H8275,HNcmsc]:"[the] scepter of" | הַ/זָּהָ֖ב=ha./za.Hav[H2091,HTd/Ncmsa]:"<the>/ gold" | וְ/חָיָ֑ה=ve./cha.Yah[H2421,Hc/Vqq3ms]:"and/ he will live" | וַ/אֲנִ֗י=va./'a.Ni[H0589,HC/Pp1bs]:"and/ I" | לֹ֤א=lo'[H3808,HTn]:"not" | נִקְרֵ֙אתי֙=nik.Re.ti[H7121G,HVNp1cs]:"I have been summoned" | לָ/ב֣וֹא=la./Vo'[H0935G,HR/Vqcc]:"to/ go" | אֶל='el-[H0413,HR]:"to" | הַ/מֶּ֔לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | זֶ֖ה=zeh[H2088,HTm]:"this" | שְׁלוֹשִׁ֥ים=she.lo.Shim[H7970,HAcmpa]:"thirty" | יֽוֹם=Yom[H3117G,HNcmsa]:"day[s]"
+
+## EST 4:12
+וַ/יַּגִּ֣ידוּ לְ/מָרְדֳּכָ֔י אֵ֖ת דִּבְרֵ֥י אֶסְתֵּֽר
+
+וַ/יַּגִּ֣ידוּ=va/i.ya.Gi.du[H5046,Hc/Vhw3mp]:"and/ they told" | לְ/מָרְדֳּכָ֔י=le./ma.re.do.Khai[H4782H,HR/Npm]:"to/ Mordecai" | אֵ֖ת='et[H0853,HTo]:"<obj.>" | דִּבְרֵ֥י=div.Rei[H1697H,HNcmpc]:"[the] words of" | אֶסְתֵּֽר='es.Ter[H0635,HNpf]:"Esther"
+
+## EST 4:13
+וַ/יֹּ֥אמֶר מָרְדֳּכַ֖י לְ/הָשִׁ֣יב אֶל אֶסְתֵּ֑ר אַל תְּדַמִּ֣י בְ/נַפְשֵׁ֔/ךְ לְ/הִמָּלֵ֥ט בֵּית הַ/מֶּ֖לֶךְ מִ/כָּל הַ/יְּהוּדִֽים הַ/יְּהוּדִֽים הַ/יְּהוּדִֽים
+
+וַ/יֹּ֥אמֶר=va/i.Yo.mer[H0559,Hc/Vqw3ms]:"and/ he said" | מָרְדֳּכַ֖י=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | לְ/הָשִׁ֣יב=le./ha.Shiv[H7725M,HR/Vhcc]:"to/ bring back" | אֶל='el-[H0413,HR]:"to" | אֶסְתֵּ֑ר='es.Ter[H0635,HNpf]:"Esther" | אַל='al-[H0408,HTn]:"may not" | תְּדַמִּ֣י=te.da.Mi[H1819,HVpj2fs]:"you imagine" | בְ/נַפְשֵׁ֔/ךְ=ve./naf.She/kh[H5315I,HR/Ncfsc/Sp2fs]:"in/ self/ your" | לְ/הִמָּלֵ֥ט=le./hi.ma.Let[H4422,HR/VNcc]:"to/ escape" | בֵּית=beit-[H1004B,HNcmsc]:"[the] house of" | הַ/מֶּ֖לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | מִ/כָּל=mi./kol[H3605,HR/Ncmsc]:"from/ all" | הַ/יְּהוּדִֽים=hai./ye.hu.Dim[H3064,HTd/Ngmpa]:"the/ Jews" | הַ/יְּהוּדִֽים=hai./ye.hu.Dim[H3064,HTd/Ngmpa]:"the/ Jews" | הַ/יְּהוּדִֽים=hai./ye.hu.Dim[H3064,HTd/Ngmpa]:"the/ Jews"
+
+## EST 4:14
+כִּ֣י אִם הַחֲרֵ֣שׁ תַּחֲרִישִׁי֮ בָּ/עֵ֣ת הַ/זֹּאת֒ רֶ֣וַח וְ/הַצָּלָ֞ה יַעֲמ֤וֹד לַ/יְּהוּדִים֙ לַ/יְּהוּדִים֙ לַ/יְּהוּדִים֙ מִ/מָּק֣וֹם אַחֵ֔ר וְ/אַ֥תְּ וּ/בֵית אָבִ֖י/ךְ תֹּאבֵ֑דוּ וּ/מִ֣י יוֹדֵ֔עַ אִם לְ/עֵ֣ת כָּ/זֹ֔את הִגַּ֖עַתְּ לַ/מַּלְכֽוּת
+
+כִּ֣י=ki[H3588B,HTc]:"that" | אִם='im-[H0518B,HTc]:"except" | הַחֲרֵ֣שׁ=ha.cha.Resh[H2790B,HVhaa]:"certainly <to keep quiet>" | תַּחֲרִישִׁי֮=ta.cha.ri.Shi[H2790B,HVhi2fs]:"you will keep quiet" | בָּ/עֵ֣ת=ba./'Et[H6256,HRd/Ncbsa]:"at the/ time" | הַ/זֹּאת֒=ha./zoT[H2063,HTd/Tm]:"<the>/ this" | רֶ֣וַח=Re.vach[H7305,HNcmsa]:"relief" | וְ/הַצָּלָ֞ה=ve./ha.tza.Lah[H2020,HC/Ncfsa]:"and/ deliverance" | יַעֲמ֤וֹד=ya.'a.Mod[H5975I,HVqi3ms]:"it will arise" | לַ/יְּהוּדִים֙=la/i.ye.hu.Dim[H3064,HRd/Ngmpa]:"for the/ Jews" | לַ/יְּהוּדִים֙=la/i.ye.hu.Dim[H3064,HRd/Ngmpa]:"for the/ Jews" | לַ/יְּהוּדִים֙=la/i.ye.hu.Dim[H3064,HRd/Ngmpa]:"for the/ Jews" | מִ/מָּק֣וֹם=mi./ma.Kom[H4725,HR/Ncmsa]:"from/ a place" | אַחֵ֔ר='a.Cher[H0312,HAamsa]:"another" | וְ/אַ֥תְּ=ve./'At[H0859C,HC/Pp2fs]:"and/ you" | וּ/בֵית=u./veit-[H1004M,HC/Ncmsc]:"and/ [the] house of" | אָבִ֖י/ךְ='a.Vi/kh[H0001G,HNcmsc/Sp2fs]:"father/ your" | תֹּאבֵ֑דוּ=to.Ve.du[H0006,HVqi2mp]:"you will perish" | וּ/מִ֣י=u./Mi[H4310,HC/Pi]:"and/ who?" | יוֹדֵ֔עַ=yo.De.a'[H3045,HVqrmsa]:"[is] knowing" | אִם='im-[H0518A,HTc]:"if" | לְ/עֵ֣ת=le./'Et[H6256,HR/Ncbsa]:"for/ a time" | כָּ/זֹ֔את=ka./Zot[H2063,HR/Tm]:"like/ this" | הִגַּ֖עַתְּ=hi.Ga.'at[H5060,HVhp2fs]:"you have reached" | לַ/מַּלְכֽוּת=la./mal.Khut[H4438,HRd/Ncfsa]:"<to> the/ queenhood"
+
+## EST 4:15
+וַ/תֹּ֥אמֶר אֶסְתֵּ֖ר לְ/הָשִׁ֥יב אֶֽל מָרְדֳּכָֽי
+
+וַ/תֹּ֥אמֶר=va./To.mer[H0559,Hc/Vqw3fs]:"and/ she said" | אֶסְתֵּ֖ר='es.Ter[H0635,HNpf]:"Esther" | לְ/הָשִׁ֥יב=le./ha.Shiv[H7725M,HR/Vhcc]:"to/ bring back" | אֶֽל='el-[H0413,HR]:"to" | מָרְדֳּכָֽי=ma.re.do.Khai[H4782H,HNpm]:"Mordecai"
+
+## EST 4:16
+לֵךְ֩ כְּנ֨וֹס אֶת כָּל הַ/יְּהוּדִ֜ים הַ/יְּהוּדִ֜ים הַ/יְּהוּדִ֜ים הַֽ/נִּמְצְאִ֣ים בְּ/שׁוּשָׁ֗ן וְ/צ֣וּמוּ עָ֠לַ/י וְ/אַל תֹּאכְל֨וּ וְ/אַל תִּשְׁתּ֜וּ שְׁלֹ֤שֶׁת יָמִים֙ לַ֣יְלָה וָ/י֔וֹם גַּם אֲנִ֥י וְ/נַעֲרֹתַ֖/י אָצ֣וּם כֵּ֑ן וּ/בְ/כֵ֞ן אָב֤וֹא אֶל הַ/מֶּ֙לֶךְ֙ אֲשֶׁ֣ר לֹֽא כַ/דָּ֔ת וְ/כַ/אֲשֶׁ֥ר אָבַ֖דְתִּי אָבָֽדְתִּי
+
+לֵךְ֩=leKh[H1980G,HVqv2ms]:"go" | כְּנ֨וֹס=ke.Nos[H3664,HVqv2ms]:"gather" | אֶת='et-[H0853,HTo]:"<obj.>" | כָּל=kol-[H3605,HNcmsc]:"all" | הַ/יְּהוּדִ֜ים=hai./ye.hu.Dim[H3064,HTd/Ngmpa]:"the/ Jews" | הַ/יְּהוּדִ֜ים=hai./ye.hu.Dim[H3064,HTd/Ngmpa]:"the/ Jews" | הַ/יְּהוּדִ֜ים=hai./ye.hu.Dim[H3064,HTd/Ngmpa]:"the/ Jews" | הַֽ/נִּמְצְאִ֣ים=ha./nim.tze.'Im[H4672,HTd/VNrmpa]:"who/ are found" | בְּ/שׁוּשָׁ֗ן=be./shu.Shan[H7800,HR/Npl]:"in/ Susa" | וְ/צ֣וּמוּ=ve./Tzu.mu[H6684,HC/Vqv2mp]:"and/ fast" | עָ֠לַ/י='A.la/i[H5921A,HR/Sp1bs]:"on/ me" | וְ/אַל=ve./'al-[H0408,HC/Tn]:"and/ may not" | תֹּאכְל֨וּ=to.khe.Lu[H0398,HVqj2mp]:"you eat" | וְ/אַל=ve./'al-[H0408,HC/Tn]:"and/ may not" | תִּשְׁתּ֜וּ=tish.Tu[H8354,HVqj2mp]:"you drink" | שְׁלֹ֤שֶׁת=she.Lo.shet[H7969,HAcbsc]:"three" | יָמִים֙=ya.Mim[H3117G,HNcmpa]:"days" | לַ֣יְלָה=Lay.lah[H3915,HNcmsa]:"night" | וָ/י֔וֹם=va./Yom[H3117G,HC/Ncmsa]:"and/ day" | גַּם=gam-[H1571,HD]:"also" | אֲנִ֥י='a.Ni[H0589,HPp1bs]:"I" | וְ/נַעֲרֹתַ֖/י=ve./na.'a.ro.Ta/i[H5291,HC/Ncfpc/Sp1bs]:"and/ maids/ my" | אָצ֣וּם='a.Tzum[H6684,HVqi1cs]:"I will fast" | כֵּ֑ן=Ken[H3651C,HD]:"thus" | וּ/בְ/כֵ֞ן=u./ve./Khen[H3651C,HC/R/D]:"and/ in/ such" | אָב֤וֹא='a.Vo'[H0935G,HVqi1cs]:"I will go" | אֶל='el-[H0413,HR]:"to" | הַ/מֶּ֙לֶךְ֙=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | אֲשֶׁ֣ר='a.Sher[H0834A,HTr]:"which" | לֹֽא=lo'-[H3808,HTn]:"not" | כַ/דָּ֔ת=kha./Dat[H1881,HRd/Ncfsa]:"[is] according to the/ law" | וְ/כַ/אֲשֶׁ֥ר=ve./kha./'a.Sher[H0834D,HC/R/Tr]:"and/ just/ as" | אָבַ֖דְתִּי='a.Vad.ti[H0006,HVqp1cs]:"I have perished" | אָבָֽדְתִּי='a.Va.de.ti[H0006,HVqp1cs]:"I have perished"
+
+## EST 4:17
+וַֽ/יַּעֲבֹ֖ר מָרְדֳּכָ֑י וַ/יַּ֕עַשׂ כְּ/כֹ֛ל אֲשֶׁר צִוְּתָ֥ה עָלָ֖י/ו אֶסְתֵּֽר
+
+וַֽ/יַּעֲבֹ֖ר=va/i.ya.'a.Vor[H5674A,Hc/Vqw3ms]:"and/ he passed on" | מָרְדֳּכָ֑י=ma.re.do.Khai[H4782H,HNpm]:"Mordecai" | וַ/יַּ֕עַשׂ=va/i.Ya.'as[H6213A,Hc/Vqw3ms]:"and/ he did" | כְּ/כֹ֛ל=ke./Khol[H3605,HR/Ncmsa]:"according to/ all" | אֲשֶׁר='a.Sher-[H0834A,HTr]:"that" | צִוְּתָ֥ה=tzi.ve.Tah[H6680,HVpp3fs]:"she had commanded" | עָלָ֖י/ו='a.La/v[H5921A,HR/Sp3ms]:"to/ him" | אֶסְתֵּֽר='es.Ter[H0635,HNpf]:"Esther"

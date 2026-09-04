@@ -1,0 +1,125 @@
+# Ezra 4
+
+[[Old_Testament/Ezra/00_Index|<- Ezra index]]
+[[Old_Testament/Ezra/Ezra 3|<- previous chapter]]
+[[Old_Testament/Ezra/Ezra 5|next chapter ->]]
+
+## EZR 4:1
+וַֽ/יִּשְׁמְע֔וּ צָרֵ֥י יְהוּדָ֖ה וּ/בִנְיָמִ֑ן כִּֽי בְנֵ֤י הַ/גּוֹלָה֙ בּוֹנִ֣ים הֵיכָ֔ל לַ/יהוָ֖ה אֱלֹהֵ֥י יִשְׂרָאֵֽל
+
+וַֽ/יִּשְׁמְע֔וּ=va/i.yish.me.'U[H8085G,Hc/Vqw3mp]:"and/ they heard" | צָרֵ֥י=tza.Rei[H6862C,HNcmpc]:"[the] opponents of" | יְהוּדָ֖ה=ye.hu.Dah[H3063G,HNpl]:"Judah" | וּ/בִנְיָמִ֑ן=u./vin.ya.Min[H1144G,HC/Npm]:"and/ Benjamin" | כִּֽי=ki-[H3588A,HTc]:"that" | בְנֵ֤י=ve.Nei[H1121I,HNcmpc]:"[the] children of" | הַ/גּוֹלָה֙=ha./go.Lah[H1473,HTd/Ncfsa]:"the/ exile" | בּוֹנִ֣ים=bo.Nim[H1129,HVqrmpa]:"[were] building" | הֵיכָ֔ל=hei.Khal[H1964G,HNcmsa]:"a temple" | לַ/יהוָ֖ה=la./Yah.weh[H3068G,HR/Npt]:"for/ Yahweh" | אֱלֹהֵ֥י='e.lo.Hei[H0430G,HNcmpc]:"[the] God of" | יִשְׂרָאֵֽל=Yis.ra.'El[H3478,HNpl]:"Israel"
+
+## EZR 4:2
+וַ/יִּגְּשׁ֨וּ אֶל זְרֻבָּבֶ֜ל וְ/אֶל רָאשֵׁ֣י הָֽ/אָב֗וֹת וַ/יֹּאמְר֤וּ לָ/הֶם֙ נִבְנֶ֣ה עִמָּ/כֶ֔ם כִּ֣י כָ/כֶ֔ם נִדְר֖וֹשׁ לֵֽ/אלֹהֵי/כֶ֑ם וְ/ל֣/וֹ אֲנַ֣חְנוּ זֹבְחִ֗ים מִ/ימֵי֙ אֵסַ֤ר חַדֹּן֙ מֶ֣לֶךְ אַשּׁ֔וּר הַ/מַּעֲלֶ֥ה אֹתָ֖/נוּ פֹּֽה
+
+וַ/יִּגְּשׁ֨וּ=va/i.yi.ge.Shu[H5066G,Hc/Vqw3mp]:"and/ they approached" | אֶל='el-[H0413,HR]:"<to>" | זְרֻבָּבֶ֜ל=ze.ru.ba.Vel[H2216,HNpm]:"Zerubbabel" | וְ/אֶל=ve./'el-[H0413,HC/R]:"and/ <to>" | רָאשֵׁ֣י=ra.Shei[H7218H,HNcmpc]:"[the] heads of" | הָֽ/אָב֗וֹת=ha./'a.Vot[H0001G,HTd/Ncfpa]:"the/ fathers" | וַ/יֹּאמְר֤וּ=va/i.yo.me.Ru[H0559,Hc/Vqw3mp]:"and/ they said" | לָ/הֶם֙=la./Hem[H9038,HRd/Sp3mp]:"to <the>/ them" | נִבְנֶ֣ה=niv.Neh[H1129,HVqi1cp]:"let us build" | עִמָּ/כֶ֔ם='i.ma./Khem[H5973A,HRd/Sp2mp]:"with/ you" | כִּ֣י=ki[H3588A,HTc]:"for" | כָ/כֶ֔ם=kha./Khem[H9036,HR/Sp2mp]:"like / you" | נִדְר֖וֹשׁ=nid.Ro.osh[H1875,HVqi1cp]:"we seek" | לֵֽ/אלֹהֵי/כֶ֑ם=le./lo.hei./Khem[H0430G,HR/Ncmpc/Sp2mp]:"<to>/ God/ your" | וְ/ל֣/וֹ=ve./l/o[H9005,HC/Rd/Sp3ms]:"and/ to <the>/ him" | אֲנַ֣חְנוּ='a.Nach.nu[H0587,HPp1bp]:"we" | זֹבְחִ֗ים=zoe.Chim[H2076,HVqrmpa]:"[have been] sacrificing" | מִ/ימֵי֙=mi./Mei[H3117G,HR/Ncmpc]:"since/ [the] days of" | אֵסַ֤ר='e.Sar[H0634}+,HNpm]:"Esar-" | חַדֹּן֙=cha.Don[H0634,HNpm]:"-haddon" | מֶ֣לֶךְ=Me.lekh[H4428G,HNcmsc]:"[the] king of" | אַשּׁ֔וּר='a.Shur[H0804G,HNpl]:"Assyria" | הַ/מַּעֲלֶ֥ה=ha./ma.'a.Leh[H5927H,HTd/Vhrmsa]:"who/ brought up" | אֹתָ֖/נוּ='o.Ta./nu[H0853,HTo/Sp1bp]:"<obj.>/ us" | פֹּֽה=Poh[H6311,HD]:"here"
+
+## EZR 4:3
+וַ/יֹּאמֶר֩ לָ/הֶ֨ם זְרֻבָּבֶ֜ל וְ/יֵשׁ֗וּעַ וּ/שְׁאָ֨ר רָאשֵׁ֤י הָֽ/אָבוֹת֙ לְ/יִשְׂרָאֵ֔ל לֹֽא לָ֣/כֶם וָ/לָ֔/נוּ לִ/בְנ֥וֹת בַּ֖יִת לֵ/אלֹהֵ֑י/נוּ כִּי֩ אֲנַ֨חְנוּ יַ֜חַד נִבְנֶ֗ה לַֽ/יהוָה֙ אֱלֹהֵ֣י יִשְׂרָאֵ֔ל כַּ/אֲשֶׁ֣ר צִוָּ֔/נוּ הַ/מֶּ֖לֶךְ כּ֥וֹרֶשׁ מֶֽלֶךְ פָּרָֽס
+
+וַ/יֹּאמֶר֩=va/i.yo.Mer[H0559,Hc/Vqw3ms]:"and/ he said" | לָ/הֶ֨ם=la./Hem[H9038,HRd/Sp3mp]:"to <the>/ them" | זְרֻבָּבֶ֜ל=ze.ru.ba.Vel[H2216,HNpm]:"Zerubbabel" | וְ/יֵשׁ֗וּעַ=ve./ye.Shu.a'[H3442P,HC/Npm]:"and/ Jeshua" | וּ/שְׁאָ֨ר=u./she.'Ar[H7605,HC/Ncmsc]:"and/ [the] rest of" | רָאשֵׁ֤י=ra.Shei[H7218H,HNcmpc]:"[the] heads of" | הָֽ/אָבוֹת֙=ha./'a.Vot[H0001G,HTd/Ncfpa]:"the/ fathers" | לְ/יִשְׂרָאֵ֔ל=le./Yis.ra.'El[H3478,HR/Npl]:"of/ Israel" | לֹֽא=lo'-[H3808,HTn]:"not" | לָ֣/כֶם=La./khem[H9036,HR/Sp2mp]:"for/ you" | וָ/לָ֔/נוּ=va./La./nu[H9035,HC/R/Sp1bp]:"and/ for / us" | לִ/בְנ֥וֹת=li/v.Not[H1129,HR/Vqcc]:"to/ build" | בַּ֖יִת=Ba.yit[H1004Q,HNcmsa]:"a house" | לֵ/אלֹהֵ֑י/נוּ=le./lo.Hei./nu[H0430G,HR/Ncmpc/Sp1bp]:"for/ God/ our" | כִּי֩=ki[H3588A,HTc]:"for" | אֲנַ֨חְנוּ='a.Nach.nu[H0587,HPp1bp]:"we" | יַ֜חַד=Ya.chad[H3162A,HNcmsa]:"together" | נִבְנֶ֗ה=niv.Neh[H1129,HVqi1cp]:"we will build [it]" | לַֽ/יהוָה֙=la./Yah.weh[H3068G,HR/Npt]:"for/ Yahweh" | אֱלֹהֵ֣י='e.lo.Hei[H0430G,HNcmpc]:"[the] God of" | יִשְׂרָאֵ֔ל=Yis.ra.'El[H3478,HNpl]:"Israel" | כַּ/אֲשֶׁ֣ר=ka./'a.Sher[H0834D,HR/Tr]:"just/ as" | צִוָּ֔/נוּ=tzi.Va./nu[H6680,HVpp3ms/Sp1bp]:"he commanded/ us" | הַ/מֶּ֖לֶךְ=ha./Me.lekh[H4428G,HTd/Ncmsa]:"the/ king" | כּ֥וֹרֶשׁ=Ko.resh[H3566,HNpm]:"Cyrus" | מֶֽלֶךְ=Me.lekh-[H4428G,HNcmsc]:"[the] king of" | פָּרָֽס=pa.Ras[H6539,HNpl]:"Persia"
+
+## EZR 4:4
+וַ/יְהִי֙ עַם הָ/אָ֔רֶץ מְרַפִּ֖ים יְדֵ֣י עַם יְהוּדָ֑ה וּֽ/מְבַהֲלִ֥ים אוֹתָ֖/ם לִ/בְנֽוֹת
+
+וַ/יְהִי֙=va/y.Hi[H1961,Hc/Vqw3ms]:"and/ it was" | עַם='am-[H5971A,HNcmsc]:"[the] people of" | הָ/אָ֔רֶץ=ha./'A.retz[H0776G,HTd/Ncfsa]:"the/ land" | מְרַפִּ֖ים=me.ra.Pim[H7503,HVprmpa]:"[were] making slack" | יְדֵ֣י=ye.Dei[H3027G,HNcbdc]:"[the] hands of" | עַם='am-[H5971A,HNcmsc]:"[the] people of" | יְהוּדָ֑ה=ye.hu.Dah[H3063G,HNpl]:"Judah" | וּֽ/מְבַהֲלִ֥ים=u./me.va.la.him[H0926,HC/Vprmpa]:"and/ [were] terrifying" | אוֹתָ֖/ם='o.Ta/m[H0853,HTo/Sp3mp]:"<obj.>/ them" | לִ/בְנֽוֹת=li/v.Not[H1129,HR/Vqcc]:"to/ build"
+
+## EZR 4:5
+וְ/סֹכְרִ֧ים עֲלֵי/הֶ֛ם יוֹעֲצִ֖ים לְ/הָפֵ֣ר עֲצָתָ֑/ם כָּל יְמֵ֗י כּ֚וֹרֶשׁ מֶ֣לֶךְ פָּרַ֔ס וְ/עַד מַלְכ֖וּת דָּרְיָ֥וֶשׁ מֶֽלֶךְ פָּרָֽס
+
+וְ/סֹכְרִ֧ים=ve./so.khe.Rim[H7936A,HC/Vqrmpa]:"and/ [were] hiring" | עֲלֵי/הֶ֛ם='a.lei./Hem[H5921A,HRd/Sp3mp]:"on/ them" | יוֹעֲצִ֖ים=yo.'a.Tzim[H3289,HVqrmpa]:"counselors" | לְ/הָפֵ֣ר=le./ha.Fer[H6565A,HR/Vhcc]:"to/ frustrate" | עֲצָתָ֑/ם='a.tza.Ta/m[H6098,HNcfsc/Sp3mp]:"purpose/ their" | כָּל=kol-[H3605,HNcmsc]:"all" | יְמֵ֗י=ye.Mei[H3117G,HNcmpc]:"[the] days of" | כּ֚וֹרֶשׁ=Ko.resh[H3566,HNpm]:"Cyrus" | מֶ֣לֶךְ=Me.lekh[H4428G,HNcmsc]:"[the] king of" | פָּרַ֔ס=pa.Ras[H6539,HNpl]:"Persia" | וְ/עַד=ve./'ad-[H5704,HC/R]:"and/ until" | מַלְכ֖וּת=mal.Khut[H4438,HNcfsc]:"[the] reign of" | דָּרְיָ֥וֶשׁ=da.re.Ya.vesh[H1867H,HNpm]:"Darius" | מֶֽלֶךְ=Me.lekh-[H4428G,HNcmsc]:"[the] king of" | פָּרָֽס=pa.Ras[H6539,HNpl]:"Persia"
+
+## EZR 4:6
+וּ/בְ/מַלְכוּת֙ אֲחַשְׁוֵר֔וֹשׁ בִּ/תְחִלַּ֖ת מַלְכוּת֑/וֹ כָּתְב֣וּ שִׂטְנָ֔ה עַל יֹשְׁבֵ֥י יְהוּדָ֖ה וִ/ירוּשָׁלִָֽם
+
+וּ/בְ/מַלְכוּת֙=u./ve./mal.Khut[H4438,HC/R/Ncfsc]:"and/ in/ [the] reign of" | אֲחַשְׁוֵר֔וֹשׁ='a.chash.ve.Ro.osh[H0325,HNpm]:"Ahasuerus" | בִּ/תְחִלַּ֖ת=bi/t.chi.Lat[H8462,HR/Ncfsc]:"at/ [the] beginning of" | מַלְכוּת֑/וֹ=mal.khu.T/o[H4438,HNcfsc/Sp3ms]:"reign/ his" | כָּתְב֣וּ=ka.te.Vu[H3789,HVqp3cp]:"they wrote" | שִׂטְנָ֔ה=sit.Nah[H7855,HNcfsa]:"an accusation" | עַל='al-[H5921A,HR]:"on" | יֹשְׁבֵ֥י=yo.she.Vei[H3427,HVqrmpc]:"[the] inhabitants of" | יְהוּדָ֖ה=ye.hu.Dah[H3063G,HNpl]:"Judah" | וִ/ירוּשָׁלִָֽם=vi./ru.sha.Lim[H3389,HC/Npl]:"and/ Jerusalem"
+
+## EZR 4:7
+וּ/בִ/ימֵ֣י אַרְתַּחְשַׁ֗שְׂתָּא כָּתַ֨ב בִּשְׁלָ֜ם מִתְרְדָ֤ת טָֽבְאֵל֙ וּ/שְׁאָ֣ר כְּנָוֹתָ֔י/ו עַל אַרְתַּחְשַׁ֖שְׂתְּ מֶ֣לֶךְ פָּרָ֑ס וּ/כְתָב֙ הַֽ/נִּשְׁתְּוָ֔ן כָּת֥וּב אֲרָמִ֖ית וּ/מְתֻרְגָּ֥ם אֲרָמִֽית
+
+וּ/בִ/ימֵ֣י=u./vi./Mei[H3117G,HC/R/Ncmpc]:"and/ in/ [the] days of" | אַרְתַּחְשַׁ֗שְׂתָּא='ar.tach.Shas.ta'[H0783A,HNpm]:"Artaxerxes" | כָּתַ֨ב=ka.Tav[H3789,HVqp3ms]:"he wrote" | בִּשְׁלָ֜ם=bish.Lam[H1312,HNpm]:"Bishlam" | מִתְרְדָ֤ת=mit.re.Dat[H4990H,HNpm]:"Mithredath" | טָֽבְאֵל֙=ta.ve.'El[H2870A,HNpm]:"Tabeel" | וּ/שְׁאָ֣ר=u./she.'Ar[H7605,HC/Ncmsc]:"and/ [the] rest of" | כְּנָוֹתָ֔י/ו=ke.na.vo.to/v[H3674,HNcfpc/Sp3ms]:"colleagues/ his" | עַל='al-[H5921A,HR]:"to" | אַרְתַּחְשַׁ֖שְׂתְּ='ar.tach.shas.ta[H0783A,HNpm]:"Artaxerxes" | מֶ֣לֶךְ=Me.lekh[H4428G,HNcmsc]:"[the] king of" | פָּרָ֑ס=pa.Ras[H6539,HNpl]:"Persia" | וּ/כְתָב֙=u./khe.Tav[H3791,HC/Ncmsc]:"and/ [the] writing of" | הַֽ/נִּשְׁתְּוָ֔ן=ha./nish.te.Van[H5406,HTd/Ncmsa]:"the/ letter" | כָּת֥וּב=ka.Tuv[H3789,HVqsmsa]:"[was] written" | אֲרָמִ֖ית='a.ra.Mit[H0762,HAafsa]:"Aramaic" | וּ/מְתֻרְגָּ֥ם=u./me.tur.Gam[H8638,HC/VPsmsa]:"and/ [was] translated" | אֲרָמִֽית='a.ra.Mit[H0762,HAafsa]:"Aramaic"
+
+## EZR 4:8
+רְח֣וּם בְּעֵל טְעֵ֗ם וְ/שִׁמְשַׁי֙ סָֽפְרָ֔/א כְּתַ֛בוּ אִגְּרָ֥ה חֲדָ֖ה עַל יְרוּשְׁלֶ֑ם לְ/אַרְתַּחְשַׁ֥שְׂתְּא מַלְכָּ֖/א כְּנֵֽמָא
+
+רְח֣וּם=re.Chum[H7348B,ANpm]:"Rehum" | בְּעֵל=be.'el-[H1169,ANcbsc]:"lord of" | טְעֵ֗ם=te.'Em[H2942,ANcbsa]:"command" | וְ/שִׁמְשַׁי֙=ve./shim.Shai[H8124,AC/Npm]:"and/ Shimshai" | סָֽפְרָ֔/א=sa.fe.Ra/'[H5613,ANcbsd/Ta]:"scribe/ the" | כְּתַ֛בוּ=ke.Ta.vu[H3790,AVqp3mp]:"they wrote" | אִגְּרָ֥ה='i.ge.Rah[H0104,ANcfsa]:"a letter" | חֲדָ֖ה=cha.Dah[H2298,AAcbsa]:"one" | עַל='al-[H5922,AR]:"concerning" | יְרוּשְׁלֶ֑ם=ye.ru.she.Lem[H3390,ANpl]:"Jerusalem" | לְ/אַרְתַּחְשַׁ֥שְׂתְּא=le./'ar.tach.Shas.te'[H0783B,AR/Npm]:"to/ Artaxerxes" | מַלְכָּ֖/א=mal.Ka/'[H4430,ANcbsd/Ta]:"king/ the" | כְּנֵֽמָא=ke.Ne.ma'[H3660,AD]:"as follows"
+
+## EZR 4:9
+אֱדַ֜יִן רְח֣וּם בְּעֵל טְעֵ֗ם וְ/שִׁמְשַׁי֙ סָֽפְרָ֔/א וּ/שְׁאָ֖ר כְּנָוָתְ/ה֑וֹן דִּ֠ינָיֵ/א וַ/אֲפַרְסַתְכָיֵ֞/א טַרְפְּלָיֵ֣/א אֲפָֽרְסָיֵ֗/א אַרְכְּוָיֵ֤/א בָבְלָיֵ/א֙ שֽׁוּשַׁנְכָיֵ֔/א דֶּהָיֵ֖/א עֵלְמָיֵֽ/א
+
+אֱדַ֜יִן='e.Da.yin[H0116,AD]:"then" | רְח֣וּם=re.Chum[H7348B,ANpm]:"Rehum" | בְּעֵל=be.'el-[H1169,ANcbsc]:"lord of" | טְעֵ֗ם=te.'Em[H2942,ANcbsa]:"command" | וְ/שִׁמְשַׁי֙=ve./shim.Shai[H8124,AC/Npm]:"and/ Shimshai" | סָֽפְרָ֔/א=sa.fe.Ra/'[H5613,ANcbsd/Ta]:"scribe/ the" | וּ/שְׁאָ֖ר=u./she.'Ar[H7606,AC/Ncbsc]:"and/ [the] rest of" | כְּנָוָתְ/ה֑וֹן=ke.na.va.te./Hon[H3675,ANcfpc/Sp3mp]:"associates/ their" | דִּ֠ינָיֵ/א=Di.na.ye/'[H1784,ANcmpd/Ta]:"Dinay/ the" | וַ/אֲפַרְסַתְכָיֵ֞/א=va./'a.far.sat.kha.Ye/'[H0671B,AC/Ncmpd/Ta]:"and/ officials/ the" | טַרְפְּלָיֵ֣/א=tar.pe.la.Ye/'[H2967,ANcmpd/Ta]:"Tarpelites/ the" | אֲפָֽרְסָיֵ֗/א='a.fa.re.sa.Ye/'[H0670,ANcmpd/Ta]:"Sipparites/ the" | אַרְכְּוָיֵ֤/א='ar.ke.vai/'[H0756,ANgmpd/Ta]:"Erechites/ the" | בָבְלָיֵ/א֙=va.ve.la.Ye/'[H0896,ANgmpd/Ta]:"Babylonians/ the" | שֽׁוּשַׁנְכָיֵ֔/א=shu.shan.kha.Ye/'[H7801,ANgmpd/Ta]:"Susanchites/ the" | דֶּהָיֵ֖/א=di.hu/'[H1723,ANgmpd/Ta]:"Dehavites/ the" | עֵלְמָיֵֽ/א='e.le.ma.Ye/'[H5962,ANgmpd/Ta]:"Elamites/ the"
+
+## EZR 4:10
+וּ/שְׁאָ֣ר אֻמַּיָּ֗/א דִּ֤י הַגְלִי֙ אָסְנַפַּר֙ רַבָּ֣/א וְ/יַקִּירָ֔/א וְ/הוֹתֵ֣ב הִמּ֔וֹ בְּ/קִרְיָ֖ה דִּ֣י שָׁמְרָ֑יִן וּ/שְׁאָ֥ר עֲבַֽר נַהֲרָ֖/ה וּ/כְעֶֽנֶת
+
+וּ/שְׁאָ֣ר=u./she.'Ar[H7606,AC/Ncbsc]:"and/ [the] rest of" | אֻמַּיָּ֗/א='u.mai.Ya/'[H0524,ANcmpd/Ta]:"nations/ the" | דִּ֤י=di[H1768,AC]:"which" | הַגְלִי֙=hag.Li[H1541,AVhp3ms]:"he took into exile" | אָסְנַפַּר֙='a.se.na.Par[H0620,ANpm]:"Osnappar" | רַבָּ֣/א=ra.Ba/'[H7229,AAabsd/Ta]:"<the>/ great" | וְ/יַקִּירָ֔/א=ve./ya.ki.Ra/'[H3358,AC/Aabsd/Ta]:"and/ <the>/ honorable" | וְ/הוֹתֵ֣ב=ve./ho.Tev[H3488,AC/Vhp3ms]:"and/ he caused to dwell" | הִמּ֔וֹ=hi.Mo[H1994,APp3mp]:"them" | בְּ/קִרְיָ֖ה=be./kir.Yah[H7149,AR/Ncfsa]:"in/ [the] city" | דִּ֣י=di[H1768,AC]:"of" | שָׁמְרָ֑יִן=sha.me.Ra.yin[H8115,ANpl]:"Samaria" | וּ/שְׁאָ֥ר=u./she.'Ar[H7606,AC/Ncbsc]:"and/ [the] rest of" | עֲבַֽר='a.var-[H5675,ANcbsc]:"[the] region beyond" | נַהֲרָ֖/ה=na.ha.Rah/'[H5103G,ANcbsd/Ta]:"river/ the" | וּ/כְעֶֽנֶת=u./khe.'E.net[H3706,AC/D]:"and/ now"
+
+## EZR 4:11
+דְּנָה֙ פַּרְשֶׁ֣גֶן אִגַּרְתָּ֔/א דִּ֚י שְׁלַ֣חוּ עֲל֔וֹ/הִי עַל אַרְתַּחְשַׁ֖שְׂתְּא מַלְכָּ֑/א עַבְדָ֛/ךְ אֱנָ֥שׁ עֲבַֽר נַהֲרָ֖/ה וּ/כְעֶֽנֶת
+
+דְּנָה֙=de.Nah[H1836,ATm]:"this" | פַּרְשֶׁ֣גֶן=par.She.gen[H6573,ANcbsc]:"[is] [the] copy of" | אִגַּרְתָּ֔/א='i.gar.Ta/'[H0104,ANcfsd/Ta]:"letter/ the" | דִּ֚י=di[H1768,AC]:"which" | שְׁלַ֣חוּ=she.La.chu[H7972,AVqp3mp]:"they sent" | עֲל֔וֹ/הִי=a.Lo./hi[H5922,AR/Sp3ms]:"to/ him" | עַל='al-[H5922,AR]:"to" | אַרְתַּחְשַׁ֖שְׂתְּא='ar.tach.Shas.te'[H0783B,ANpm]:"Artaxerxes" | מַלְכָּ֑/א=mal.Ka/'[H4430,ANcbsd/Ta]:"king/ the" | עַבְדָ֛/ךְ=av.da.yi/kh[H5649,ANcmpc/Sp2ms]:"servant/ your" | אֱנָ֥שׁ='e.Nash[H0606,ANcbsc]:"[the] man of" | עֲבַֽר='a.var-[H5675,ANcbsc]:"[the] region beyond" | נַהֲרָ֖/ה=na.ha.Rah/'[H5103G,ANcbsd/Ta]:"river/ the" | וּ/כְעֶֽנֶת=u./khe.'E.net[H3706,AC/D]:"and/ now"
+
+## EZR 4:12
+יְדִ֙יעַ֙ לֶהֱוֵ֣א לְ/מַלְכָּ֔/א דִּ֣י יְהוּדָיֵ֗/א דִּ֤י סְלִ֙קוּ֙ מִן לְוָתָ֔/ךְ עֲלֶ֥י/נָא אֲת֖וֹ לִ/ירוּשְׁלֶ֑ם קִרְיְתָ֨/א מָֽרָדְתָּ֤/א וּ/בִֽישְׁתָּ/א֙ בָּנַ֔יִן וְ/שׁוּרַיָּ֣/א שַׁכְלִ֔ילוּ וְ/אֻשַּׁיָּ֖/א יַחִֽיטוּ
+
+יְדִ֙יעַ֙=ye.Di.a'[H3046,AVQrmsa]:"known" | לֶהֱוֵ֣א=le.he.Ve'[H1934,AVqi3ms]:"let it be" | לְ/מַלְכָּ֔/א=le./mal.Ka/'[H4430,AR/Ncbsd/Ta]:"to/ king/ the" | דִּ֣י=di[H1768,AC]:"that" | יְהוּדָיֵ֗/א=ye.hu.da.Ye/'[H3062,ANgmpd/Ta]:"Jews/ the" | דִּ֤י=di[H1768,AC]:"who" | סְלִ֙קוּ֙=se.Li.ku[H5559,AVqp3mp]:"they came up" | מִן=min-[H4481,AR]:"from" | לְוָתָ֔/ךְ=le.va.Ta/kh[H3890,AR/Sp2ms]:"beside/ you" | עֲלֶ֥י/נָא='a.Lei./na'[H5922,AR/Sp1bp]:"to/ us" | אֲת֖וֹ='a.To[H0858,AVqp3mp]:"they have come" | לִ/ירוּשְׁלֶ֑ם=li./ru.she.Lem[H3390,AR/Npl]:"to/ Jerusalem" | קִרְיְתָ֨/א=kir.ye.Ta/'[H7149,ANcfsd/Ta]:"city/ the" | מָֽרָדְתָּ֤/א=ma.ra.de.Ta/'[H4779,AAafsd/Ta]:"<the>/ rebellious" | וּ/בִֽישְׁתָּ/א֙=u./vi.yo.she.Ta/'[H0873,AC/Aafsd/Ta]:"and/ evil/ <the>" | בָּנַ֔יִן=ba.Na.yin[H1124,AVqrmpa]:"[they are] building" | וְ/שׁוּרַיָּ֣/א=ve./shu.rai.Ya/'[H7792,AC/Ncmpd/Ta]:"and/ walls/ the" | שַׁכְלִ֔ילוּ=shakh.Li.lu[H3635A,AVep3mp]:"they have finished" | וְ/אֻשַּׁיָּ֖/א=ve./'u.shai.Ya/'[H0787,AC/Ncmpd/Ta]:"and/ foundations/ the" | יַחִֽיטוּ=ya.Chi.tu[H2338,AVpp3mp]:"they are repairing"
+
+## EZR 4:13
+כְּעַ֗ן יְדִ֙יעַ֙ לֶהֱוֵ֣א לְ/מַלְכָּ֔/א דִּ֠י הֵ֣ן קִרְיְתָ֥/א דָךְ֙ תִּתְבְּנֵ֔א וְ/שׁוּרַיָּ֖/ה יִֽשְׁתַּכְלְל֑וּן מִנְדָּֽה בְל֤וֹ וַ/הֲלָךְ֙ לָ֣א יִנְתְּנ֔וּן וְ/אַפְּתֹ֥ם מַלְכִ֖ים תְּהַנְזִֽק
+
+כְּעַ֗ן=ke.'An[H3705,AD]:"now" | יְדִ֙יעַ֙=ye.Di.a'[H3046,AVQrmsa]:"known" | לֶהֱוֵ֣א=le.he.Ve'[H1934,AVqi3ms]:"let it be" | לְ/מַלְכָּ֔/א=le./mal.Ka/'[H4430,AR/Ncbsd/Ta]:"to/ king/ the" | דִּ֠י=di[H1768,AC]:"that" | הֵ֣ן=hen[H2006A,AC]:"if" | קִרְיְתָ֥/א=kir.ye.Ta/'[H7149,ANcfsd/Ta]:"city/ the" | דָךְ֙=doKh[H1791,ATm]:"this" | תִּתְבְּנֵ֔א=tit.be.Ne'[H1124,AVui3fs]:"it will be built" | וְ/שׁוּרַיָּ֖/ה=ve./shu.rai.Yah/'[H7792,AC/Ncmpd/Ta]:"and/ walls/ the" | יִֽשְׁתַּכְלְל֑וּן=yish.takh.le.Lun[H3635A,AVvi3mp]:"they will be finished" | מִנְדָּֽה=min.dah-[H4061,ANcfsa]:"tribute" | בְל֤וֹ=ve.Lo[H1093,ANcbsa]:"tax" | וַ/הֲלָךְ֙=va./ha.loKh[H1983,AC/Ncbsa]:"and/ toll" | לָ֣א=la'[H3809,ATn]:"not" | יִנְתְּנ֔וּן=yin.te.Nun[H5415I,AVqi3mp]:"they will give" | וְ/אַפְּתֹ֥ם=ve./'a.pe.Tom[H0674,AC/Ncmsa]:"and/ certainly" | מַלְכִ֖ים=mal.Khim[H4430,ANcmpa]:"kings" | תְּהַנְזִֽק=te.han.Zik[H5142,AVhi2ms]:"it will injure"
+
+## EZR 4:14
+כְּעַ֗ן כָּ/ל קֳבֵל֙ דִּֽי מְלַ֤ח הֵֽיכְלָ/א֙ מְלַ֔חְנָא וְ/עַרְוַ֣ת מַלְכָּ֔/א לָ֥א אֲֽרִֽיךְ לַ֖/נָא לְ/מֶֽחֱזֵ֑א עַ֨ל דְּנָ֔ה שְׁלַ֖חְנָא וְ/הוֹדַ֥עְנָא לְ/מַלְכָּֽ/א
+
+כְּעַ֗ן=ke.'An[H3705,AD]:"now" | כָּ/ל=ko/l-[H9005,AR/R]:"as/ to" | קֳבֵל֙=ko.Vel[H6903H,ANcbsa]:"because" | דִּֽי=di-[H1768,AC]:"that" | מְלַ֤ח=me.Lach[H4416,ANcbsc]:"[the] salt of" | הֵֽיכְלָ/א֙=hei.khe.La/'[H1965H,ANcbsd/Ta]:"palace/ the" | מְלַ֔חְנָא=me.Lach.na'[H4415,AVqp1cp]:"we eat salt" | וְ/עַרְוַ֣ת=ve./'ar.Vat[H6173,AC/Ncfsc]:"and/ [the] dishonor of" | מַלְכָּ֔/א=mal.Ka/'[H4430,ANcbsd/Ta]:"king/ the" | לָ֥א=la'[H3809,ATn]:"not" | אֲֽרִֽיךְ='arikh[H0749,AAabsa]:"[is] proper" | לַ֖/נָא=La./na'[H9035,AR/Sp1bp]:"for/ us" | לְ/מֶֽחֱזֵ֑א=le./me.che.Ze'[H2370,AR/Vqcc]:"to/ see" | עַ֨ל='Al-[H5922,AR]:"concerning" | דְּנָ֔ה=de.Nah[H1836,ATm]:"this" | שְׁלַ֖חְנָא=she.Lach.na'[H7972,AVqp1cp]:"we have sent" | וְ/הוֹדַ֥עְנָא=ve./ho.Da'.na'[H3046,AC/Vhp1cp]:"and/ we have made known" | לְ/מַלְכָּֽ/א=le./mal.Ka/'[H4430,AR/Ncbsd/Ta]:"to/ king/ the"
+
+## EZR 4:15
+דִּ֡י יְבַקַּר֩ בִּֽ/סְפַר דָּכְרָ֨נַיָּ֜/א דִּ֣י אֲבָהָתָ֗/ךְ וּ֠/תְהַשְׁכַּח בִּ/סְפַ֣ר דָּכְרָנַיָּ/א֮ וְ/תִנְדַּע֒ דִּי֩ קִרְיְתָ֨/א דָ֜ךְ קִרְיָ֣א מָֽרָדָ֗א וּֽ/מְהַנְזְקַ֤ת מַלְכִין֙ וּ/מְדִנָ֔ן וְ/אֶשְׁתַּדּוּר֙ עָבְדִ֣ין בְּ/גַוַּ֔/הּ מִן יוֹמָ֖ת עָלְמָ֑/א עַ֨ל דְּנָ֔ה קִרְיְתָ֥/א דָ֖ךְ הָֽחָרְבַֽת
+
+דִּ֡י=di[H1768,AC]:"that" | יְבַקַּר֩=ye.va.Kar[H1240,AVpi3ms]:"he will search" | בִּֽ/סְפַר=bi/s.far-[H5609,AR/Ncbsc]:"in/ [the] book of" | דָּכְרָ֨נַיָּ֜/א=da.khe.Ra.nai.Ya/'[H1799B,ANcmpd/Ta]:"records/ the" | דִּ֣י=di[H1768,AC]:"of" | אֲבָהָתָ֗/ךְ='a.va.ha.Ta/kh[H0002,ANcfsc/Sp2ms]:"fathers/ your" | וּ֠/תְהַשְׁכַּח=U./te.hash.kach[H7912,AC/Vhu2ms]:"so/ you may find" | בִּ/סְפַ֣ר=bi/s.Far[H5609,AR/Ncbsc]:"in/ [the] book of" | דָּכְרָנַיָּ/א֮=da.khe.ra.nai.Ya/'[H1799B,ANcmpd/Ta]:"records/ the" | וְ/תִנְדַּע֒=ve./tin.Da'[H3046,AC/Vqu2ms]:"so/ you may know" | דִּי֩=di[H1768,AC]:"that" | קִרְיְתָ֨/א=kir.ye.Ta/'[H7149,ANcfsd/Ta]:"city/ the" | דָ֜ךְ=dakh[H1791,ATm]:"this" | קִרְיָ֣א=kir.Ya'[H7149,ANcfsa]:"[is] a city" | מָֽרָדָ֗א=ma.ra.Da'[H4779,AAafsa]:"rebellious" | וּֽ/מְהַנְזְקַ֤ת=u./me.han.ze.Kat[H5142,AC/Vhrfsc]:"and/ injuring" | מַלְכִין֙=mal.Khin[H4430,ANcmpa]:"<of> kings" | וּ/מְדִנָ֔ן=u./me.di.Nan[H4083,AC/Ncfpa]:"and/ provinces" | וְ/אֶשְׁתַּדּוּר֙=ve./'esh.ta.Dur[H0849,AC/Ncbsa]:"and/ a revolt" | עָבְדִ֣ין='a.ve.Din[H5648,AVqrmpa]:"[it was] making" | בְּ/גַוַּ֔/הּ=be./ga.Va/h[H1459,AR/Ncbsc/Sp3fs]:"in/ midst/ its" | מִן=min-[H4481,AR]:"from" | יוֹמָ֖ת=yo.Mat[H3118,ANcfpc]:"[the] days of" | עָלְמָ֑/א='al.Ma/'[H5957,ANcbsd/Ta]:"<the>/ antiquity" | עַ֨ל='Al-[H5922,AR]:"on" | דְּנָ֔ה=de.Nah[H1836,ATm]:"this" | קִרְיְתָ֥/א=kir.ye.Ta/'[H7149,ANcfsd/Ta]:"city/ the" | דָ֖ךְ=dakh[H1791,ATm]:"this" | הָֽחָרְבַֽת=Ha.cha.re.Vat[H2718,AVHp3fs]:"it was laid waste"
+
+## EZR 4:16
+מְהוֹדְעִ֤ין אֲנַ֙חְנָה֙ לְ/מַלְכָּ֔/א דִּ֠י הֵ֣ן קִרְיְתָ֥/א דָךְ֙ תִּתְבְּנֵ֔א וְ/שׁוּרַיָּ֖/ה יִֽשְׁתַּכְלְל֑וּן לָ/קֳבֵ֣ל דְּנָ֔ה חֲלָק֙ בַּ/עֲבַ֣ר נַהֲרָ֔/א לָ֥א אִיתַ֖י לָֽ/ךְ
+
+מְהוֹדְעִ֤ין=me.hod.'In[H3046,AVhrmpa]:"[are] making known" | אֲנַ֙חְנָה֙='a.Nach.nah[H0586,APp1bp]:"we" | לְ/מַלְכָּ֔/א=le./mal.Ka/'[H4430,AR/Ncbsd/Ta]:"to/ king/ the" | דִּ֠י=di[H1768,AC]:"that" | הֵ֣ן=hen[H2006A,AC]:"if" | קִרְיְתָ֥/א=kir.ye.Ta/'[H7149,ANcfsd/Ta]:"city/ the" | דָךְ֙=doKh[H1791,ATm]:"this" | תִּתְבְּנֵ֔א=tit.be.Ne'[H1124,AVui3fs]:"it will be built" | וְ/שׁוּרַיָּ֖/ה=ve./shu.rai.Yah/'[H7792,AC/Ncmpd/Ta]:"and/ walls/ the" | יִֽשְׁתַּכְלְל֑וּן=yish.takh.le.Lun[H3635A,AVvi3mp]:"they will be finished" | לָ/קֳבֵ֣ל=lo./ko.Vel[H6903G,AR/Ncbsa]:"<to>/ before" | דְּנָ֔ה=de.Nah[H1836,ATm]:"this" | חֲלָק֙=cha.Lak[H2508,ANcbsa]:"possession" | בַּ/עֲבַ֣ר=ba./'a.Var[H5675,AR/Ncbsc]:"in/ [the] region beyond" | נַהֲרָ֔/א=na.ha.Ra/'[H5103G,ANcbsd/Ta]:"river/ the" | לָ֥א=la'[H3809,ATn]:"not" | אִיתַ֖י='i.Tai[H0383,ANcbsa]:"there" | לָֽ/ךְ=La/kh[H9031,AR/Sp2ms]:"[will be] to/ you"
+
+## EZR 4:17
+פִּתְגָמָ֞/א שְׁלַ֣ח מַלְכָּ֗/א עַל רְח֤וּם בְּעֵל טְעֵם֙ וְ/שִׁמְשַׁ֣י סָֽפְרָ֔/א וּ/שְׁאָר֙ כְּנָוָ֣תְ/ה֔וֹן דִּ֥י יָתְבִ֖ין בְּ/שָֽׁמְרָ֑יִן וּ/שְׁאָ֧ר עֲבַֽר נַהֲרָ֛/ה שְׁלָ֖ם וּ/כְעֶֽת
+
+פִּתְגָמָ֞/א=pit.ga.Ma/'[H6600,ANcbsd/Ta]:"word/ the" | שְׁלַ֣ח=she.Lach[H7972,AVqp3ms]:"he sent" | מַלְכָּ֗/א=mal.Ka/'[H4430,ANcbsd/Ta]:"king/ the" | עַל='al-[H5922,AR]:"to" | רְח֤וּם=re.Chum[H7348B,ANpm]:"Rehum" | בְּעֵל=be.'el-[H1169,ANcbsc]:"lord of" | טְעֵם֙=te.'Em[H2942,ANcbsa]:"command" | וְ/שִׁמְשַׁ֣י=ve./shim.Shai[H8124,AC/Npm]:"and/ Shimshai" | סָֽפְרָ֔/א=sa.fe.Ra/'[H5613,ANcbsd/Ta]:"scribe/ the" | וּ/שְׁאָר֙=u./she.'Ar[H7606,AC/Ncbsc]:"and/ [the] rest of" | כְּנָוָ֣תְ/ה֔וֹן=ke.na.Va.te./Hon[H3675,ANcfpc/Sp3mp]:"associates/ their" | דִּ֥י=di[H1768,AC]:"who" | יָתְבִ֖ין=ya.te.Vin[H3488,AVqrmpa]:"[were] dwelling" | בְּ/שָֽׁמְרָ֑יִן=be./sha.me.Ra.yin[H8115,AR/Npl]:"in/ Samaria" | וּ/שְׁאָ֧ר=u./she.'Ar[H7606,AC/Ncbsc]:"and/ [the] rest of" | עֲבַֽר='a.var-[H5675,ANcbsc]:"[the] region beyond" | נַהֲרָ֛/ה=na.ha.Rah/'[H5103G,ANcbsd/Ta]:"river/ the" | שְׁלָ֖ם=she.Lam[H8001,ANcbsa]:"peace" | וּ/כְעֶֽת=u./khe.'Et[H3706,AC/D]:"and/ now"
+
+## EZR 4:18
+נִשְׁתְּוָנָ֕/א דִּ֥י שְׁלַחְתּ֖וּן עֲלֶ֑י/נָא מְפָרַ֥שׁ קֱרִ֖י קָדָמָֽ/י
+
+נִשְׁתְּוָנָ֕/א=nish.te.va.Na/'[H5407,ANcbsd/Ta]:"letter/ the" | דִּ֥י=di[H1768,AC]:"which" | שְׁלַחְתּ֖וּן=she.lach.Tun[H7972,AVqp2mp]:"you sent" | עֲלֶ֑י/נָא='a.Lei./na'[H5922,AR/Sp1bp]:"to/ us" | מְפָרַ֥שׁ=me.fa.Rash[H6568,AVprmsa]:"made distinct" | קֱרִ֖י=ke.Ri[H7123,AVQp3ms]:"it was read aloud" | קָדָמָֽ/י=ka.da.Ma/i[H6925,ANcbpc/Sp1bs]:"before/ me"
+
+## EZR 4:19
+וּ/מִנִּ/י֮ שִׂ֣ים טְעֵם֒ וּ/בַקַּ֣רוּ וְ/הַשְׁכַּ֔חוּ דִּ֚י קִרְיְתָ֣/א דָ֔ךְ מִן יוֹמָת֙ עָֽלְמָ֔/א עַל מַלְכִ֖ין מִֽתְנַשְּׂאָ֑ה וּ/מְרַ֥ד וְ/אֶשְׁתַּדּ֖וּר מִתְעֲבֶד בַּֽ/הּ
+
+וּ/מִנִּ/י֮=u./mi.N/i[H4481,AC/R/Sp1bs]:"and/ from/ me" | שִׂ֣ים=sim[H7761G,AVQp3ms]:"it was made" | טְעֵם֒=te.'Em[H2942,ANcbsa]:"a decree" | וּ/בַקַּ֣רוּ=u./va.Ka.ru[H1240,AC/Vpp3mp]:"and/ they searched" | וְ/הַשְׁכַּ֔חוּ=ve./hash.Ka.chu[H7912,AC/Vhp3mp]:"and/ they found" | דִּ֚י=di[H1768,AC]:"that" | קִרְיְתָ֣/א=kir.ye.Ta/'[H7149,ANcfsd/Ta]:"city/ the" | דָ֔ךְ=Dakh[H1791,ATm]:"this" | מִן=min-[H4481,AR]:"from" | יוֹמָת֙=yo.Mat[H3118,ANcfpc]:"[the] days of" | עָֽלְמָ֔/א='al.Ma/'[H5957,ANcbsd/Ta]:"<the>/ antiquity" | עַל='al-[H5922,AR]:"against" | מַלְכִ֖ין=mal.Khin[H4430,ANcmpa]:"kings" | מִֽתְנַשְּׂאָ֑ה=mit.na.se.'Ah[H5376,AVMrfsa]:"[was] rising up" | וּ/מְרַ֥ד=u./me.Rad[H4776,AC/Ncbsa]:"and/ rebellion" | וְ/אֶשְׁתַּדּ֖וּר=ve./'esh.ta.Dur[H0849,AC/Ncbsa]:"and/ revolt" | מִתְעֲבֶד=mit.'a.ved-[H5648,AVurmsa]:"[have] been done" | בַּֽ/הּ=Ba/h[H9034,AR/Sp3fs]:"by/ it"
+
+## EZR 4:20
+וּ/מַלְכִ֣ין תַּקִּיפִ֗ין הֲווֹ֙ עַל יְר֣וּשְׁלֶ֔ם וְ/שַׁ֨לִּיטִ֔ין בְּ/כֹ֖ל עֲבַ֣ר נַהֲרָ֑/ה וּ/מִדָּ֥ה בְל֛וֹ וַ/הֲלָ֖ךְ מִתְיְהֵ֥ב לְ/הֽוֹן
+
+וּ/מַלְכִ֣ין=u./mal.Khin[H4430,AC/Ncmpa]:"and/ kings" | תַּקִּיפִ֗ין=ta.ki.Fin[H8624,AAampa]:"strong" | הֲווֹ֙=ha.Vo[H1934,AVqp3mp]:"they were" | עַל='al-[H5922,AR]:"over" | יְר֣וּשְׁלֶ֔ם=ye.Ru.she.Lem[H3390,ANpl]:"Jerusalem" | וְ/שַׁ֨לִּיטִ֔ין=ve./Sha.li.Tin[H7990,AC/Aampa]:"and/ having mastery" | בְּ/כֹ֖ל=be./Khol[H3606,AR/Ncbsc]:"over/ all" | עֲבַ֣ר='a.Var[H5675,ANcbsc]:"[the] region beyond" | נַהֲרָ֑/ה=na.ha.Rah/'[H5103G,ANcbsd/Ta]:"river/ the" | וּ/מִדָּ֥ה=u./mi.Dah[H4061,AC/Ncfsa]:"and/ tribute" | בְל֛וֹ=ve.Lo[H1093,ANcbsa]:"tax" | וַ/הֲלָ֖ךְ=va./ha.Lakh[H1983,AC/Ncbsa]:"and/ toll" | מִתְיְהֵ֥ב=mit.ye.Hev[H3052,AVurmsa]:"[was] being paid" | לְ/הֽוֹן=le./Hon[H9038,AR/Sp3mp]:"to/ them"
+
+## EZR 4:21
+כְּעַן֙ שִׂ֣ימוּ טְּעֵ֔ם לְ/בַטָּלָ֖א גֻּבְרַיָּ֣/א אִלֵּ֑ךְ וְ/קִרְיְתָ֥/א דָךְ֙ לָ֣א תִתְבְּנֵ֔א עַד מִנִּ֖/י טַעְמָ֥/א יִתְּשָֽׂם
+
+כְּעַן֙=ke.'An[H3705,AD]:"now" | שִׂ֣ימוּ=Si.mu[H7761G,AVqv2mp]:"make" | טְּעֵ֔ם=te.'Em[H2942,ANcbsa]:"a decree" | לְ/בַטָּלָ֖א=le./va.ta.La'[H0989,AR/Vpcc]:"to/ make to cease" | גֻּבְרַיָּ֣/א=guv.rai.Ya/'[H1400,ANcmpd/Ta]:"men/ the" | אִלֵּ֑ךְ='i.Lekh[H0479,ATm]:"these" | וְ/קִרְיְתָ֥/א=ve./kir.ye.Ta/'[H7149,AC/Ncfsd/Ta]:"and/ city/ the" | דָךְ֙=doKh[H1791,ATm]:"this" | לָ֣א=la'[H3809,ATn]:"not" | תִתְבְּנֵ֔א=tit.be.Ne'[H1124,AVui3fs]:"it will be built" | עַד='ad-[H5705,AR]:"until" | מִנִּ֖/י=mi./Ni[H4481,ARd/Sp1bs]:"from/ me" | טַעְמָ֥/א=ta'.Ma/'[H2942,ANcbsd/Ta]:"decree/ the" | יִתְּשָֽׂם=yi.te.Sam[H7761G,AVui3ms]:"it will be made"
+
+## EZR 4:22
+וּ/זְהִירִ֥ין הֱו֛וֹ שָׁל֖וּ לְ/מֶעְבַּ֣ד עַל דְּנָ֑ה לְ/מָה֙ יִשְׂגֵּ֣א חֲבָלָ֔/א לְ/הַנְזָקַ֖ת מַלְכִֽין
+
+וּ/זְהִירִ֥ין=u./ze.hi.Rin[H2095,AC/Aampa]:"and/ cautious" | הֱו֛וֹ=he.Vo[H1934,AVqv2mp]:"be" | שָׁל֖וּ=sha.Lu[H7960,ANcbsa]:"negligence" | לְ/מֶעְבַּ֣ד=le./me'.Bad[H5648,AR/Vqcc]:"to/ do" | עַל='al-[H5922,AR]:"concerning" | דְּנָ֑ה=de.Nah[H1836,ATm]:"this" | לְ/מָה֙=le./Mah[H4101,AR/Pi]:"<to>/ why?" | יִשְׂגֵּ֣א=yis.Ge'[H7680,AVqi3ms]:"will it grow great" | חֲבָלָ֔/א=cha.va.La/'[H2257,ANcbsd/Ta]:"damage/ the" | לְ/הַנְזָקַ֖ת=le./han.za.Kat[H5142,AR/Vhcc]:"to/ injury" | מַלְכִֽין=mal.Khin[H4430,ANcmpa]:"kings"
+
+## EZR 4:23
+אֱדַ֗יִן מִן דִּ֞י פַּרְשֶׁ֤גֶן נִשְׁתְּוָנָ/א֙ דִּ֚י אַרְתַּחְשַׁ֣שְׂתְּ מַלְכָּ֔/א קֱרִ֧י קֳדָם רְח֛וּם וְ/שִׁמְשַׁ֥י סָפְרָ֖/א וּ/כְנָוָתְ/ה֑וֹן אֲזַ֨לוּ בִ/בְהִיל֤וּ לִ/ירֽוּשְׁלֶם֙ עַל יְה֣וּדָיֵ֔/א וּ/בַטִּ֥לוּ הִמּ֖וֹ בְּ/אֶדְרָ֥ע וְ/חָֽיִל
+
+אֱדַ֗יִן='e.Da.yin[H0116,AD]:"then" | מִן=min-[H4481,AR]:"from" | דִּ֞י=di[H1768,AC]:"that" | פַּרְשֶׁ֤גֶן=par.She.gen[H6573,ANcbsc]:"[the] copy of" | נִשְׁתְּוָנָ/א֙=nish.te.va.Na/'[H5407,ANcbsd/Ta]:"letter/ the" | דִּ֚י=di[H1768,AC]:"of" | אַרְתַּחְשַׁ֣שְׂתְּ='ar.tach.shas.te[H0783B,ANpm]:"Artaxerxes" | מַלְכָּ֔/א=mal.Ka/'[H4430,ANcbsd/Ta]:"king/ the" | קֱרִ֧י=ke.Ri[H7123,AVQp3ms]:"it was read aloud" | קֳדָם=ko.dom-[H6925,ANcbsa]:"before" | רְח֛וּם=re.Chum[H7348B,ANpm]:"Rehum" | וְ/שִׁמְשַׁ֥י=ve./shim.Shai[H8124,AC/Npm]:"and/ Shimshai" | סָפְרָ֖/א=sa.fe.Ra/'[H5613,ANcbsd/Ta]:"scribe/ the" | וּ/כְנָוָתְ/ה֑וֹן=u./khe.na.va.te./Hon[H3675,AC/Ncfpc/Sp3mp]:"and/ associates/ their" | אֲזַ֨לוּ='a.Za.lu[H0236,AVqp3mp]:"they went" | בִ/בְהִיל֤וּ=vi/v.hi.Lu[H0924,AR/Ncbsa]:"in/ haste" | לִ/ירֽוּשְׁלֶם֙=li./ru.she.Lem[H3390,AR/Npl]:"to/ Jerusalem" | עַל='al-[H5922,AR]:"to" | יְה֣וּדָיֵ֔/א=ye.Hu.da.Ye/'[H3062,ANgmpd/Ta]:"Jews/ the" | וּ/בַטִּ֥לוּ=u./va.Ti.lu[H0989,AC/Vpp3mp]:"and/ they made to cease" | הִמּ֖וֹ=hi.Mo[H1994,APp3mp]:"them" | בְּ/אֶדְרָ֥ע=be./'ed.Ra'[H0153,AR/Ncbsa]:"with/ force" | וְ/חָֽיִל=ve./Cha.yil[H2429,AC/Ncbsa]:"and/ power"
+
+## EZR 4:24
+בֵּ/אדַ֗יִן בְּטֵלַת֙ עֲבִידַ֣ת בֵּית אֱלָהָ֔/א דִּ֖י בִּ/ירוּשְׁלֶ֑ם וַ/הֲוָת֙ בָּֽטְלָ֔א עַ֚ד שְׁנַ֣ת תַּרְתֵּ֔ין לְ/מַלְכ֖וּת דָּרְיָ֥וֶשׁ מֶֽלֶךְ פָּרָֽס
+
+בֵּ/אדַ֗יִן=be./Da.yin[H0116,AR/D]:"<in>/ then" | בְּטֵלַת֙=be.te.Lat[H0989,AVqp3fs]:"it ceased" | עֲבִידַ֣ת='a.vi.Dat[H5673,ANcfsc]:"[the] work of" | בֵּית=beit-[H1005,ANcbsc]:"[the] house of" | אֱלָהָ֔/א='e.la.Ha/'[H0426,ANcbsd/Ta]:"<the>/ God" | דִּ֖י=di[H1768,AC]:"which" | בִּ/ירוּשְׁלֶ֑ם=bi./ru.she.Lem[H3390,AR/Npl]:"[is] in/ Jerusalem" | וַ/הֲוָת֙=va./ha.Vat[H1934,AC/Vqp3fs]:"and/ it was" | בָּֽטְלָ֔א=ba.te.La'[H0989,AVqrfsa]:"ceasing" | עַ֚ד='ad[H5705,AR]:"until" | שְׁנַ֣ת=she.Nat[H8140,ANcfsc]:"year" | תַּרְתֵּ֔ין=tar.Tein[H8648,AAcfda]:"two" | לְ/מַלְכ֖וּת=le./mal.Khut[H4437,AR/Ncfsc]:"of/ [the] reign of" | דָּרְיָ֥וֶשׁ=da.re.Ya.vesh[H1868G,ANpm]:"Darius" | מֶֽלֶךְ=Me.lekh-[H4430,ANcbsc]:"[the] king of" | פָּרָֽס=pa.Ras[H6540,ANpl]:"Persia"

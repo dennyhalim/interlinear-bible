@@ -1,0 +1,15 @@
+# 2 Corinthians
+
+- [[New_Testament/2 Corinthians/2 Corinthians 1|Chapter 1]]
+- [[New_Testament/2 Corinthians/2 Corinthians 2|Chapter 2]]
+- [[New_Testament/2 Corinthians/2 Corinthians 3|Chapter 3]]
+- [[New_Testament/2 Corinthians/2 Corinthians 4|Chapter 4]]
+- [[New_Testament/2 Corinthians/2 Corinthians 5|Chapter 5]]
+- [[New_Testament/2 Corinthians/2 Corinthians 6|Chapter 6]]
+- [[New_Testament/2 Corinthians/2 Corinthians 7|Chapter 7]]
+- [[New_Testament/2 Corinthians/2 Corinthians 8|Chapter 8]]
+- [[New_Testament/2 Corinthians/2 Corinthians 9|Chapter 9]]
+- [[New_Testament/2 Corinthians/2 Corinthians 10|Chapter 10]]
+- [[New_Testament/2 Corinthians/2 Corinthians 11|Chapter 11]]
+- [[New_Testament/2 Corinthians/2 Corinthians 12|Chapter 12]]
+- [[New_Testament/2 Corinthians/2 Corinthians 13|Chapter 13]]
