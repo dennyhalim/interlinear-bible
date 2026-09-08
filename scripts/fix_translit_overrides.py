@@ -75,7 +75,7 @@ def main():
         """
         UPDATE lexicon_entry
         SET gloss = 'JEHOVAH'
-        WHERE dstrong = 'H3068G'
+        WHERE (dstrong = 'H3068G' OR dstrong = 'H3069')
         """
     )
     print(f"updated {cur.rowcount} word rows", file=sys.stderr)
