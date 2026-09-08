@@ -86,13 +86,14 @@ jobs:
             --staging output/staging \
             --schema schema.sql \
             --out output/interlinear.sqlite
+
+      - name: update db
+        run: |
+          python3 scripts/fix_translit_overrides.py --db output/interlinear.sqlite
+          python3 scripts/resolve_proper_nouns.py --db output/interlinear.sqlite
           python3 scripts/load_lexicon_categories.py \
             --db output/interlinear.sqlite \
             --jsonl sources/strong_categories.jsonl
-
-      - name: Resolve ambiguous proper nouns
-        run: |
-          python3 scripts/resolve_proper_nouns.py --db output/interlinear.sqlite
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
