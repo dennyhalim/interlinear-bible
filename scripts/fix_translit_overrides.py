@@ -80,6 +80,23 @@ def main():
     )
     print(f"updated {cur.rowcount} word rows", file=sys.stderr)
 
+    cur.execute(
+        """
+        UPDATE lexicon_entry
+        SET gloss = REPLACE(gloss, 'YHWH', 'YHVH')
+        WHERE (dstrong = 'H3069' OR dstrong = 'H3071' OR dstrong = 'H3072' OR dstrong = 'H3073' OR dstrong = 'H3074')
+        """
+    )
+    print(f"updated {cur.rowcount} word rows", file=sys.stderr)
+
+    cur.execute(
+        """
+        UPDATE lexicon_entry
+        SET gloss = REPLACE(gloss, 'Yahweh', 'Jehovah')
+        WHERE (dstrong = 'H3072' OR dstrong = 'H3073' OR dstrong = 'H3074')
+        """
+    )
+    print(f"updated {cur.rowcount} word rows", file=sys.stderr)
 
     conn.commit()
     conn.close()
