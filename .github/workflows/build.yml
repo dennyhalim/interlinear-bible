@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/**"
+      #- "scripts/**"
       - "schema.sql"
       #- ".github/workflows/build.yml"
     tags:
