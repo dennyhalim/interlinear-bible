@@ -110,7 +110,7 @@ jobs:
         run: |
           rm -rf /tmp/dbpub && mkdir -p /tmp/dbpub/obsidian_vault
           #python3 scripts/export_obsidian_vault.py --db output/interlinear.sqlite --out-dir /tmp/dbpub/obsidian_vault
-          python3 scripts/export_to_markdown.py --db output/interlinear.sqlite --out-dir /tmp/dbpub/markdown
+          python3 scripts/export_to_markdown.py --group --db output/interlinear.sqlite --out-dir /tmp/dbpub/markdown
           ls output/staging
           #cp output/interlinear.sqlite /tmp/dbpub/ #sqlite over100m
           cp sources/strong_categories.jsonl /tmp/dbpub/
