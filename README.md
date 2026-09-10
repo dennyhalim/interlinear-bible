@@ -11,7 +11,7 @@ tagged releases, as a stable release download URL.
 Turso db accessible from url
 ```bash
 libsql://interlinear-dennyhalim.aws-ap-northeast-1.turso.io
-
+```
 
 ## Sources (verified, not assumed — see notes below)
 
