@@ -13,6 +13,13 @@ Turso db accessible from url
 libsql://bible-dennyhalim.aws-ap-northeast-1.turso.io
 ```
 
+You can just download and create your own Turso libsql
+```bash
+turso db import interlinear.sqlite
+```
+
+
+
 ## Sources (verified, not assumed — see notes below)
 
 | Data | Source | License |
