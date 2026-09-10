@@ -62,6 +62,8 @@ python3 scripts/parse_tipnr.py \
   output/staging/tipnr.jsonl
 python3 scripts/build_db.py --staging output/staging --schema schema.sql --out output/interlinear.sqlite
 python3 scripts/resolve_proper_nouns.py --db output/interlinear.sqlite
+python3 scripts/fix_translit_overrides.py --db output/interlinear.sqlite
+python3 scripts/load_lexicon_categories.py --db output/interlinear.sqlite --jsonl sources/strong_categories.jsonl
 ```
 
 ## Schema
