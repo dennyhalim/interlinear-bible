@@ -6,6 +6,13 @@ licensed data. A GitHub Action rebuilds `output/interlinear.sqlite` on
 every push to `scripts/` and publishes it as a build artifact and, on
 tagged releases, as a stable release download URL.
 
+## Turso libSQL db
+
+Turso db accessible from url
+```bash
+libsql://interlinear-dennyhalim.aws-ap-northeast-1.turso.io
+
+
 ## Sources (verified, not assumed — see notes below)
 
 | Data | Source | License |
