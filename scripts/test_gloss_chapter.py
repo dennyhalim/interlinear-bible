@@ -222,11 +222,7 @@ def main():
 
     model = args.model or PROVIDER_DEFAULTS[args.provider]["default_model"]
     book_code = args.book.upper()
-    try:
-        chapters = [int(c.strip()) for c in args.chapter.split(",") if c.strip()]
-    except ValueError:
-        print(f"ERROR: --chapter must be a number or comma-separated numbers, got '{args.chapter}'", file=sys.stderr)
-        sys.exit(1)
+
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -239,6 +235,19 @@ def main():
         print(f"ERROR: book '{book_code}' not found", file=sys.stderr)
         sys.exit(1)
     book_id, book_name = row
+    
+    if args.chapter.lower() == "all":
+        cur.execute("SELECT DISTINCT chapter FROM verse WHERE book_id = ? ORDER BY chapter", (book_id,))
+        chapters = [r[0] for r in cur.fetchall()]
+    else:
+        try:
+            chapters = []
+            for part in args.chapter.split(","):
+                lo, _, hi = part.strip().partition("-")
+                chapters += range(int(lo), int(hi or lo) + 1)
+        except ValueError:
+            print(f"ERROR: --chapter must be 'all', numbers, or ranges like 1-5,8; got '{args.chapter}'", file=sys.stderr)
+            sys.exit(1)
 
     client, call_fn = build_client(args.provider)
     print(f"Provider: {args.provider}, model: {model}", file=sys.stderr)

@@ -19,6 +19,7 @@ import argparse
 import csv
 import sqlite3
 import sys
+import io
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -38,13 +39,23 @@ def main():
 
     gloss_col = f"gloss_{args.language}"
 
-    with args.csv.open(encoding="utf-8-sig", newline="") as f:
-        reader = csv.DictReader(f)
-        if gloss_col not in reader.fieldnames:
-            print(f"ERROR: column '{gloss_col}' not found in {args.csv}. Found columns: {reader.fieldnames}", file=sys.stderr)
-            sys.exit(1)
-        rows = list(reader)
+    raw = args.csv.read_bytes()
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        # Excel "CSV (Comma delimited)" on Windows saves in cp1252, not UTF-8
+        text = raw.decode("cp1252", errors="replace")
+        print("WARN: file is not UTF-8, decoded as Windows-1252 (Hebrew/Greek columns may be '?', unused here)", file=sys.stderr)
 
+    # Excel in some locales (e.g. Indonesian) uses ';' instead of ','
+    header = text.split("\n", 1)[0]
+    delimiter = ";" if header.count(";") > header.count(",") else ","
+    reader = csv.DictReader(io.StringIO(text, newline=""), delimiter=delimiter)
+    if gloss_col not in reader.fieldnames:
+        print(f"ERROR: column '{gloss_col}' not found in {args.csv}. Found columns: {reader.fieldnames}", file=sys.stderr)
+        sys.exit(1)
+    rows = list(reader)
+    
     conn = sqlite3.connect(args.db)
     cur = conn.cursor()
 
