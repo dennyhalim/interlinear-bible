@@ -176,6 +176,38 @@ files bake the text in at export time.
 
 Add `--book GEN` to most exporters to test on a single book first.
 
+#### Which stage does each export need?
+
+What each stage adds to the text:
+
+| Stage | Adds | Text you get |
+|---|---|---|
+| 1 | database | English glosses (a lexicon gloss may list several senses; the first one is used) |
+| 2 | translated lexicon | Indonesian dictionary glosses, one per Strong's number |
+| 3 | `ai_gloss` | one Indonesian sense per word, chosen for the verse |
+| 4 | `verse_translation` | a natural sentence per verse, with Strong's tags |
+
+Every export runs after stage 1 except MySword `natural`. Later stages only
+improve the text, and they work per word and per verse, so a partly processed
+Bible still exports. A word without an `ai_gloss` falls back to stage 2, then
+stage 1, and a verse without a stage 4 sentence falls back to its joined glosses.
+
+| Export | Earliest | Improved by | Stage 4 |
+|---|---|---|---|
+| Lexicon CSV | 1 | n/a (it is the input to stage 2) | no |
+| Interlinear Markdown (NotebookLM, and Obsidian flat with `--wikilink`) | 1 | 2, 3 | not used |
+| Compact Markdown (Claude Project) | 1 | 3, 4 | used if present (plain text); `--strongs` needs it |
+| Obsidian vault | 1 | 3 | not used; it ignores stage 2 and uses English fallbacks |
+| DOCX | 1 | 2, 3 | not used |
+| MySword `interlinear` / `plain` | 1 | 2, 3 | not used |
+| MySword `natural` | **4** | 3 (before stage 4) | required; verses without a sentence are skipped |
+| e-Sword | 1 | 2, 3 | not used |
+| OSIS | 1 | 2, 3, plus optional versification mapping (stage 1 extras) | not used |
+| D1 deploy / read API | 1 | each stage fills its own table | the table deploys, but the API does not read it |
+
+The weekly CI build and the `db` branch publish stop at stage 1, so those
+outputs contain English glosses only.
+
 ### Stage 6: deploy (Cloudflare D1 + read API)
 
 ```bash
