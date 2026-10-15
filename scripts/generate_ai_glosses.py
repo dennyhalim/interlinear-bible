@@ -112,15 +112,16 @@ def resolve_scope(book, group, testament):
         sys.exit(1)
 
     if group:
-        group_key = group.lower()
-        if group_key not in BOOK_GROUPS:
-            print(f"ERROR: unknown --group '{group}'. Valid groups: {', '.join(BOOK_GROUPS.keys())}", file=sys.stderr)
+        keys = [g.strip().lower() for g in group.split(",") if g.strip()]
+        bad = [k for k in keys if k not in BOOK_GROUPS]
+        if bad:
+            print(f"ERROR: unknown --group {', '.join(bad)}. Valid groups: {', '.join(BOOK_GROUPS.keys())}", file=sys.stderr)
             sys.exit(1)
-        return {"book_codes": BOOK_GROUPS[group_key]}
+        return {"book_codes": [c for k in keys for c in BOOK_GROUPS[k]]}
 
     if book:
-        return {"book_codes": [book.upper()]}
-
+        return {"book_codes": [b.strip().upper() for b in book.split(",") if b.strip()]}
+        
     if testament:
         testament_code = testament.upper()
         if testament_code not in ("OT", "NT"):
