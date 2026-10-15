@@ -15,6 +15,7 @@ fallback order used elsewhere in this project, e.g. the read API):
 """
 import json
 import sqlite3
+import re
 
 
 # Canonical 66-book order, matching book.ordinal in the schema. Needed
@@ -47,7 +48,10 @@ def get_verses_for_book(conn, book_id):
     )
     return cur.fetchall()
 
-
+def first_sense(gloss):
+    """'the; this, who' / 'in/on/among' -> 'the' / 'in' (fallback only)."""
+    return re.split(r"\s*[/;,]\s*", gloss.strip(), maxsplit=1)[0] if gloss else ""
+    
 def get_words_for_verse(conn, verse_id, language):
     """Returns a list of dicts, one per word, with everything an
     exporter needs: surface text, transliteration, Strong's (both the
@@ -57,17 +61,27 @@ def get_words_for_verse(conn, verse_id, language):
     cur = conn.cursor()
     cur.execute(
         """
+        WITH lx AS (
+            SELECT w2.word_id AS wid, le.lexicon_id, le.gloss,
+                   ROW_NUMBER() OVER (
+                       PARTITION BY w2.word_id
+                       ORDER BY (le.dstrong = w2.strongs) DESC, le.lexicon_id
+                   ) AS rn
+            FROM word w2
+            JOIN lexicon_entry le ON le.dstrong = w2.strongs OR le.estrong = w2.strongs
+            WHERE w2.verse_id = ?2
+        )
         SELECT w.word_id, w.position, w.language, w.surface, w.translit,
                w.strongs, w.strongs_parts, w.morph_code, w.gloss_source,
-               lx.gloss as lexicon_gloss_en,
-               lgt.gloss as lexicon_gloss_target,
-               ag.gloss as ai_gloss
+               lx.gloss AS lexicon_gloss_en,
+               lgt.gloss AS lexicon_gloss_target,
+               ag.gloss AS ai_gloss
         FROM word w
-        LEFT JOIN lexicon_entry lx ON lx.dstrong = w.strongs OR lx.estrong = w.strongs
+        LEFT JOIN lx ON lx.wid = w.word_id AND lx.rn = 1
         LEFT JOIN lexicon_gloss_translation lgt
-            ON lgt.lexicon_id = lx.lexicon_id AND lgt.language = ?
+            ON lgt.lexicon_id = lx.lexicon_id AND lgt.language = ?1
         LEFT JOIN ai_gloss ag ON ag.word_id = w.word_id
-        WHERE w.verse_id = ?
+        WHERE w.verse_id = ?2
         ORDER BY w.position
         """,
         (language, verse_id),
@@ -81,9 +95,9 @@ def get_words_for_verse(conn, verse_id, language):
         if ai_gloss:
             gloss, gloss_source_label = ai_gloss, "ai_contextual"
         elif lexicon_gloss_target:
-            gloss, gloss_source_label = lexicon_gloss_target, "lexicon_translated"
+            gloss, gloss_source_label = first_sense(lexicon_gloss_target), "lexicon_translated"
         elif lexicon_gloss_en:
-            gloss, gloss_source_label = lexicon_gloss_en, "lexicon_en"
+            gloss, gloss_source_label = first_sense(lexicon_gloss_en), "lexicon_en"
         elif gloss_source:
             gloss, gloss_source_label = gloss_source, "source_dataset"
         else:

@@ -74,7 +74,7 @@ import argparse
 import sqlite3
 import sys
 from pathlib import Path
-
+import bible_export_common as bec
 
 # Traditional thematic groupings. Verified against actual rendered word
 # counts (see README) -- every group stays under NotebookLM's 500,000
@@ -138,8 +138,8 @@ def get_words(cur, verse_id):
     )
     return cur.fetchall()
 
-
-def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False):
+def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False, language="id"):
+#def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False):
     """Render one book as Markdown.
 
     compact=False (default): full interlinear -- surface-text line,
@@ -163,32 +163,24 @@ def render_book(cur, book_id, code, name, testament, wikilink=False, compact=Fal
             lines.append(f"\n## Chapter {chapter}\n")
             current_chapter = chapter
 
-        words = get_words(cur, verse_id)
+        words = bec.get_words_for_verse(cur.connection, verse_id, language)
+#        words = get_words(cur, verse_id)
         ref = f"{code} {chapter}:{verse}"
         if wikilink:
             ref = f"[[{ref}]]"
 
         if compact:
-            # Running gloss only, in reading order, no per-word
-            # apparatus at all. This is deliberately NOT the same
-            # information at lower resolution -- it's a different,
-            # much smaller artifact for a different job (see
-            # docstring). If you need Strong's/morphology, use the
-            # default interlinear export instead.
-            gloss_parts = []
-            for pos, lang, surface, translit, strongs, morph, gloss_source, ai_gloss, lexicon_gloss in words:
-                gloss = ai_gloss or gloss_source or lexicon_gloss or ""
-                if gloss:
-                    gloss_parts.append(gloss)
+            gloss_parts = [w["gloss"] for w in words if w["gloss"]]
             lines.append(f"**{ref}** {' '.join(gloss_parts)}")
         else:
-            surface_line = " ".join(w[2] for w in words)
+            surface_line = " ".join(w["surface"] for w in words)
             lines.append(f"**{ref}** {surface_line}")
+            word_parts = [
+                f'{w["surface"]}={w["translit"]}[{w["strongs"] or ""},{w["morph_code"] or ""}]:"{w["gloss"]}"'
+                for w in words
+            ]
+            lines.append("  " + " | ".join(word_parts))
 
-            # Compact per-word gloss line instead of a Markdown table --
-            # far fewer tokens for the same information, and reads more
-            # like a traditional printed interlinear's word-by-word
-            # gloss row.
             word_parts = []
             for pos, lang, surface, translit, strongs, morph, gloss_source, ai_gloss, lexicon_gloss in words:
                 gloss = ai_gloss or gloss_source or lexicon_gloss or ""
