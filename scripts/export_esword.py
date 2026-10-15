@@ -99,7 +99,7 @@ def main():
     ap.add_argument("--db", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--language", default="id")
-    ap.add_argument("--layout", choices=["interlinear", "plain"], default="plain",
+    ap.add_argument("--layout", choices=["interlinear", "plain", "natural"], default="plain",
                      help="'plain' (default) is standard e-Sword behavior everywhere. "
                           "'interlinear' renders as an HTML table, reliable only on "
                           "HTML-capable e-Sword versions (Mac/iOS) -- see module docstring.")

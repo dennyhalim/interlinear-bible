@@ -157,7 +157,7 @@ def main():
     ap.add_argument("--db", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--language", default="id")
-    ap.add_argument("--layout", choices=["interlinear", "plain"], default="interlinear")
+    ap.add_argument("--layout", choices=["interlinear", "plain", "natural"], default="interlinear")
     ap.add_argument("--description", required=True, help="Full module description shown in MySword's module list")
     ap.add_argument("--abbreviation", required=True, help="Short module abbreviation, no spaces (use _ or -)")
     ap.add_argument("--book", help="Only export one book (canonical 3-letter code), for testing")
