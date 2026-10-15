@@ -38,6 +38,9 @@ REF_ROW = re.compile(
 #    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)#(\d+)=(\S*)\t(.*)$"
 )
 
+# A detail row (has "#NN=") that REF_ROW fails to match is a dropped verse
+LOOSE_REF = re.compile(r"^[1-3]?[A-Za-z]{2,3}\.\d+\.\d+[^\t#]*#\d+=")
+
 # Map STEPBible's 3-letter-ish book abbreviations to our canonical codes.
 # Verified exhaustively against actual TAHOT files (all 39 OT books present):
 # {'1Ch','1Ki','1Sa','2Ch','2Ki','2Sa','Amo','Dan','Deu','Ecc','Est','Exo',
@@ -83,6 +86,7 @@ def split_strongs_group(field: str):
 
 def parse_file(path: Path):
     rows = []
+    skipped = 0
     word_counters = {}  # (book, chapter, verse) -> running word_index
 
     with path.open(encoding="utf-8") as f:
@@ -92,6 +96,7 @@ def parse_file(path: Path):
                 continue
             m = REF_ROW.match(line)
             if not m:
+                skipped += LOOSE_REF.match(line) is not None
                 continue
             step_book, chapter, verse, morph_idx, source, rest = m.groups()
             book_code = STEP_TO_CANON.get(step_book)
@@ -142,7 +147,7 @@ def parse_file(path: Path):
                 "grammar_parts": grammar_parts,
                 "punct_tag": punct_tag,
             })
-    return rows
+    return rows, skipped
 
 
 def main():
@@ -156,11 +161,15 @@ def main():
 
     files = sorted(src.glob("TAHOT*.txt")) if src.is_dir() else [src]
 
-    all_rows = []
+    all_rows, total_skipped = [], 0
     for f in files:
-        rows = parse_file(f)
-        print(f"{f.name}: {len(rows)} morphemes", file=sys.stderr)
+        rows, skipped = parse_file(f)
+        chapters = {(r["book_code"], r["chapter"]) for r in rows}
+        verses = {(r["book_code"], r["chapter"], r["verse"]) for r in rows}
+        print(f"{f.name}: {len(chapters)} chapters, {len(verses)} verses, {len(rows)} morphemes"
+              + (f"  WARNING: {skipped} detail lines skipped" if skipped else ""), file=sys.stderr)
         all_rows.extend(rows)
+        total_skipped += skipped
 
     with out_path.open("w", encoding="utf-8") as f:
         for row in all_rows:

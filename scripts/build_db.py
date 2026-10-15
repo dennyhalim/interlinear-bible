@@ -289,10 +289,24 @@ def main():
     )
     conn.commit()
 
-    cur.execute("SELECT COUNT(*) FROM verse")
-    print(f"Total verses: {cur.fetchone()[0]}", file=sys.stderr)
-    cur.execute("SELECT COUNT(*) FROM word")
-    print(f"Total words: {cur.fetchone()[0]}", file=sys.stderr)
+    expected_chapters = {"OT": 929, "NT": 260}  # standard English numbering
+    print("\nTestament  books  chapters  verses  words", file=sys.stderr)
+    cur.execute("""
+        SELECT b.testament, COUNT(DISTINCT b.book_id), COUNT(DISTINCT b.book_id * 1000 + v.chapter),
+               COUNT(DISTINCT v.verse_id), COUNT(w.word_id)
+        FROM verse v JOIN book b ON b.book_id = v.book_id
+        LEFT JOIN word w ON w.verse_id = v.verse_id
+        GROUP BY b.testament ORDER BY b.testament DESC
+    """)
+    for testament, books, chapters, verses, words in cur.fetchall():
+        print(f"{testament:<10} {books:>5} {chapters:>9} {verses:>7} {words:>7}", file=sys.stderr)
+        if chapters != expected_chapters.get(testament):
+            print(f"  WARNING: {testament} has {chapters} chapters, expected {expected_chapters.get(testament)}", file=sys.stderr)
+            
+#    cur.execute("SELECT COUNT(*) FROM verse")
+#    print(f"Total verses: {cur.fetchone()[0]}", file=sys.stderr)
+#    cur.execute("SELECT COUNT(*) FROM word")
+#    print(f"Total words: {cur.fetchone()[0]}", file=sys.stderr)
 
     conn.close()
     print(f"Built {args.out}", file=sys.stderr)
