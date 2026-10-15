@@ -181,13 +181,6 @@ def render_book(cur, book_id, code, name, testament, wikilink=False, compact=Fal
             ]
             lines.append("  " + " | ".join(word_parts))
 
-            word_parts = []
-            for pos, lang, surface, translit, strongs, morph, gloss_source, ai_gloss, lexicon_gloss in words:
-                gloss = ai_gloss or gloss_source or lexicon_gloss or ""
-                strongs_disp = strongs or ""
-                word_parts.append(f"{surface}={translit}[{strongs_disp},{morph}]:\"{gloss}\"")
-            lines.append("  " + " | ".join(word_parts))
-
         lines.append("")
 
     return "\n".join(lines)
