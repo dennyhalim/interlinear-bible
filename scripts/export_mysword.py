@@ -46,6 +46,7 @@ Usage:
 import argparse
 import sqlite3
 import sys
+import re
 from datetime import date
 from pathlib import Path
 
@@ -53,6 +54,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 import bible_export_common as bec
 
 
+def render_verse_natural(text):
+    """'Pada mula{G746}' -> 'Pada mula<WG746>' (MySword Strong's tag)."""
+    return re.sub(r"\{([HG])(\d+)\}", r"<W\1\2>", escape_html(text))
+    
 def escape_html(text):
     if text is None:
         return ""
@@ -198,13 +203,19 @@ def main():
 
         verses = bec.get_verses_for_book(src_conn, book_id)
         for verse_id, chapter, verse in verses:
-            words = bec.get_words_for_verse(src_conn, verse_id, args.language)
-            if not words:
-                continue
-            scripture = (
-                render_verse_interlinear(words) if args.layout == "interlinear"
-                else render_verse_plain(words)
-            )
+            if args.layout == "natural":
+                text = bec.get_verse_translation(src_conn, verse_id, args.language, tagged=True)
+                if not text:
+                    continue
+                scripture = render_verse_natural(text)
+            else:
+                words = bec.get_words_for_verse(src_conn, verse_id, args.language)
+                if not words:
+                    continue
+                scripture = (
+                    render_verse_interlinear(words) if args.layout == "interlinear"
+                    else render_verse_plain(words)
+                )
             out_cur.execute(
                 "INSERT OR REPLACE INTO Bible (Book, Chapter, Verse, Scripture) VALUES (?,?,?,?)",
                 (book_number, chapter, verse, scripture),

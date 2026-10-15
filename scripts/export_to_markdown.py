@@ -170,7 +170,7 @@ def render_book(cur, book_id, code, name, testament, wikilink=False, compact=Fal
             ref = f"[[{ref}]]"
             
         if compact:
-            text = bec.get_verse_translation(cur.connection, verse_id, language) \
+            text = bec.get_verse_translation(cur.connection, verse_id, language, tagged=True) \
                 or " ".join(w["gloss"] for w in words if w["gloss"])
             lines.append(f"**{ref}** {text}")
         else:
