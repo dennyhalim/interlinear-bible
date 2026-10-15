@@ -168,10 +168,11 @@ def render_book(cur, book_id, code, name, testament, wikilink=False, compact=Fal
         ref = f"{code} {chapter}:{verse}"
         if wikilink:
             ref = f"[[{ref}]]"
-
+            
         if compact:
-            gloss_parts = [w["gloss"] for w in words if w["gloss"]]
-            lines.append(f"**{ref}** {' '.join(gloss_parts)}")
+            text = bec.get_verse_translation(cur.connection, verse_id, language) \
+                or " ".join(w["gloss"] for w in words if w["gloss"])
+            lines.append(f"**{ref}** {text}")
         else:
             surface_line = " ".join(w["surface"] for w in words)
             lines.append(f"**{ref}** {surface_line}")

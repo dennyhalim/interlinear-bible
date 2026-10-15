@@ -48,6 +48,16 @@ def get_verses_for_book(conn, book_id):
     )
     return cur.fetchall()
 
+def get_verse_translation(conn, verse_id, language):
+    """Natural verse translation, or None if not generated yet."""
+    try:
+        row = conn.execute(
+            "SELECT text FROM verse_translation WHERE verse_id = ? AND language = ?",
+            (verse_id, language)).fetchone()
+    except sqlite3.OperationalError:
+        return None  # table not created yet
+    return row[0] if row else None
+    
 def first_sense(gloss):
     """'the; this, who' / 'in/on/among' -> 'the' / 'in' (fallback only)."""
     return re.split(r"\s*[/;,]\s*", gloss.strip(), maxsplit=1)[0] if gloss else ""
