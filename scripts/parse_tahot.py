@@ -34,7 +34,8 @@ FILE_TO_BOOKS = {
 }
 
 REF_ROW = re.compile(
-    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)#(\d+)=(\S*)\t(.*)$"
+    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)(?:\([^)]*\))?#(\d+)=(\S*)\t(.*)$"
+#    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)#(\d+)=(\S*)\t(.*)$"
 )
 
 # Map STEPBible's 3-letter-ish book abbreviations to our canonical codes.

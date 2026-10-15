@@ -84,7 +84,8 @@ def strongs_tags(word):
             continue
         if letter == "H" and int(digits) >= 9000:
             continue  # STEPBible grammatical pseudo-code, not a real Strong's entry
-        tags.append(f"<W{letter}{digits}>")
+        tags.append(f"<W{letter}{int(digits)}>")
+#        tags.append(f"<W{letter}{digits}>")
     return "".join(tags)
 
 
