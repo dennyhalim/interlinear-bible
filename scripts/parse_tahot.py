@@ -11,6 +11,18 @@ row per morpheme (prefix/stem/suffix split apart) with clean tab columns:
   Grammar \t MeaningVariants \t SpellingVariants \t RootStrong+Instance \t
   AltStrongs \t ConjoinWord \t ExpandedStrongTags ...
 
+Reference format: the FIRST reference is standard English numbering, with
+the Hebrew reference in brackets when the two differ, e.g.
+"Psa.67.1(67.2)#01=L" or "Psa.51.0(51.1)#01=L" (title = verse 0). We keep
+the first (English) reference. When two Hebrew verses map to one English
+verse (e.g. Num 26:1 = Heb 25:19 + 26:1) each part restarts its #NN
+counter at 01, so positions of the later part are offset to keep them
+unique and in reading order.
+
+Source flag (after "="): rows flagged "X" are words from other manuscripts
+that are NOT in the Leningrad (Masoretic) text, so they are skipped. All
+other flags (L, Q(K), Q(k), R, L(p), ...) are Leningrad text and are kept.
+
 - dStrongs may contain multiple slash-joined parts (prefix/stem/suffix),
   each optionally wrapped in {} to mark the "head" word of the group vs.
   attached participles (e.g. "H9003/{H7225G}" = prefix H9003 + head word
@@ -20,7 +32,7 @@ row per morpheme (prefix/stem/suffix split apart) with clean tab columns:
   as a separate punctuation-tag field, not treated as a Strong's number.
 
 Output: one row per morpheme:
-  book_code, chapter, verse, word_index, morph_index, hebrew, translit,
+  book_code, chapter, verse, position, source_flag, hebrew, translit,
   gloss, strongs_parts (list), head_strongs, grammar_parts (list), punct_tag
 """
 import re
@@ -33,12 +45,13 @@ FILE_TO_BOOKS = {
     # (used only for sanity; actual book code comes from the ref itself)
 }
 
+# Groups: book, chapter, verse (English), Hebrew ref in brackets (optional),
+# morpheme #, source flag, rest of the line.
 REF_ROW = re.compile(
-#    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)(?:\([^)]*\))?#(\d+)=(\S*)\t(.*)$"
     r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)(?:\(([^)]*)\))?#(\d+)=(\S*)\t(.*)$"
 )
 
-# A detail row (has "#NN=") that REF_ROW fails to match is a dropped verse
+# A detail row ("...#NN=") that REF_ROW fails to match is a dropped verse.
 LOOSE_REF = re.compile(r"^[1-3]?[A-Za-z]{2,3}\.\d+\.\d+[^\t#]*#\d+=")
 
 # Map STEPBible's 3-letter-ish book abbreviations to our canonical codes.
@@ -85,10 +98,14 @@ def split_strongs_group(field: str):
 
 
 def parse_file(path: Path):
+    """Returns (rows, skipped, skipped_x): skipped = detail rows REF_ROW
+    could not parse (dropped verses -- should be 0); skipped_x = rows
+    flagged X (other-manuscript words, excluded on purpose)."""
     rows = []
-    pos_state = {}
     skipped = 0
+    skipped_x = 0
     word_counters = {}  # (book, chapter, verse) -> running word_index
+    pos_state = {}  # (book, chapter, verse) -> Hebrew-ref offset bookkeeping
 
     with path.open(encoding="utf-8") as f:
         for line in f:
@@ -100,7 +117,11 @@ def parse_file(path: Path):
                 skipped += LOOSE_REF.match(line) is not None
                 continue
             step_book, chapter, verse, hebref, morph_idx, source, rest = m.groups()
-#            step_book, chapter, verse, morph_idx, source, rest = m.groups()
+
+            if source.strip() == "X":  # variant-manuscript words, not in the Leningrad (MT) text
+                skipped_x += 1
+                continue
+
             book_code = STEP_TO_CANON.get(step_book)
             if not book_code:
                 print(f"WARN: unmapped book '{step_book}' in {path.name}", file=sys.stderr)
@@ -132,6 +153,7 @@ def parse_file(path: Path):
                 head_strongs = strongs_parts[-1][0]
 
             key = (book_code, int(chapter), int(verse))
+
             # Two source verses can map to one English verse (e.g. Num 26:1 =
             # Heb 25:19 + 26:1); their #NN counters both restart at 01, so
             # continue numbering after the earlier part instead of colliding.
@@ -140,14 +162,11 @@ def parse_file(path: Path):
                 st["offset"], st["ref"] = st["max"], hebref or ""
             position = int(morph_idx) + st["offset"]
             st["max"] = max(st["max"], position)
-            # word_index groups morphemes belonging to the same surface word
-            # (STEPBible's #NN is already a per-morpheme counter within the verse,
-            # matching Hebrew word order, so we use it directly as position).
+
             rows.append({
                 "book_code": book_code,
                 "chapter": int(chapter),
                 "verse": int(verse),
-#                "position": int(morph_idx),
                 "position": position,
                 "source_flag": source,
                 "hebrew": hebrew,
@@ -158,7 +177,13 @@ def parse_file(path: Path):
                 "grammar_parts": grammar_parts,
                 "punct_tag": punct_tag,
             })
-    return rows, skipped
+    return rows, skipped, skipped_x
+
+
+def count_chapters_verses(rows):
+    chapters = {(r["book_code"], r["chapter"]) for r in rows}
+    verses = {(r["book_code"], r["chapter"], r["verse"]) for r in rows}
+    return len(chapters), len(verses)
 
 
 def main():
@@ -172,21 +197,26 @@ def main():
 
     files = sorted(src.glob("TAHOT*.txt")) if src.is_dir() else [src]
 
-    all_rows, total_skipped = [], 0
+    all_rows = []
+    total_skipped = total_x = 0
     for f in files:
-        rows, skipped = parse_file(f)
-        chapters = {(r["book_code"], r["chapter"]) for r in rows}
-        verses = {(r["book_code"], r["chapter"], r["verse"]) for r in rows}
-        print(f"{f.name}: {len(chapters)} chapters, {len(verses)} verses, {len(rows)} morphemes"
-              + (f"  WARNING: {skipped} detail lines skipped" if skipped else ""), file=sys.stderr)
+        rows, skipped, skipped_x = parse_file(f)
+        chapters, verses = count_chapters_verses(rows)
+        print(f"{f.name}: {chapters} chapters, {verses} verses, {len(rows)} morphemes, "
+              f"{skipped_x} X rows skipped (not in MT)", file=sys.stderr)
+        if skipped:
+            print(f"  WARNING: {skipped} detail rows could not be parsed (verses dropped!)", file=sys.stderr)
         all_rows.extend(rows)
         total_skipped += skipped
+        total_x += skipped_x
 
     with out_path.open("w", encoding="utf-8") as f:
         for row in all_rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-    print(f"TOTAL: {len(all_rows)} morphemes -> {out_path}", file=sys.stderr)
+    chapters, verses = count_chapters_verses(all_rows)
+    print(f"TOTAL: {chapters} chapters, {verses} verses, {len(all_rows)} morphemes "
+          f"({total_x} X rows skipped, {total_skipped} unparsed) -> {out_path}", file=sys.stderr)
 
 
 if __name__ == "__main__":
