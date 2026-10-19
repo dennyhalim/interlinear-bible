@@ -58,6 +58,8 @@ Rules:
 - Render each verse as ONE fluent {lang} sentence (or the verse's own sentences), staying close to the source: keep source word order where {lang} grammar allows, no paraphrase, no commentary, no doctrinal smoothing.
 - Follow the given glosses for key terms, including divine names, exactly as glossed. Do not substitute other renderings.
 - Add a word absent from the source only when {lang} grammar requires it.
+- Paragraphs: begin the text of a verse with "¶ " when that verse starts a new paragraph (a change of speaker, scene, subject or time; usually every 3 to 8 verses). Always mark verse 1 of a chapter. Use ¶ nowhere else.
+- Poetry: in poetic verses (Psalms, Proverbs, Job, Song of Songs, Lamentations, prophetic oracles, songs inside narrative), separate the lines (cola) of the verse with " | ", one per Hebrew colon, usually 2 or 3 per verse. Use the accents in the Hebrew text (e.g. etnachta) to place the breaks. In prose never use "|".
 - Do not output verse numbers inside the text. One entry per input verse.
 - Words glossed "(tanda objek)" (H853) are not rendered in the sentence. Put their tag right after the object word they mark, e.g. langit{{H8064}}{{H853}}.
 

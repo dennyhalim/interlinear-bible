@@ -1,90 +1,54 @@
 #!/usr/bin/env python3
 """
-Export the interlinear database as human-readable per-book Markdown
-files, suitable for uploading as NotebookLM sources -- or, with
---compact, as a much smaller running-text export sized for Claude
-Project knowledge.
+Export the interlinear database as Markdown: one file per book, per
+thematic group (--group), or per testament.
 
-Why per-book rather than one giant file: NotebookLM caps each source
-at 500,000 words (or 200MB, whichever hits first). Even the largest
-book here (Jeremiah, ~92,000 rendered words including transliteration/
-Strong's/morphology/gloss) stays well under that per-book, so one file
-per book is a safe granularity. Combining multiple books into fewer
-files does NOT help and can push you over the limit -- a combined Old
-Testament file alone comes to roughly 1.2 million words, well over the
-cap; New Testament combined is roughly 570,000, also over. Per-book
-files, uploaded as 66 separate sources split across two notebooks
-(Old Testament: 39 books, New Testament: 27 books, both under
-NotebookLM's 50-source free-tier cap), is the approach that actually
-fits both limits.
+Two renderings:
 
-Why Markdown rather than raw table dumps: NotebookLM's value is in
-reading/summarizing/answering questions about *readable* content. A
-raw CSV of word_id/strongs/morph_code columns is technically "text"
-but doesn't read like anything -- this renders each verse as a real
-interlinear block: reference, original-language text, transliteration,
-per-word gloss, Strong's number, and morphology, in reading order.
+  default   Full interlinear, sized for NotebookLM (500,000-word cap per
+            source): per verse the reference, the original-language text,
+            then a per-word `surface=translit[strongs,morph]:"gloss"` line.
 
-IMPORTANT CAVEAT ABOUT WORD COUNTS, learned the hard way: the word
-counts this script prints (and the README's per-group table) are
-computed with `len(text.split())` -- a naive whitespace split. That's
-a reasonable proxy for NotebookLM's stated 500,000-*word* cap, but it
-is NOT a reasonable proxy for Claude Project knowledge's capacity,
-which is accounted in real tokens, not whitespace-delimited chunks.
-The default (interlinear) render packs every single word of Scripture
-into one compound whitespace-token like:
+  --compact Reading text (for Claude Project knowledge or plain reading):
+              ## Genesis 1
+              ¹ Pada mula ...
+              ² Bumi belum berbentuk ...          <- one line per verse,
+                                                     blank line only between
+              ¶-started paragraphs                   paragraphs
+            Uses the natural verse translation (verse_translation table) and
+            falls back to the joined word glosses when a verse has none yet.
+            Superscript verse numbers; Psalm titles (verse 0) as an italic
+            line; in poetry ('|' marks the lines of a verse) every line is
+            kept apart with a Markdown hard break. --strongs keeps the
+            {G746}-style Strong's tags in that text.
 
-    בְּרֵאשִׁית=B're'shit[H7225,HNcfsa]:"beginning"
+Glosses come from bible_export_common (ai_gloss -> translated lexicon ->
+English lexicon -> source gloss), the same as the MySword/e-Sword/OSIS
+exporters.
 
-`.split()` counts that as ONE "word", but it's 6-10x the character/
-token weight of a real word. A file that reports as, say, 400,000
-"words" by this script's own counter can therefore be several times
-that in actual tokens -- comfortably explaining a project-knowledge
-upload that fails as ">1000% over limit" even though the printed word
-count looked safely under NotebookLM's cap. The two caps are sized
-against genuinely different units; a file built for one is not sized
-for the other. This is why --compact exists (see below) rather than
-just uploading the interlinear export to both tools.
-
---compact mode, added for Claude Project knowledge specifically:
-strips the per-word Strong's/morphology/transliteration apparatus
-entirely and renders each verse as reference + running gloss text
-only (reads like a plain translation, not an interlinear). This is
-NOT a reduced-fidelity version of the same export -- it's a
-deliberately different artifact for a different job. Use the default
-(interlinear) export for NotebookLM when you want word-level Strong's/
-morphology lookups; use --compact for Claude when you want a project
-that can hold the whole Bible (or large groups of it) for read/search/
-discuss workflows where per-word morphology isn't the point. Verified
-against real output: compact mode drops file size by roughly 75-85%
-relative to the interlinear render, since it removes the surface-text
-line, the transliteration, the Strong's numbers, and the morphology
-code for every single word, keeping only the gloss.
+WORD COUNT CAVEAT: the word counts printed are naive whitespace splits. They
+are a fair proxy for NotebookLM's word cap but NOT for Claude Project
+knowledge, which is token-based: the interlinear render packs each word into
+one compound whitespace token (6-10x the real weight). Use --compact for
+Claude; the estimated-token figure printed alongside is chars/4.
 
 Usage:
   export_to_markdown.py --db output/interlinear.sqlite --out-dir output/markdown
-  export_to_markdown.py --db output/interlinear.sqlite --out-dir output/markdown --testament OT
-  export_to_markdown.py --db output/interlinear.sqlite --out-dir output/markdown --book GEN
-
-  # Compact mode, sized for Claude Project knowledge:
-  export_to_markdown.py --db output/interlinear.sqlite --out-dir output/markdown_compact --compact --group
-  export_to_markdown.py --db output/interlinear.sqlite --out-dir output/markdown_compact --compact --book GEN
+  export_to_markdown.py --db ... --out-dir ... --group
+  export_to_markdown.py --db ... --out-dir ... --book GEN
+  export_to_markdown.py --db ... --out-dir output/reading --compact --group [--strongs]
 """
 import argparse
 import sqlite3
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
 import bible_export_common as bec
 
-# Traditional thematic groupings. Verified against actual rendered word
-# counts (see README) -- every group stays under NotebookLM's 500,000
-# word cap, with Historical Books the tightest at ~433K (87% of the
-# limit). If STEPBible/byztxt source data ever grows substantially,
-# re-check this margin before relying on it. NOTE: these word counts
-# are naive whitespace-split counts against the INTERLINEAR render --
-# see the module docstring's caveat before using this table to reason
-# about Claude Project knowledge capacity, which needs --compact sizing
-# instead (see print_compact_estimate below).
+# Traditional thematic groupings. Interlinear word counts (whitespace-split)
+# stay under NotebookLM's 500,000-word cap, with Historical Books the
+# tightest at ~433K. Re-check if the source data ever grows substantially.
 BOOK_GROUPS = {
     "01_Torah": ["GEN", "EXO", "LEV", "NUM", "DEU"],
     "02_Historical_Books": ["JOS", "JDG", "RUT", "1SA", "2SA", "1KI", "2KI", "1CH", "2CH", "EZR", "NEH", "EST"],
@@ -95,6 +59,8 @@ BOOK_GROUPS = {
     "07_Pauline_Epistles": ["ROM", "1CO", "2CO", "GAL", "EPH", "PHP", "COL", "1TH", "2TH", "1TI", "2TI", "TIT", "PHM"],
     "08_General_Epistles_and_Revelation": ["HEB", "JAS", "1PE", "2PE", "1JN", "2JN", "3JN", "JUD", "REV"],
 }
+
+SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 
 
 def get_books(cur, testament=None, book_code=None):
@@ -122,89 +88,98 @@ def get_verses(cur, book_id):
     return cur.fetchall()
 
 
-def get_words(cur, verse_id):
+def count_chapters_verses(cur, book_ids):
+    """(chapters, verses) stored for these books, for the progress lines."""
+    book_ids = list(book_ids)
+    marks = ",".join("?" * len(book_ids))
     cur.execute(
-        """
-        SELECT w.position, w.language, w.surface, w.translit, w.strongs,
-               w.morph_code, w.gloss_source, ag.gloss as ai_gloss,
-               lx.gloss as lexicon_gloss
-        FROM word w
-        LEFT JOIN ai_gloss ag ON ag.word_id = w.word_id
-        LEFT JOIN lexicon_entry lx ON lx.dstrong = w.strongs OR lx.estrong = w.strongs
-        WHERE w.verse_id = ?
-        ORDER BY w.position
-        """,
-        (verse_id,),
+        f"SELECT COUNT(DISTINCT book_id * 1000 + chapter), COUNT(*) FROM verse WHERE book_id IN ({marks})",
+        book_ids,
     )
-    return cur.fetchall()
+    return cur.fetchone()
 
-def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False, language="id"):
-#def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False):
-    """Render one book as Markdown.
 
-    compact=False (default): full interlinear -- surface-text line,
-    then a per-word `surface=translit[strongs,morph]:"gloss"` line.
-    Sized for NotebookLM (see module docstring).
-
-    compact=True: reference + a single running-gloss line per verse,
-    no surface text, no transliteration, no Strong's, no morphology.
-    Reads like a plain translation. Sized for Claude Project knowledge
-    -- roughly 75-85% smaller than the interlinear render for the same
-    verses, since it drops four of the five per-word fields entirely
-    rather than just formatting them more tersely.
-    """
+def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False, language="id", tagged=False):
+    """Render one book as Markdown. compact=True is the reading format:
+    '## Genesis 1', superscript verse numbers, one line per verse with no
+    blank lines inside a paragraph (reads as one paragraph in Markdown, one
+    verse per line in plain text), blank line between paragraphs. In poetry
+    ('|' separates the lines of a verse) every line is kept apart with a
+    Markdown hard break. A verse whose translation starts with the paragraph
+    mark begins a new paragraph; Psalm titles (verse 0) are an italic line.
+    Default (compact=False) is the full interlinear."""
     lines = [f"# {name} ({'Old Testament, Masoretic Text' if testament == 'OT' else 'New Testament, Textus Receptus'})", ""]
-
     verses = get_verses(cur, book_id)
     current_chapter = None
+    para = []  # compact mode: (lines, is_poetry) per verse of the paragraph being built
+
+    def flush():
+        if not para:
+            return
+        out = [ln for verse_lines, _ in para for ln in verse_lines]
+        if any(is_poetry for _, is_poetry in para):  # two trailing spaces = hard break
+            out = [ln + "  " for ln in out[:-1]] + out[-1:]
+        lines.extend(out + [""])
+        para.clear()
 
     for verse_id, chapter, verse in verses:
         if chapter != current_chapter:
-            lines.append(f"\n## Chapter {chapter}\n")
+            flush()
+            lines.append(f"\n## {name} {chapter}\n")
             current_chapter = chapter
 
         words = bec.get_words_for_verse(cur.connection, verse_id, language)
-#        words = get_words(cur, verse_id)
+
+        if compact:
+            text = bec.get_verse_translation(cur.connection, verse_id, language, tagged=tagged)
+            new_para = False
+            if text:
+                text = text.strip()
+                new_para = text.startswith("\u00b6")
+                text = text.lstrip("\u00b6").strip()
+            else:  # no natural translation yet: joined glosses, minus placeholders
+                text = " ".join(w["gloss"] for w in words
+                                if w["gloss"] and w["gloss"] != "-" and not w["gloss"].startswith("("))
+            parts = [p.strip() for p in text.split("|") if p.strip()]
+            if not parts:
+                continue
+            if verse == 0:  # Psalm title: own italic line, no number
+                flush()
+                lines.extend([f"*{' '.join(parts)}*", ""])
+                continue
+            if new_para:
+                flush()
+            verse_lines = [f"{str(verse).translate(SUP)} {parts[0]}"] + [f"   {p}" for p in parts[1:]]
+            para.append((verse_lines, len(parts) > 1))
+            continue
+
         ref = f"{code} {chapter}:{verse}"
         if wikilink:
             ref = f"[[{ref}]]"
-            
-        if compact:
-            text = bec.get_verse_translation(cur.connection, verse_id, language, tagged=True) \
-                or " ".join(w["gloss"] for w in words if w["gloss"] and w["gloss"] != "-" and not w["gloss"].startswith("("))
-#                or " ".join(w["gloss"] for w in words if w["gloss"])
-            lines.append(f"**{ref}** {text}")
-        else:
-            surface_line = " ".join(w["surface"] for w in words)
-            lines.append(f"**{ref}** {surface_line}")
-            word_parts = [
-                f'{w["surface"]}={w["translit"]}[{w["strongs"] or ""},{w["morph_code"] or ""}]:"{w["gloss"]}"'
-                for w in words
-            ]
-            lines.append("  " + " | ".join(word_parts))
-
+        surface_line = " ".join(w["surface"] for w in words)
+        lines.append(f"**{ref}** {surface_line}")
+        # Compact per-word gloss line instead of a Markdown table: far fewer
+        # tokens, and reads like a printed interlinear's word-by-word row.
+        word_parts = [
+            f'{w["surface"]}={w["translit"]}[{w["strongs"] or ""},{w["morph_code"] or ""}]:"{w["gloss"]}"'
+            for w in words
+        ]
+        lines.append("  " + " | ".join(word_parts))
         lines.append("")
 
+    flush()
     return "\n".join(lines)
 
 
-def report_size(label, content, out_path):
-    """Print both the naive whitespace word count (comparable to the
-    README's existing table / NotebookLM's stated cap) AND a rough
-    character-based proxy for actual token weight, so the two caps
-    this script's outputs get judged against are both visible instead
-    of only the one that happens to look favorable. Real tokenization
-    varies by model/tokenizer; ~4 characters per token is a widely
-    used rough English-text estimate and is presented as an estimate,
-    not an exact figure -- good enough to catch a 1000%-over-limit
-    class of problem before upload, not precise enough to plan an
-    exact budget around.
-    """
+def report_size(label, content, out_path, counts=None):
+    """Print the naive whitespace word count (comparable to NotebookLM's
+    cap), a rough chars/4 token estimate (for Claude Project capacity), and
+    the chapters/verses written."""
     word_count = len(content.split())
-    char_count = len(content)
-    est_tokens = char_count // 4
+    est_tokens = len(content) // 4
+    extra = f", {counts[0]} chapters, {counts[1]} verses" if counts else ""
     print(f"{label}: {word_count} words (whitespace-split), "
-          f"~{est_tokens:,} estimated tokens -> {out_path}", file=sys.stderr)
+          f"~{est_tokens:,} estimated tokens{extra} -> {out_path}", file=sys.stderr)
     return word_count, est_tokens
 
 
@@ -214,40 +189,29 @@ def main():
     ap.add_argument("--out-dir", required=True, type=Path)
     ap.add_argument("--testament", choices=["OT", "NT"], help="Export only one testament")
     ap.add_argument("--book", help="Export only one book (canonical 3-letter code, e.g. GEN, JHN)")
+    ap.add_argument("--language", default="id", help="Gloss/translation language code (default: id)")
     ap.add_argument("--wikilink", action="store_true", help="Wrap chapter/verse references in [[double brackets]] for Obsidian")
     ap.add_argument(
         "--compact", action="store_true",
-        help="Render running-gloss-only text (no surface text, transliteration, Strong's, or "
-             "morphology) instead of full interlinear. Roughly 75-85%% smaller. Use this for "
-             "Claude Project knowledge -- the default interlinear render is sized for "
-             "NotebookLM's word-count cap, not Claude's token-based project capacity, and will "
-             "vastly overshoot it (see module docstring)."
+        help="Reading format (natural verse translation, superscript verse numbers, paragraphs, poetry lines) "
+             "instead of full interlinear. Roughly 75-85%% smaller; use this for Claude Project knowledge."
     )
+    ap.add_argument("--strongs", action="store_true", help="Keep {G746}-style Strong's tags in --compact text")
     ap.add_argument(
         "--combine-testament", action="store_true",
-        help="Write one combined file per testament instead of one per book. "
-             "NOTE: does NOT help with NotebookLM's 500,000-word source cap -- "
-             "a combined testament file is well OVER that limit (OT ~1.2M "
-             "words, NT ~570K words) in interlinear mode; even in --compact "
-             "mode a combined testament file may still be too large for a "
-             "single Claude Project alongside anything else. For NotebookLM, "
-             "use --group instead (see below) or the default one-file-per-book "
-             "output split across two notebooks."
+        help="Write one combined file per testament instead of one per book. Does NOT help with "
+             "NotebookLM's 500,000-word cap (combined testaments are over it in interlinear mode)."
     )
     ap.add_argument(
         "--group", action="store_true",
-        help="Write one file per traditional thematic group (Torah, "
-             "Historical Books, Wisdom & Poetry, Major/Minor Prophets, "
-             "Gospels & Acts, Pauline Epistles, General Epistles & "
-             "Revelation) -- 8 files total. In default (interlinear) mode "
-             "these are verified to stay under NotebookLM's 500,000-word "
-             "cap. In --compact mode, sizes are dramatically smaller and "
-             "better suited to loading several groups (or the whole Bible) "
-             "into one Claude Project -- run with --compact --group and "
-             "check the printed estimated-token counts for your specific "
-             "database before uploading."
+        help="Write one file per traditional thematic group (8 files). In interlinear mode each stays "
+             "under NotebookLM's 500,000-word cap; in --compact mode they are far smaller."
     )
     args = ap.parse_args()
+
+    if not args.db.is_file() or args.db.stat().st_size == 0:
+        print(f"ERROR: database missing or empty: {args.db.resolve()}", file=sys.stderr)
+        sys.exit(1)
 
     conn = sqlite3.connect(args.db)
     cur = conn.cursor()
@@ -259,36 +223,39 @@ def main():
         print("No matching books found", file=sys.stderr)
         sys.exit(1)
 
+    suffix = "_compact" if args.compact else ""
+
+    def render(book_id, code, name, testament):
+        return render_book(cur, book_id, code, name, testament, wikilink=args.wikilink,
+                           compact=args.compact, language=args.language, tagged=args.strongs)
+
     if args.group:
         code_to_book = {code: (book_id, code, name, testament, ordinal) for book_id, code, name, testament, ordinal in books}
         total_est_tokens = 0
         for group_name, book_codes in BOOK_GROUPS.items():
-            parts = []
-            missing = []
+            parts, ids, missing = [], [], []
             for code in book_codes:
                 if code not in code_to_book:
                     missing.append(code)
                     continue
                 book_id, code_, name, testament, ordinal = code_to_book[code]
-                parts.append(render_book(cur, book_id, code_, name, testament, wikilink=args.wikilink, compact=args.compact))
+                parts.append(render(book_id, code_, name, testament))
+                ids.append(book_id)
             if missing:
                 print(f"WARN: group '{group_name}' missing books (excluded by --testament/--book filter?): {missing}", file=sys.stderr)
             if not parts:
                 continue
             combined = "\n\n---\n\n".join(parts)
-            suffix = "_compact" if args.compact else ""
             out_path = args.out_dir / f"{group_name}{suffix}.md"
             out_path.write_text(combined, encoding="utf-8")
-            word_count, est_tokens = report_size(f"{group_name} ({len(parts)} books)", combined, out_path)
+            word_count, est_tokens = report_size(f"{group_name} ({len(parts)} books)", combined, out_path,
+                                                 count_chapters_verses(cur, ids))
             total_est_tokens += est_tokens
             if not args.compact and word_count > 500_000:
-                print(f"  WARNING: exceeds NotebookLM's 500,000 word limit!", file=sys.stderr)
+                print("  WARNING: exceeds NotebookLM's 500,000 word limit!", file=sys.stderr)
         if args.compact:
-            print(f"\nTOTAL across all groups: ~{total_est_tokens:,} estimated tokens "
-                  f"({total_est_tokens // 250:,}-ish equivalent 'project knowledge words' by a "
-                  f"rough 4 chars/token, ~4 chars/word rule of thumb -- treat as a ballpark, not "
-                  f"an exact figure). Compare against your Claude plan's project capacity before "
-                  f"uploading all 8 files to one project.", file=sys.stderr)
+            print(f"\nTOTAL across all groups: ~{total_est_tokens:,} estimated tokens (chars/4, a ballpark). "
+                  f"Compare against your Claude plan's project capacity before uploading all 8 files.", file=sys.stderr)
         conn.close()
         return
 
@@ -298,28 +265,24 @@ def main():
             by_testament.setdefault(testament, []).append((book_id, code, name, ordinal))
 
         for testament, book_list in by_testament.items():
-            parts = []
-            for book_id, code, name, ordinal in sorted(book_list, key=lambda b: b[3]):
-                parts.append(render_book(cur, book_id, code, name, testament, wikilink=args.wikilink, compact=args.compact))
-            combined = "\n\n---\n\n".join(parts)
+            ordered = sorted(book_list, key=lambda b: b[3])
+            combined = "\n\n---\n\n".join(render(b[0], b[1], b[2], testament) for b in ordered)
             label = "Old_Testament" if testament == "OT" else "New_Testament"
-            suffix = "_compact" if args.compact else ""
             out_path = args.out_dir / f"{label}{suffix}.md"
             out_path.write_text(combined, encoding="utf-8")
-            word_count, _ = report_size(label, combined, out_path)
+            word_count, _ = report_size(label, combined, out_path, count_chapters_verses(cur, [b[0] for b in ordered]))
             if not args.compact and word_count > 500_000:
-                print(f"  WARNING: exceeds NotebookLM's 500,000 word limit!", file=sys.stderr)
+                print("  WARNING: exceeds NotebookLM's 500,000 word limit!", file=sys.stderr)
         conn.close()
         return
 
     for book_id, code, name, testament, ordinal in books:
-        content = render_book(cur, book_id, code, name, testament, wikilink=args.wikilink, compact=args.compact)
-        suffix = "_compact" if args.compact else ""
+        content = render(book_id, code, name, testament)
         out_path = args.out_dir / f"{ordinal:02d}_{code}_{name.replace(' ', '_')}{suffix}.md"
         out_path.write_text(content, encoding="utf-8")
-        word_count, _ = report_size(f"{code} ({name})", content, out_path)
+        word_count, _ = report_size(f"{code} ({name})", content, out_path, count_chapters_verses(cur, [book_id]))
         if not args.compact and word_count > 500_000:
-            print(f"  WARNING: exceeds NotebookLM's 500,000 word limit!", file=sys.stderr)
+            print("  WARNING: exceeds NotebookLM's 500,000 word limit!", file=sys.stderr)
 
     conn.close()
 
