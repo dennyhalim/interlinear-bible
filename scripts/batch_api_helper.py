@@ -106,6 +106,8 @@ def fetch_batch_results(client, batch_id):
         result = item.result
         if result.type == "succeeded":
             message = result.message
+            if message.stop_reason == "max_tokens":
+                print(f"  WARNING: request '{custom_id}' was cut off by max_tokens", file=sys.stderr)
             text = "".join(block.text for block in message.content if block.type == "text").strip()
             results[custom_id] = text
         else:
@@ -119,18 +121,36 @@ def fetch_batch_results(client, batch_id):
 
 
 def parse_json_response(text):
-    """Strip markdown fences if present (defensive, same as the
-    synchronous path) and parse as JSON. Returns None on failure rather
-    than raising, since one bad response in a large batch shouldn't
-    crash processing of the rest."""
+    """Parse a JSON array reply. If the reply is cut off or malformed partway
+    (e.g. it hit max_tokens), keep every complete leading object instead of
+    discarding the whole response. Returns None if nothing is usable."""
     if text is None:
         return None
+    text = text.strip()
     if text.startswith("```"):
         text = text.split("```")[1]
         if text.startswith("json"):
             text = text[4:]
     try:
         return json.loads(text)
-    except json.JSONDecodeError as e:
-        print(f"  WARNING: could not parse response as JSON: {e}", file=sys.stderr)
+    except json.JSONDecodeError:
+        pass
+    start = text.find("[")
+    if start == -1:
         return None
+    dec, i, items = json.JSONDecoder(), start + 1, []
+    while True:
+        while i < len(text) and text[i] in " \t\r\n,":
+            i += 1
+        if i >= len(text) or text[i] != "{":
+            break
+        try:
+            obj, i = dec.raw_decode(text, i)
+        except json.JSONDecodeError:
+            break
+        items.append(obj)
+    if not items:
+        print("  WARNING: response not parseable as JSON", file=sys.stderr)
+        return None
+    print(f"  WARNING: response cut off or malformed; salvaged {len(items)} complete entries", file=sys.stderr)
+    return items

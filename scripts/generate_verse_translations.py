@@ -59,6 +59,7 @@ Rules:
 - Follow the given glosses for key terms, including divine names, exactly as glossed. Do not substitute other renderings.
 - Add a word absent from the source only when {lang} grammar requires it.
 - Do not output verse numbers inside the text. One entry per input verse.
+- Words glossed "(tanda objek)" (H853) are not rendered in the sentence. Put their tag right after the object word they mark, e.g. langit{{H8064}}{{H853}}.
 
 Respond with ONLY a JSON array, no markdown fences: [{{"verse": <int>, "text": "<translation>"}}] in the same order as the input."""
 

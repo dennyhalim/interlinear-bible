@@ -34,8 +34,8 @@ FILE_TO_BOOKS = {
 }
 
 REF_ROW = re.compile(
-    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)(?:\([^)]*\))?#(\d+)=(\S*)\t(.*)$"
-#    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)#(\d+)=(\S*)\t(.*)$"
+#    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)(?:\([^)]*\))?#(\d+)=(\S*)\t(.*)$"
+    r"^([1-3]?[A-Za-z]{2,3})\.(\d+)\.(\d+)(?:\(([^)]*)\))?#(\d+)=(\S*)\t(.*)$"
 )
 
 # A detail row (has "#NN=") that REF_ROW fails to match is a dropped verse
@@ -86,6 +86,7 @@ def split_strongs_group(field: str):
 
 def parse_file(path: Path):
     rows = []
+    pos_state = {}
     skipped = 0
     word_counters = {}  # (book, chapter, verse) -> running word_index
 
@@ -98,7 +99,8 @@ def parse_file(path: Path):
             if not m:
                 skipped += LOOSE_REF.match(line) is not None
                 continue
-            step_book, chapter, verse, morph_idx, source, rest = m.groups()
+            step_book, chapter, verse, hebref, morph_idx, source, rest = m.groups()
+#            step_book, chapter, verse, morph_idx, source, rest = m.groups()
             book_code = STEP_TO_CANON.get(step_book)
             if not book_code:
                 print(f"WARN: unmapped book '{step_book}' in {path.name}", file=sys.stderr)
@@ -130,6 +132,14 @@ def parse_file(path: Path):
                 head_strongs = strongs_parts[-1][0]
 
             key = (book_code, int(chapter), int(verse))
+            # Two source verses can map to one English verse (e.g. Num 26:1 =
+            # Heb 25:19 + 26:1); their #NN counters both restart at 01, so
+            # continue numbering after the earlier part instead of colliding.
+            st = pos_state.setdefault(key, {"ref": hebref or "", "offset": 0, "max": 0})
+            if (hebref or "") != st["ref"]:
+                st["offset"], st["ref"] = st["max"], hebref or ""
+            position = int(morph_idx) + st["offset"]
+            st["max"] = max(st["max"], position)
             # word_index groups morphemes belonging to the same surface word
             # (STEPBible's #NN is already a per-morpheme counter within the verse,
             # matching Hebrew word order, so we use it directly as position).
@@ -137,7 +147,8 @@ def parse_file(path: Path):
                 "book_code": book_code,
                 "chapter": int(chapter),
                 "verse": int(verse),
-                "position": int(morph_idx),
+#                "position": int(morph_idx),
+                "position": position,
                 "source_flag": source,
                 "hebrew": hebrew,
                 "translit": translit,

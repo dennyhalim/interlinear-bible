@@ -184,8 +184,10 @@ def main():
             ),
         )
         if cur.rowcount:
-            insert_morph_parts(cur, cur.lastrowid, "/".join(row["grammar_parts"]))
-        tahot_count += 1
+            insert_morph_parts(cur, cur.lastrowid, ...)
+            tahot_count += 1
+        else:
+            tahot_ignored += 1
     conn.commit()
     print(f"Inserted {tahot_count} Hebrew morphemes", file=sys.stderr)
 

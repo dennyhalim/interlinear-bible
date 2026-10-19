@@ -77,10 +77,15 @@ Guidelines:
 - Only deviate from the lexicon gloss when the verse context clearly calls for a different sense of the same word.
 - Keep each gloss SHORT (a word or short phrase), matching interlinear conventions, not a full sentence explanation.
 - Maintain terminological consistency with standard Indonesian Bible translation conventions for well-known theological terms.
-- If you're genuinely uncertain between two senses, put your primary choice in "gloss" and the alternative in "alt_gloss", with a brief "note" explaining the ambiguity. Leave alt_gloss and note as empty strings when there's no meaningful ambiguity -- don't manufacture uncertainty that isn't there.
+- If you're genuinely uncertain between two senses, put your primary choice in "gloss" and the alternative in "alt_gloss", with a brief "note" explaining the ambiguity. Otherwise omit the alt_gloss and note keys entirely -- don't manufacture uncertainty that isn't there.
+- Finite verbs: always show the subject given by the morphology (person/number), either as a free pronoun ("aku mengenal", "dia berkata") or as the standard clitic ("kukenal", "kaulihat"). Capitalize Aku/Ku- only when God is the speaker (usual Indonesian Bible convention). Do not add a subject for participles, infinitives or imperatives.
+- A word with no rendering in context (e.g. an untranslated article) is glossed "-" (a single hyphen), never left blank.
+- The Hebrew direct-object marker (Strong's H0853, אֵת/אֶת) has no translation: gloss it exactly "(tanda objek)". If it carries a pronoun suffix (e.g. אֹתוֹ), gloss "(tanda objek) <pronoun>", e.g. "(tanda objek) dia".
+- Words glossed "-" or "(tanda objek)" are not rendered in the sentence. Put their tag right after the word they belong with (the noun an article modifies, the object an H853 marks), e.g. langit{{H8064}}{{H853}}.
 
-Respond with ONLY a JSON array, no other text, no markdown code fences. Each element:
-{{"word_id": <int>, "gloss": "<indonesian gloss>", "alt_gloss": "<optional alternative, or empty string>", "note": "<optional short note, or empty string>"}}
+Respond with ONLY a compact JSON array (one object per line, no indentation), no other text, no markdown code fences. Each element:
+{{"word_id": <int>, "gloss": "<indonesian gloss>"}}
+Only when ambiguous, add "alt_gloss" and "note" keys to that element.
 
 The array must contain exactly one object per input word, in the same order, with the same word_id values. Target language: {language}."""
 
@@ -241,7 +246,7 @@ def call_model(client, model, words, language, max_retries=3):
         try:
             response = client.messages.create(
                 model=model,
-                max_tokens=8192,
+                max_tokens=16000,
                 system=system_prompt,
                 messages=[{"role": "user", "content": prompt}],
             )
@@ -384,7 +389,7 @@ def cmd_submit(args):
         for batch in batches:
             custom_id = f"gloss-{request_idx:05d}"
             prompt = build_prompt(batch)
-            requests.append((custom_id, system_prompt, prompt, args.model, 8192))
+            requests.append((custom_id, system_prompt, prompt, args.model, 16000))
             membership[custom_id] = [w[0] for w in batch]  # w[0] is word_id
             request_idx += 1
 
@@ -395,6 +400,10 @@ def cmd_submit(args):
         return
 
     print(f"Built {len(requests)} requests across {len(chapters)} chapters", file=sys.stderr)
+    print(f"Words to send: {sum(len(v) for v in membership.values())} (skipping {len(already_done)} already glossed)", file=sys.stderr)
+    if args.dry_run:
+        print("Dry run: nothing submitted.", file=sys.stderr)
+        return
     if len(requests) > 100_000:
         print(f"ERROR: {len(requests)} requests exceeds Anthropic's 100,000-per-batch-job limit. "
               f"Use --book/--limit-chapters to split this into multiple submissions.", file=sys.stderr)
@@ -448,21 +457,25 @@ def cmd_retrieve(args):
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc).isoformat()
-    total_words_done = 0
+    total_words_done = missing_total = 0
+    already = load_already_done(args.out)
 
     with args.out.open("a", encoding="utf-8") as out_f:
         for custom_id, word_ids in membership.items():
-            text = raw_results.get(custom_id)
-            parsed = bah.parse_json_response(text)
+            parsed = bah.parse_json_response(raw_results.get(custom_id))
             if parsed is None:
-                print(f"  WARNING: request '{custom_id}' has no usable result, its {len(word_ids)} words remain unglossed (re-submit a follow-up batch for just these if needed).", file=sys.stderr)
+                print(f"  WARNING: request '{custom_id}' has no usable result, its {len(word_ids)} words remain unglossed.", file=sys.stderr)
+                missing_total += len(word_ids)
                 continue
-            parsed_by_id = {item["word_id"]: item for item in parsed}
+            parsed_by_id = {it["word_id"]: it for it in parsed if "word_id" in it and "gloss" in it}
+            missing = 0
             for wid in word_ids:
-                if wid not in parsed_by_id:
-                    print(f"  WARNING: word_id {wid} missing from response for '{custom_id}'", file=sys.stderr)
+                if wid in already:
                     continue
-                r = parsed_by_id[wid]
+                r = parsed_by_id.get(wid)
+                if r is None:
+                    missing += 1
+                    continue
                 out_f.write(json.dumps({
                     "word_id": r["word_id"],
                     "gloss": r["gloss"],
@@ -474,7 +487,11 @@ def cmd_retrieve(args):
                     "generated_at": now,
                 }, ensure_ascii=False) + "\n")
                 total_words_done += 1
-
+            if missing:
+                print(f"  WARNING: '{custom_id}': {missing} words missing from response.", file=sys.stderr)
+                missing_total += missing
+    print(f"Still unglossed after this retrieve: {missing_total} words", file=sys.stderr)
+    
     print(f"\nWrote {total_words_done} word glosses -> {args.out}", file=sys.stderr)
     print(f"Load into the database with: python3 scripts/load_ai_glosses.py --db <db> --jsonl {args.out}", file=sys.stderr)
 
@@ -486,12 +503,13 @@ def main():
     common_args = {
         "--language": dict(default="id"),
         "--prompt-version": dict(default="v1"),
-        "--max-words-per-batch": dict(type=int, default=700,
+        "--max-words-per-batch": dict(type=int, default=150,
             help="Split a chapter into multiple calls if it exceeds this many words"),
         "--book": dict(help="Only process one book (canonical 3-letter code, e.g. GEN)"),
         "--group": dict(help=f"Only process one thematic group of books. Valid: {', '.join(BOOK_GROUPS.keys())}"),
         "--testament": dict(help="Only process one testament: OT or NT"),
         "--limit-chapters": dict(type=int, help="Only process this many chapters (for testing)"),
+        "--dry-run": dict(action="store_true", help="Build requests and report counts, but do not submit"),
     }
 
     sync_p = sub.add_parser("sync", help="Synchronous calls (original behavior)")
