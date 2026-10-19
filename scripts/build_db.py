@@ -163,7 +163,6 @@ def main():
     conn.commit()
 #    print(f"Inserted {tr_count} Greek words", file=sys.stderr)
     print(f"Inserted {tr_count} Greek words" + (f" ({tr_ignored} IGNORED as duplicates)" if tr_ignored else ""), file=sys.stderr)
-    print(f"Inserted {tahot_count} Hebrew morphemes" + (f" ({tahot_ignored} IGNORED as duplicates)" if tahot_ignored else ""), file=sys.stderr)
     
     # --- Hebrew OT morphemes (from STEPBible TAHOT) ---
     tahot_path = args.staging / "tahot.jsonl"
@@ -195,7 +194,8 @@ def main():
         else:
             tahot_ignored += 1
     conn.commit()
-    print(f"Inserted {tahot_count} Hebrew morphemes", file=sys.stderr)
+#    print(f"Inserted {tahot_count} Hebrew morphemes", file=sys.stderr)
+    print(f"Inserted {tahot_count} Hebrew morphemes" + (f" ({tahot_ignored} IGNORED as duplicates)" if tahot_ignored else ""), file=sys.stderr)
 
     # --- Lexicon entries ---
     lex_path = args.staging / "lexicons.jsonl"
