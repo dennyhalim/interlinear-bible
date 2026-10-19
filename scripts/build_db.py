@@ -136,6 +136,7 @@ def main():
     # --- Greek NT words (from byztxt TR) ---
     tr_path = args.staging / "tr.jsonl"
     tr_count = 0
+    tr_ignored = 0
     for row in load_jsonl(tr_path):
         verse_id = get_or_create_verse(
             cur, book_ids, verse_cache, row["book_code"], row["chapter"], row["verse"]
@@ -156,13 +157,18 @@ def main():
         )
         if cur.rowcount:
             insert_morph_parts(cur, cur.lastrowid, row["morph_code"])
-        tr_count += 1
+            tr_count += 1
+        else:
+            tr_ignored += 1
     conn.commit()
-    print(f"Inserted {tr_count} Greek words", file=sys.stderr)
-
+#    print(f"Inserted {tr_count} Greek words", file=sys.stderr)
+    print(f"Inserted {tr_count} Greek words" + (f" ({tr_ignored} IGNORED as duplicates)" if tr_ignored else ""), file=sys.stderr)
+    print(f"Inserted {tahot_count} Hebrew morphemes" + (f" ({tahot_ignored} IGNORED as duplicates)" if tahot_ignored else ""), file=sys.stderr)
+    
     # --- Hebrew OT morphemes (from STEPBible TAHOT) ---
     tahot_path = args.staging / "tahot.jsonl"
     tahot_count = 0
+    tahot_ignored = 0
     word_group_counters = {}
     for row in load_jsonl(tahot_path):
         verse_id = get_or_create_verse(
@@ -184,7 +190,7 @@ def main():
             ),
         )
         if cur.rowcount:
-            insert_morph_parts(cur, cur.lastrowid, ...)
+            insert_morph_parts(cur, cur.lastrowid, "/".join(row["grammar_parts"]))
             tahot_count += 1
         else:
             tahot_ignored += 1
