@@ -171,8 +171,8 @@ def render_book(cur, book_id, code, name, testament, wikilink=False, compact=Fal
             
         if compact:
             text = bec.get_verse_translation(cur.connection, verse_id, language, tagged=True) \
-#                or " ".join(w["gloss"] for w in words if w["gloss"])
                 or " ".join(w["gloss"] for w in words if w["gloss"] and w["gloss"] != "-" and not w["gloss"].startswith("("))
+#                or " ".join(w["gloss"] for w in words if w["gloss"])
             lines.append(f"**{ref}** {text}")
         else:
             surface_line = " ".join(w["surface"] for w in words)
