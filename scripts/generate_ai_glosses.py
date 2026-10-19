@@ -82,6 +82,7 @@ Guidelines:
 - A word with no rendering in context (e.g. an untranslated article) is glossed "-" (a single hyphen), never left blank.
 - The Hebrew direct-object marker (Strong's H0853, אֵת/אֶת) has no translation: gloss it exactly "(tanda objek)". If it carries a pronoun suffix (e.g. אֹתוֹ), gloss "(tanda objek) <pronoun>", e.g. "(tanda objek) dia".
 - Words glossed "-" or "(tanda objek)" are not rendered in the sentence. Put their tag right after the word they belong with (the noun an article modifies, the object an H853 marks), e.g. langit{{H8064}}{{H853}}.
+- Lexicon glosses may look like "general sense: specific sense" (e.g. "perempuan: istri"), or "a/b" for equivalent alternatives. The part after the colon is the sense assigned to this word's disambiguated Strong's number; prefer it when the context fits, otherwise use the general sense before the colon. Words in parentheses are optional or usage hints: an ALL-CAPS hint such as (WAKTU) names the kind of object and must not appear in your gloss (write "menghabiskan", not "menghabiskan (WAKTU)").
 
 Respond with ONLY a compact JSON array (one object per line, no indentation), no other text, no markdown code fences. Each element:
 {{"word_id": <int>, "gloss": "<indonesian gloss>"}}

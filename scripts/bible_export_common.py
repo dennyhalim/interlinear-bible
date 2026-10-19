@@ -62,8 +62,17 @@ def get_verse_translation(conn, verse_id, language, tagged=True):
     return row[0] if tagged else re.sub(r"\{[HG]\d+\}", "", row[0])
     
 def first_sense(gloss):
-    """'the; this, who' / 'in/on/among' -> 'the' / 'in' (fallback only)."""
-    return re.split(r"\s*[/;,]\s*", gloss.strip(), maxsplit=1)[0] if gloss else ""
+    """'the; this, who' -> 'the'; separators inside (...) are ignored."""
+    depth, out = 0, []
+    for ch in (gloss or "").strip():
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+        elif depth == 0 and ch in "/;,":
+            break
+        out.append(ch)
+    return "".join(out).strip()
     
 def get_words_for_verse(conn, verse_id, language):
     """Returns a list of dicts, one per word, with everything an
