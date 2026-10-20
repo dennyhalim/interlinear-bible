@@ -51,6 +51,7 @@ import os
 import sqlite3
 import sys
 import time
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -78,11 +79,12 @@ Guidelines:
 - Keep each gloss SHORT (a word or short phrase), matching interlinear conventions, not a full sentence explanation.
 - Maintain terminological consistency with standard Indonesian Bible translation conventions for well-known theological terms.
 - If you're genuinely uncertain between two senses, put your primary choice in "gloss" and the alternative in "alt_gloss", with a brief "note" explaining the ambiguity. Otherwise omit the alt_gloss and note keys entirely -- don't manufacture uncertainty that isn't there.
-- Finite verbs: always show the subject given by the morphology (person/number), either as a free pronoun ("aku mengenal", "dia berkata") or as the standard clitic ("kukenal", "kaulihat"). Capitalize Aku/Ku- only when God is the speaker (usual Indonesian Bible convention). Do not add a subject for participles, infinitives or imperatives.
+- Finite verbs: always show the subject given by the morphology (person/number), either as a free pronoun ("aku mengenal", "dia berkata") or as the standard clitic ("kukenal", "kaulihat"). Do not add a subject for participles, infinitives or imperatives.
 - A word with no rendering in context (e.g. an untranslated article) is glossed "-" (a single hyphen), never left blank.
 - The Hebrew direct-object marker (Strong's H0853, אֵת/אֶת) has no translation: gloss it exactly "(tanda objek)". If it carries a pronoun suffix (e.g. אֹתוֹ), gloss "(tanda objek) <pronoun>", e.g. "(tanda objek) dia".
 - Words glossed "-" or "(tanda objek)" are not rendered in the sentence. Put their tag right after the word they belong with (the noun an article modifies, the object an H853 marks), e.g. langit{{H8064}}{{H853}}.
 - Lexicon glosses may look like "general sense: specific sense" (e.g. "perempuan: istri"), or "a/b" for equivalent alternatives. The part after the colon is the sense assigned to this word's disambiguated Strong's number; prefer it when the context fits, otherwise use the general sense before the colon. Words in parentheses are optional or usage hints: an ALL-CAPS hint such as (WAKTU) names the kind of object and must not appear in your gloss (write "menghabiskan", not "menghabiskan (WAKTU)").
+- Pronouns referring to God (Jesus, YHWH, Elohim, the Lord, the Spirit) are capitalized, following the Indonesian language convention: Ia/Dia, -Nya, Engkau/-Mu (addressed to God), Aku/-Ku (God speaking). The same pronouns for people, angels or idols stay lowercase: ia/dia, -nya, engkau/kamu, -mu, aku/-ku. Decide from the chapter context who the referent is. Apply this to free pronouns, pronoun suffixes on nouns, prepositions and verbs, and to the subject shown on finite verbs ("Ia berfirman" for God, "ia berkata" for a person).
 
 Respond with ONLY a compact JSON array (one object per line, no indentation), no other text, no markdown code fences. Each element:
 {{"word_id": <int>, "gloss": "<indonesian gloss>"}}
@@ -103,9 +105,36 @@ BOOK_GROUPS = {
     "gospels_acts": ["MAT", "MRK", "LUK", "JHN", "ACT"],
     "pauline_epistles": ["ROM", "1CO", "2CO", "GAL", "EPH", "PHP", "COL", "1TH", "2TH", "1TI", "2TI", "TIT", "PHM"],
     "general_epistles_revelation": ["HEB", "JAS", "1PE", "2PE", "1JN", "2JN", "3JN", "JUD", "REV"],
+    "testing1": ["GEN","ECC","ISA","JHN","ROM","GAL"],
+    "testing2": ["DEU","AMO","1CO","2CO"],
+}
+
+# Terminology rules per base Strong's number; only rules for numbers in a batch are sent.
+TERM_RULES = {
+    "H113": 'adon: "tuan" for a human lord or master ("tuanku" = my lord); "Tuhan" only when it refers to God.',
+    #"H136": 'Adonai: always "Tuhan" (God), never "tuan". With a suffix, "Tuhanku".',
+    "G2962": 'kyrios: "Tuhan" when it refers to God or Jesus as Lord; "tuan" for a human master, owner or polite address (sir).',
+    "G1203": 'despotes: "tuan" for a human master; "Tuhan" when it names or addresses God.',
+    "H5002": 'ne\'um ("utterance, declares"): "firman" when God speaks (typically right before a divine name: "firman <divine name>"); otherwise "ucapan" (e.g. an oracle of Balaam or David).',
+    "H559": '"say": "berfirman" when God is the speaker; otherwise "berkata".',
+    "H1696": '"speak": "berfirman" when God speaks; otherwise "berbicara".',
+    "H1697": 'dabar ("word, matter"): "firman" for God\'s word; otherwise "perkataan" (speech) or "hal/perkara" (matter, thing), by context.',
+    "G3056": 'logos: "firman" for God\'s word; otherwise "perkataan" (speech) or another sense by context.',
+    "G4487": 'rhema: "firman" for God\'s word; otherwise "perkataan".',
 }
 
 
+def base_strongs(s):
+    m = re.match(r"([HG])0*(\d+)", s or "")
+    return f"{m[1]}{m[2]}" if m else None
+
+
+def term_rules_for(words):
+    """Terminology rules for the Strong's numbers present in this batch only."""
+    present = {base_strongs(w[5]) for w in words}
+    rules = [f"- {k}: {v}" for k, v in TERM_RULES.items() if k in present]
+    return ("\n\nTerminology rules for words in this batch (follow them):\n" + "\n".join(rules)) if rules else ""
+    
 def resolve_scope(book, group, testament):
     """Resolve the mutually-exclusive --book/--group/--testament flags
     into a single filter usable by get_chapters: either a list of book
@@ -237,8 +266,8 @@ def build_prompt(words):
         if gloss_source:
             parts.append(f'"verse_context_hint": "{gloss_source}"')
         lines.append("{" + ", ".join(parts) + "}")
-    return "Generate contextual glosses for these words:\n[\n" + ",\n".join(lines) + "\n]"
-
+    #return "Generate contextual glosses for these words:\n[\n" + ",\n".join(lines) + "\n]"
+    return "Generate contextual glosses for these words:\n[\n" + ",\n".join(lines) + "\n]" + term_rules_for(words)
 
 def call_model(client, model, words, language, max_retries=3):
     system_prompt = SYSTEM_PROMPT_TEMPLATE.format(language=language)
