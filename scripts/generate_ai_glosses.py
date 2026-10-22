@@ -74,10 +74,10 @@ Guidelines:
 - The Hebrew direct-object marker (Strong's H0853, אֵת/אֶת) has no translation: gloss it exactly "(tanda objek)". If it carries a pronoun suffix (e.g. אֹתוֹ), gloss "(tanda objek) <pronoun>", e.g. "(tanda objek) dia".
 - A word with no rendering in context (e.g. an untranslated article) is glossed "-" (a single hyphen), never left blank.
 - Finite verbs: always show the subject given by the morphology (person/number), either as a free pronoun ("aku mengenal", "dia berkata") or as the standard clitic ("kukenal", "kaulihat"). Do not add a subject for participles, infinitives or imperatives.
-- Pronouns referring to God (Jesus, YHWH, Elohim, the Lord, the Spirit) are capitalized, following the Indonesian Language convention: Ia/Dia, -Nya, Engkau/-Mu (addressed to God), Aku/-Ku (God speaking). The same pronouns for people, angels or idols stay lowercase: ia/dia, -nya, engkau/kamu, -mu, aku/-ku. Decide from the chapter context who the referent is. Apply this to free pronouns, pronoun suffixes on nouns, prepositions and verbs, and to the subject shown on finite verbs ("Ia berfirman" for God, "ia berkata" for a person).
+- Pronouns referring to God (YHWH, Elohim, the Lord, the Spirit) are capitalized, following the Indonesian Bible convention: Ia/Dia, -Nya, Engkau/-Mu (addressed to God), Aku/-Ku (God speaking). The same pronouns for people, angels or idols stay lowercase: ia/dia, -nya, engkau/kamu, -mu, aku/-ku. Decide from the chapter context who the referent is. Apply this to free pronouns, pronoun suffixes on nouns, prepositions and verbs, and to the subject shown on finite verbs ("Ia berfirman" for God, "ia berkata" for a person).
 - If you're genuinely uncertain between two senses, put your primary choice in "gloss" and the alternative in "alt_gloss", with a brief "note" explaining the ambiguity. Otherwise omit those keys -- don't manufacture uncertainty that isn't there.
 
-Respond with ONLY a compact JSON array (one object per line, no indentation), no other text, no markdown code fences. Each element:
+Respond with ONLY a JSON array: the reply starts with [ and ends with ], the objects are separated by commas, one object per line, no indentation, no other text, no markdown code fences. Each element:
 {{"word_id": <int>, "gloss": "<indonesian gloss>"}}
 Add "alt_gloss" and "note" keys to an element only when that word is genuinely ambiguous.
 
@@ -369,6 +369,8 @@ def build_prompt(words, context=None):
 
 
 def call_model(client, model, words, language, context=None, max_retries=3):
+    import batch_api_helper as bah
+
     system_prompt = system_for(language, context is not None)
     prompt = build_prompt(words, context)
     for attempt in range(1, max_retries + 1):
@@ -380,11 +382,10 @@ def call_model(client, model, words, language, context=None, max_retries=3):
                 messages=[{"role": "user", "content": prompt}],
             )
             text = "".join(block.text for block in response.content if block.type == "text").strip()
-            if text.startswith("```"):
-                text = text.split("```")[1]
-                if text.startswith("json"):
-                    text = text[4:]
-            return json.loads(text)
+            parsed = bah.parse_json_response(text)  # lenient: also accepts one object per line
+            if parsed is None:
+                raise json.JSONDecodeError("no JSON objects in reply", text, 0)
+            return parsed
         except (json.JSONDecodeError, anthropic.APIError) as e:
             print(f"    attempt {attempt}/{max_retries} failed: {e}", file=sys.stderr)
             if attempt == max_retries:

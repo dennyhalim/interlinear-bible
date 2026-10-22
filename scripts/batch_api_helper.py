@@ -1,31 +1,28 @@
 #!/usr/bin/env python3
 """
 Shared helpers for using Anthropic's Message Batches API instead of
-synchronous calls -- 50% off both input and output tokens, in exchange
-for async processing (results typically available well within 24
-hours, often much faster). Used by both translate_lexicon.py and
-generate_ai_glosses.py's --batch-api mode.
+synchronous calls -- 50% off both input and output tokens, in exchange for
+async processing (results typically within 24 hours, often much faster).
+Used by translate_lexicon.py, generate_ai_glosses.py,
+generate_verse_translations.py and import_batch_results.py.
 
-Verified against the installed anthropic SDK (0.122.0)'s actual type
-definitions, not just documentation -- confirmed real request/response
-shapes:
+Verified against the installed anthropic SDK's type definitions:
   - client.messages.batches.create(requests=[Request(custom_id=...,
     params=MessageCreateParamsNonStreaming(...)), ...]) -> MessageBatch
   - MessageBatch.processing_status: "in_progress" | "ended" | "canceling"
   - client.messages.batches.results(batch_id) -> iterator of
-    MessageBatchIndividualResponse(custom_id, result), where result is
-    one of MessageBatchSucceededResult(message=<same Message shape as
-    sync API>) / ...ErroredResult / ...CanceledResult / ...ExpiredResult
+    MessageBatchIndividualResponse(custom_id, result); result is one of
+    succeeded (message = same Message shape as the sync API) / errored /
+    canceled / expired
 
-Each of our own logical "batches" (e.g. 50 lexicon entries, or one
-chapter's words) becomes ONE request within a single Anthropic batch
-job -- e.g. 455 lexicon sub-batches = 455 requests in 1 batch job
-(well under the 100,000-requests-per-job limit), or ~1,199 chapter
-requests = 1 batch job. So "batch" is used at two levels here: our own
-prompt-batching (grouping many lexicon entries/words into one
-request's prompt) and Anthropic's batch JOB (grouping many requests
-into one submission) -- distinct concepts, described explicitly in
-docstrings/variable names below to avoid confusion.
+"Batch" is used at two levels: our own prompt-batching (many lexicon
+entries or words in one request) and Anthropic's batch JOB (many requests in
+one submission).
+
+parse_json_response is lenient on purpose: it accepts a JSON array, or
+objects one per line with or without the [ ] and commas (models sometimes
+answer in JSON Lines), and keeps every complete leading object when a reply
+is cut off or malformed partway.
 """
 import json
 import sys
@@ -39,11 +36,8 @@ from anthropic.types.message_create_params import MessageCreateParamsNonStreamin
 
 def submit_batch_job(client, requests, batch_job_file):
     """Submit a list of (custom_id, system_prompt, user_prompt, model,
-    max_tokens) tuples as ONE Anthropic batch job. Saves the returned
-    batch ID (plus a custom_id -> request mapping, for context on
-    retrieval) to batch_job_file so a later `retrieve` run doesn't need
-    to recompute anything -- just needs the batch ID to poll/fetch.
-    """
+    max_tokens) tuples as ONE Anthropic batch job. Saves the returned batch
+    ID to batch_job_file so a later `retrieve` run only needs the ID."""
     sdk_requests = []
     for custom_id, system_prompt, user_prompt, model, max_tokens in requests:
         sdk_requests.append(
@@ -73,11 +67,8 @@ def submit_batch_job(client, requests, batch_job_file):
 
 
 def poll_batch_job(client, batch_id, poll_interval_seconds=30, max_wait_seconds=None):
-    """Poll a batch job's status until it's done ("ended"), printing
-    progress. Anthropic's SLA is 24 hours but small/medium jobs
-    (hundreds to low thousands of requests, our actual scale) often
-    finish much faster in practice -- no guaranteed number to rely on,
-    so this just polls patiently rather than assuming a duration."""
+    """Poll a batch job until it is "ended", printing progress. Small and
+    medium jobs often finish well inside the 24 hour SLA, with no guarantee."""
     start = time.time()
     while True:
         batch = client.messages.batches.retrieve(batch_id)
@@ -97,8 +88,8 @@ def poll_batch_job(client, batch_id, poll_interval_seconds=30, max_wait_seconds=
 
 
 def fetch_batch_results(client, batch_id):
-    """Returns a dict: custom_id -> parsed response text (or None if
-    that request errored/canceled/expired, with the reason printed)."""
+    """Returns a dict: custom_id -> reply text (None if that request
+    errored/canceled/expired, with the reason printed)."""
     results = {}
     error_count = 0
     for item in client.messages.batches.results(batch_id):
@@ -108,8 +99,7 @@ def fetch_batch_results(client, batch_id):
             message = result.message
             if message.stop_reason == "max_tokens":
                 print(f"  WARNING: request '{custom_id}' was cut off by max_tokens", file=sys.stderr)
-            text = "".join(block.text for block in message.content if block.type == "text").strip()
-            results[custom_id] = text
+            results[custom_id] = "".join(block.text for block in message.content if block.type == "text").strip()
         else:
             error_count += 1
             print(f"  WARNING: request '{custom_id}' did not succeed (type={result.type})", file=sys.stderr)
@@ -121,9 +111,10 @@ def fetch_batch_results(client, batch_id):
 
 
 def parse_json_response(text):
-    """Parse a JSON array reply. If the reply is cut off or malformed partway
-    (e.g. it hit max_tokens), keep every complete leading object instead of
-    discarding the whole response. Returns None if nothing is usable."""
+    """Parse a model reply into a list of objects. Accepts a JSON array, or
+    objects one per line with or without the surrounding [ ] and commas.
+    If the reply is cut off or malformed partway, every complete leading
+    object is kept. Returns None if nothing is usable."""
     if text is None:
         return None
     text = text.strip()
@@ -132,13 +123,14 @@ def parse_json_response(text):
         if text.startswith("json"):
             text = text[4:]
     try:
-        return json.loads(text)
+        data = json.loads(text)
+        return [data] if isinstance(data, dict) else data
     except json.JSONDecodeError:
         pass
-    start = text.find("[")
-    if start == -1:
+    brace, bracket = text.find("{"), text.find("[")
+    if brace == -1:
         return None
-    dec, i, items = json.JSONDecoder(), start + 1, []
+    dec, i, items = json.JSONDecoder(), (bracket + 1 if 0 <= bracket < brace else brace), []
     while True:
         while i < len(text) and text[i] in " \t\r\n,":
             i += 1
@@ -152,5 +144,5 @@ def parse_json_response(text):
     if not items:
         print("  WARNING: response not parseable as JSON", file=sys.stderr)
         return None
-    print(f"  WARNING: response cut off or malformed; salvaged {len(items)} complete entries", file=sys.stderr)
+    print(f"  WARNING: response not strict JSON (cut off or malformed); kept {len(items)} complete entries", file=sys.stderr)
     return items
