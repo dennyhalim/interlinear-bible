@@ -14,8 +14,9 @@ Words already in --out are skipped, so it is safe to run repeatedly. If --db
 is given, word_ids that do not exist in it are skipped and the chapters and
 verses covered are reported.
 
-IMPORTANT: word_ids belong to the database the job was built from. If that
-was an older build, run remap_ai_glosses.py on the output before loading.
+With --db, records also get book/chapter/verse/position/surface, so they
+load correctly even after a rebuild. word_ids belong to the database the job
+was built from: without positions, an older build needs remap_ai_glosses.py.
 
 Usage:
   python3 scripts/import_batch_results.py --batch-id msgbatch_... \
@@ -72,14 +73,14 @@ def done_ids(path):
 
 
 def locations(db_path):
-    """word_id -> (book code, chapter, verse); empty dict if no --db."""
+    """word_id -> (book code, chapter, verse, position, surface); empty dict if no --db."""
     if not db_path:
         return {}
     if not Path(db_path).is_file():
         sys.exit(f"ERROR: database not found: {db_path}")
     conn = sqlite3.connect(db_path)
     rows = conn.execute(
-        "SELECT w.word_id, b.code, v.chapter, v.verse FROM word w "
+        "SELECT w.word_id, b.code, v.chapter, v.verse, w.position, w.surface FROM word w "
         "JOIN verse v ON v.verse_id = w.verse_id JOIN book b ON b.book_id = v.book_id").fetchall()
     conn.close()
     return {r[0]: r[1:] for r in rows}
@@ -124,8 +125,9 @@ def main():
                 if loc and wid not in loc:
                     unknown += 1
                     continue
+                ref = dict(zip(("book", "chapter", "verse", "position", "surface"), loc[wid])) if wid in loc else {}
                 out.write(json.dumps({
-                    "word_id": wid, "gloss": gloss,
+                    "word_id": wid, **ref, "gloss": gloss,
                     "alt_gloss": it.get("alt_gloss") or None, "note": it.get("note") or None,
                     "language": a.language, "model": model or "unknown",
                     "prompt_version": a.prompt_version, "generated_at": now,
