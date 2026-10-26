@@ -18,9 +18,20 @@ Usage:
 """
 import argparse
 import json
+import re
 import sqlite3
 import sys
 from pathlib import Path
+
+OBJ_MARK = re.compile(r"[\[<(]\s*obj\.?\s*[\]>)]", re.I)  # English H853 markers: [Obj.] <obj.> (obj.)
+
+
+def clean_gloss(gloss):
+    """TAHOT-style 'prefix/ stem' -> 'prefix stem'; '-' placeholders next to other
+    parts are dropped ('-/ bumi' -> 'bumi'); English object markers become the
+    Indonesian one. A lone '-' (word not rendered) stays."""
+    parts = [p.strip() for p in OBJ_MARK.sub("(tanda objek)", gloss).split("/")]
+    return " ".join(p for p in parts if p and p != "-") or "-"
 
 
 def main():
@@ -48,7 +59,7 @@ def main():
         ref_map[(book, chapter, verse, position)] = (wid, surface)
         id_to_key[wid] = (book, chapter, verse)
 
-    by_ref = by_id = unknown = text_differs = 0
+    by_ref = by_id = unknown = text_differs = cleaned = 0
     chapters, verses = set(), set()
 
     with args.jsonl.open(encoding="utf-8") as f:
@@ -79,6 +90,8 @@ def main():
                     continue
                 by_id += 1
 
+            gloss = clean_gloss(row["gloss"])
+            cleaned += gloss != row["gloss"]
             alt_glosses = json.dumps([row["alt_gloss"]], ensure_ascii=False) if row.get("alt_gloss") else None
             cur.execute(
                 """
@@ -93,7 +106,7 @@ def main():
                     model = excluded.model,
                     generated_at = excluded.generated_at
                 """,
-                (word_id, row["gloss"], alt_glosses, row.get("note"),
+                (word_id, gloss, alt_glosses, row.get("note"),
                  row["prompt_version"], row["model"], row["generated_at"]),
             )
             book, chapter, verse = id_to_key[word_id]
@@ -105,6 +118,8 @@ def main():
     loaded = by_ref + by_id
     print(f"Loaded/updated {loaded} rows this run ({by_ref} matched by position, {by_id} by word_id) "
           f"in {len(chapters)} chapters, {len(verses)} verses.", file=sys.stderr)
+    if cleaned:
+        print(f"Cleaned {cleaned} glosses (slash between parts, '-' next to other parts, English object markers).", file=sys.stderr)
     if unknown:
         print(f"WARN: skipped {unknown} rows whose word is not in this database", file=sys.stderr)
     if text_differs:

@@ -61,6 +61,15 @@ BOOK_GROUPS = {
 }
 
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+VERSE_STYLES = ("unicode", "caret", "plain")
+
+
+def fmt_verse(n, style):
+    """unicode: ¹²³ (any viewer; LaTeX fonts may lack ⁰ and ⁴-⁹) | caret: ^4^ (pandoc turns it into a real
+    superscript in PDF/DOCX/HTML; shows literally elsewhere) | plain: 4"""
+    if style == "caret":
+        return f"^{n}^"
+    return str(n) if style == "plain" else str(n).translate(SUP)
 
 
 def get_books(cur, testament=None, book_code=None):
@@ -99,7 +108,8 @@ def count_chapters_verses(cur, book_ids):
     return cur.fetchone()
 
 
-def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False, language="id", tagged=False):
+def render_book(cur, book_id, code, name, testament, wikilink=False, compact=False, language="id", tagged=False,
+                verse_style="unicode"):
     """Render one book as Markdown. compact=True is the reading format:
     '## Genesis 1', superscript verse numbers, one line per verse with no
     blank lines inside a paragraph (reads as one paragraph in Markdown, one
@@ -149,7 +159,7 @@ def render_book(cur, book_id, code, name, testament, wikilink=False, compact=Fal
                 continue
             if new_para:
                 flush()
-            verse_lines = [f"{str(verse).translate(SUP)} {parts[0]}"] + [f"   {p}" for p in parts[1:]]
+            verse_lines = [f"{fmt_verse(verse, verse_style)} {parts[0]}"] + [f"   {p}" for p in parts[1:]]
             para.append((verse_lines, len(parts) > 1))
             continue
 
@@ -197,6 +207,8 @@ def main():
              "instead of full interlinear. Roughly 75-85%% smaller; use this for Claude Project knowledge."
     )
     ap.add_argument("--strongs", action="store_true", help="Keep {G746}-style Strong's tags in --compact text")
+    ap.add_argument("--verse-style", choices=VERSE_STYLES, default="unicode",
+                    help="--compact verse numbers: unicode superscripts (default), caret (^4^, for pandoc PDF/DOCX), or plain")
     ap.add_argument(
         "--combine-testament", action="store_true",
         help="Write one combined file per testament instead of one per book. Does NOT help with "
@@ -227,7 +239,8 @@ def main():
 
     def render(book_id, code, name, testament):
         return render_book(cur, book_id, code, name, testament, wikilink=args.wikilink,
-                           compact=args.compact, language=args.language, tagged=args.strongs)
+                           compact=args.compact, language=args.language, tagged=args.strongs,
+                           verse_style=args.verse_style)
 
     if args.group:
         code_to_book = {code: (book_id, code, name, testament, ordinal) for book_id, code, name, testament, ordinal in books}

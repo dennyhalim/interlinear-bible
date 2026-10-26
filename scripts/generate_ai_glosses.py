@@ -69,13 +69,15 @@ Guidelines:
 - Prefer the lexicon gloss you were given whenever it already fits the context -- most words most of the time.
 - Only deviate from the lexicon gloss when the verse context clearly calls for a different sense of the same word.
 - Keep each gloss SHORT (a word or short phrase), matching interlinear conventions, not a full sentence explanation.
-- Maintain terminological consistency with standard Indonesian Bible translation conventions for well-known theological terms.
+- The lexicon gloss and the terminology rules take priority over general Indonesian Bible convention: if the lexicon uses a term that differs from the usual Bible rendering (for example "benam" where Bibles say "baptis"), keep the lexicon term in every form (membenam, dibenam). For terms where the lexicon and convention agree, follow standard Indonesian Bible conventions.
+- Write one gloss per word, in Indonesian only. A word shown with parts joined by "/" (a prefix and its stem) gets a single gloss: fuse the parts naturally ("di bumi"), leave out unrendered parts such as the article, and never use "/" or a "-/" fragment. Never copy English words or markers from the hints (such as <obj.> or [Obj.]).
 - Lexicon glosses may look like "general sense: specific sense" (e.g. "perempuan: istri"), or "a/b" for equivalent alternatives. The part after the colon is the sense assigned to this word's disambiguated Strong's number; prefer it when the context fits, otherwise use the general sense before the colon. Words in parentheses are optional or usage hints: an ALL-CAPS hint such as (WAKTU) names the kind of object and must not appear in your gloss (write "menghabiskan", not "menghabiskan (WAKTU)").
 - The Hebrew direct-object marker (Strong's H0853, אֵת/אֶת) has no translation: gloss it exactly "(tanda objek)". If it carries a pronoun suffix (e.g. אֹתוֹ), gloss "(tanda objek) <pronoun>", e.g. "(tanda objek) dia".
 - A word with no rendering in context (e.g. an untranslated article) is glossed "-" (a single hyphen), never left blank.
 - Finite verbs: always show the subject given by the morphology (person/number), either as a free pronoun ("aku mengenal", "dia berkata") or as the standard clitic ("kukenal", "kaulihat"). Do not add a subject for participles, infinitives or imperatives.
 - Pronouns referring to God (YHWH, Elohim, the Lord, the Spirit) are capitalized, following the Indonesian Bible convention: Ia/Dia, -Nya, Engkau/-Mu (addressed to God), Aku/-Ku (God speaking). The same pronouns for people, angels or idols stay lowercase: ia/dia, -nya, engkau/kamu, -mu, aku/-ku. Decide from the chapter context who the referent is. Apply this to free pronouns, pronoun suffixes on nouns, prepositions and verbs, and to the subject shown on finite verbs ("Ia berfirman" for God, "ia berkata" for a person).
 - If you're genuinely uncertain between two senses, put your primary choice in "gloss" and the alternative in "alt_gloss", with a brief "note" explaining the ambiguity. Otherwise omit those keys -- don't manufacture uncertainty that isn't there.
+- never use transliterated word for "baptis", "baptisan", "membaptis", "pembaptis", "dibaptis".
 
 Respond with ONLY a JSON array: the reply starts with [ and ends with ], the objects are separated by commas, one object per line, no indentation, no other text, no markdown code fences. Each element:
 {{"word_id": <int>, "gloss": "<indonesian gloss>"}}
@@ -100,6 +102,11 @@ TERM_RULES = {
     "H113": 'adon: "tuan" for a human lord or master ("tuanku" = my lord); "Tuhan" only when it refers to God.',
     "H136": 'Adonai: always "Tuhan" (God), never "tuan". With a suffix, "Tuhanku".',
     "G2962": 'kyrios: "Tuhan" when it refers to God or Jesus as Lord; "tuan" for a human master, owner or polite address (sir).',
+    #"G907": 'baptizo: "membenamkan" (passive "dibenamkan", etc.); "membasuh"; never "membaptis" or "baptis".',
+    #"G908": 'baptisma: "pembenaman"; never "baptisan".',
+    #"G909": 'baptismos: "pembenaman"; "pembasuhan" for ritual washings.',
+    #"G910": 'baptistes: "pembenam" (e.g. the epithet of John); never "pembaptis".',
+    #"G911": 'bapto: "mencelupkan".',
     "G1203": 'despotes: "tuan" for a human master; "Tuhan" when it names or addresses God.',
 }
 
@@ -378,7 +385,7 @@ def call_model(client, model, words, language, context=None, max_retries=3):
             response = client.messages.create(
                 model=model,
                 max_tokens=MAX_TOKENS,
-                system=system_prompt,
+                system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": prompt}],
             )
             text = "".join(block.text for block in response.content if block.type == "text").strip()

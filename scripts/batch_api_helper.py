@@ -46,7 +46,9 @@ def submit_batch_job(client, requests, batch_job_file):
                 params=MessageCreateParamsNonStreaming(
                     model=model,
                     max_tokens=max_tokens,
-                    system=system_prompt,
+                    # Same cached block in every request: reads cost ~5% of base input
+                    # (best effort in batches; see fetch_batch_results for the hit count)
+                    system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
                     messages=[{"role": "user", "content": user_prompt}],
                 ),
             )
@@ -92,11 +94,16 @@ def fetch_batch_results(client, batch_id):
     errored/canceled/expired, with the reason printed)."""
     results = {}
     error_count = 0
+    fresh = cache_read = cache_written = 0
     for item in client.messages.batches.results(batch_id):
         custom_id = item.custom_id
         result = item.result
         if result.type == "succeeded":
             message = result.message
+            usage = message.usage
+            fresh += usage.input_tokens or 0
+            cache_read += getattr(usage, "cache_read_input_tokens", 0) or 0
+            cache_written += getattr(usage, "cache_creation_input_tokens", 0) or 0
             if message.stop_reason == "max_tokens":
                 print(f"  WARNING: request '{custom_id}' was cut off by max_tokens", file=sys.stderr)
             results[custom_id] = "".join(block.text for block in message.content if block.type == "text").strip()
@@ -107,6 +114,7 @@ def fetch_batch_results(client, batch_id):
 
     if error_count:
         print(f"  {error_count} of {len(results)} requests did not succeed -- see warnings above.", file=sys.stderr)
+    print(f"  input tokens: {fresh:,} uncached, {cache_read:,} read from cache, {cache_written:,} written to cache", file=sys.stderr)
     return results
 
 
