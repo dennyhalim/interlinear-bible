@@ -43,7 +43,8 @@ Scripts (these replace your copies; your repo's other scripts are unchanged):
 - `generate_verse_translations.py`: stage 4. Tagged text (`{G746}`), `¶` paragraphs, ` | ` poetry lines, God-pronoun capitalization, direct speech with escaped quotes, EYD rules from `sources/eydv.md` (`--guidelines` to override).
 - `export_to_markdown.py`: compact reading format (`Genesis 1` headings, superscript verse numbers, paragraphs, poetry hard breaks). `--strongs`, `--verse-style unicode|caret|plain`, `--language`.
 - `parse_tahot.py`: handles bracketed references, merged verses, skips `X` rows, prints chapters/verses/skips.
-- `sources/eydv.md`, `README_pipeline.md` (the pipeline section for the README), `testkit/` (stub `bible_export_common.py` and a toy database builder).
+- `sources/eydv.md`, `README_pipeline.md` (the pipeline section for the README).
+- `testkit/`: a stub `bible_export_common.py` (your real one lives in your repo), `mkdb.py` (toy database with the real table names) and `run_tests.py` (24 checks for the AI gloss pipeline: generate, load, import, remap, check_term, find_term_drift; run `python testkit/run_tests.py` from the package root after `pip install anthropic`).
 
 Edits sent as snippets, not in the zip (confirm they are applied): `bible_export_common.py` (`get_verse_translation`, ranked lexicon join, `first_sense` with colon/parentheses handling, `bec.connect`); `export_mysword.py` (unpadded Strong's with `int(digits)`, Greek-only `morph_tag`, `natural` layout); `export_osis.py` (unpadded Strong's, use `--no-remap`); `build_db.py` counters; `export_to_d1.py` / `generate_d1_reset.py` table lists.
 
@@ -95,3 +96,15 @@ python scripts\generate_ai_glosses.py submit --db output\interlinear.sqlite --ou
 python scripts\generate_verse_translations.py sync --db output\interlinear.sqlite --out output\staging\verses_id.jsonl --book GEN --chapter 1
 python scripts\export_to_markdown.py --db output\interlinear.sqlite --out-dir output\reading --compact --group --verse-style caret
 ```
+
+## 10. Task plan (one run each, 2-3 files per batch)
+
+Done: stage 4 script and `eydv.md` (17 checks on toy data); this handoff package; AI gloss test suite (24 checks, and the suite was shown to fail when the loader is broken).
+
+Next, in order:
+1. Extend `run_tests.py` to stage 4, `export_to_markdown.py` and `parse_tahot.py`.
+2. Optional line-based output format for stage 4 (`verse<TAB>text`), which removes the JSON quote-escaping risk.
+3. Stage 4 trial: exact commands and a review checklist for Genesis 1, a Psalm and John 1.
+4. Remaining gloss runs: commands per group, `--dry-run` first, and the cost check.
+5. MySword / e-Sword / OSIS exporter edits as complete files (natural layout, unpadded Strong's, Greek-only morph tags, `Language` column).
+6. D1 table lists and the README fixes.
