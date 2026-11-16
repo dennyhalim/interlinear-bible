@@ -1,49 +1,39 @@
 #!/usr/bin/env python3
 """
-Export the interlinear database to OSIS XML, the source format
-CrossWire's SWORD project toolchain compiles into an actual SWORD
-module.
+Export the interlinear database to OSIS XML, the source format CrossWire's SWORD toolchain compiles into a
+SWORD module (osis2mod).
 
-IMPORTANT, stated plainly: this script produces OSIS XML SOURCE only.
-It does NOT produce a finished SWORD module. Turning this XML into an
-actual installable module requires CrossWire's own compiled toolchain
-(osis2mod for verse-keyed texts), which is a separate C++ program, not
-something reproducible in Python here. After generating the XML:
-  1. Install the SWORD tools (e.g. `apt install sword-tools` on
-     Debian/Ubuntu, or build from git.crosswire.org/sword-tools)
+This script produces OSIS XML SOURCE only. Turning it into an installable module needs CrossWire's osis2mod:
+  1. Install the SWORD tools (e.g. `apt install sword-tools`, or build from git.crosswire.org/sword-tools)
   2. Run: osis2mod /path/to/module/output thisfile.xml -v KJV
-     (or the appropriate -v versification scheme)
-  3. Write a conf file describing the module (DataPath, Versification,
-     Lang, etc.) per CrossWire's module conf format
+  3. Write a conf file describing the module (DataPath, Versification, Lang, ...)
+Not tested with osis2mod here.
 
-Format verified directly against CrossWire's own mailing list and wiki
-documentation (not a third-party guide): Strong's numbers are tagged
-via <w lemma="strong:H1234">word</w>, matching real published SWORD
-modules (confirmed against an actual ESV module excerpt). Verse
-structure uses <verse osisID="Book.Chapter.Verse">...</verse> container
-form (opening/closing tags wrapping the verse's content), which is
-simpler and valid per the OSIS schema for non-overlapping verse-per-
-verse content.
+Details:
+  - Strong's numbers: <w lemma="strong:H1234">word</w>, numbers without zero padding. STEPBible's H9000+
+    grammatical-particle codes are not real Strong's entries and are left out.
+  - Book ids are the standard OSIS names (Gen, Exod, Ps, Matt, John, ...), not this project's 3-letter codes.
+  - The database uses standard English verse numbering (Psalm titles are verse 0), so osisIDs are written as
+    stored and no versification remapping is needed. A title becomes <title type="psalm" canonical="true">
+    in front of verse 1.
+  - Verses use the container form <verse osisID="Gen.1.1">...</verse>.
 
-Since OSIS/SWORD's own versification systems are English-verse-number
-based (KJV, NRSV, etc.) and this project's underlying Hebrew source
-uses its own (TAHOT) numbering for the ~295 OT passages that differ
-(see versification_mapping, e.g. Malachi 3:19-24 = English 4:1-6),
-this exporter uses the STANDARD ENGLISH reference for each verse's
-osisID by default (resolving through versification_mapping), so the
-resulting module aligns correctly with SWORD's expected versification
-schemes. Use --no-remap to instead emit verses under their raw
-source-numbering osisID if you specifically want that instead.
+Layouts:
+  --layout interlinear (default) : <w lemma morph>gloss</w> per word, the gloss as the visible text
+  --layout plain                 : the same
+  --layout natural               : the stage 4 sentence; each word followed by its {G746} tag becomes
+                                   <w lemma="strong:G746">word</w>; a paragraph start (¶) is
+                                   <milestone type="x-p" marker="¶"/>; poetry lines (" | ") are separated by <lb/>.
+                                   Verses without a translation are skipped.
+Morph attributes: Greek Robinson codes as robinson:<code>, Hebrew codes as oshm:<code> (the prefix for Hebrew is
+unverified).
 
 Usage:
-  python3 scripts/export_osis.py \
-    --db output/interlinear.sqlite \
-    --out output/exports/id_interlinear.osis.xml \
-    --language id --layout interlinear \
-    --title "Vox Antiqua Interlinear (Indonesian)" \
-    --lang id
+  python3 scripts/export_osis.py --db output/interlinear.sqlite --out output/exports/id_interlinear.osis.xml \
+    --language id --layout interlinear --title "Vox Antiqua Interlinear (Indonesian)" --lang id
 """
 import argparse
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -51,78 +41,96 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import bible_export_common as bec
 
+# Standard OSIS book names in the same canonical order as bec.CANONICAL_BOOK_ORDER.
+OSIS_BOOKS = [
+    "Gen", "Exod", "Lev", "Num", "Deut", "Josh", "Judg", "Ruth", "1Sam", "2Sam", "1Kgs", "2Kgs", "1Chr", "2Chr",
+    "Ezra", "Neh", "Esth", "Job", "Ps", "Prov", "Eccl", "Song", "Isa", "Jer", "Lam", "Ezek", "Dan", "Hos", "Joel",
+    "Amos", "Obad", "Jonah", "Mic", "Nah", "Hab", "Zeph", "Hag", "Zech", "Mal",
+    "Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor", "Gal", "Eph", "Phil", "Col", "1Thess", "2Thess",
+    "1Tim", "2Tim", "Titus", "Phlm", "Heb", "Jas", "1Pet", "2Pet", "1John", "2John", "3John", "Jude", "Rev",
+]
+TAG = re.compile(r"\{([HG])(\d+)\}")
+WORD_TAGS = re.compile(r"([\w'\u2019-]+)((?:\{[HG]\d+\})+)")   # a word immediately followed by its tag(s)
+BAR = re.compile(r"\s*\|\s*")                                    # poetry line separator from the stage 4 prompt
+
+
+def osis_book(code):
+    return OSIS_BOOKS[bec.CANONICAL_BOOK_ORDER.index(code)]
+
 
 def escape_xml(text):
     if text is None:
         return ""
-    return (
-        text.replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace('"', "&quot;")
-    )
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 
 def strong_lemma_attr(word):
-    """OSIS lemma attribute value, space-separated for multiple Strong's
-    (e.g. a Hebrew word with both a prefix and stem Strong's number),
-    in the "strong:H1234" form confirmed from a real published OSIS
-    module excerpt. Same pseudo-code filtering as the MySword/e-Sword
-    exporters -- STEPBible's H9000+ grammatical-particle codes aren't
-    real Strong's dictionary entries and are excluded."""
+    """'strong:H1234 strong:G746' for the word's genuine Strong's numbers (unpadded, no H9000+ particles)."""
     values = []
     for part in word["strongs_parts"]:
         if not part:
             continue
         letter = "H" if part.startswith("H") else "G"
         digits = "".join(ch for ch in part[1:] if ch.isdigit())
-        if not digits:
+        if not digits or (letter == "H" and int(digits) >= 9000):
             continue
-        if letter == "H" and int(digits) >= 9000:
-            continue
-        values.append(f"strong:{letter}{digits}")
+        values.append(f"strong:{letter}{int(digits)}")
     return " ".join(values)
 
 
 def morph_attr(word):
-    if not word["morph_code"]:
+    code = (word["morph_code"] or "").strip()
+    if not code:
         return ""
-    segments = word["morph_code"].split("/")
-    return escape_xml(segments[-1] if segments else word["morph_code"])
+    return escape_xml(("robinson:" if word["language"] == "greek" else "oshm:") + code)
 
 
-def render_words_interlinear(words):
-    """<w> elements: the gloss (target-language reading) is the visible
-    text content, with lemma/morph as queryable attributes carrying the
-    Strong's number(s) and morphology. OSIS doesn't have a dedicated
-    "interlinear gloss" element the way MySword's <T>/<X> tags do; this
-    keeps the running text readable (the translation) while the
-    original-language/Strong's/morphology data stays attached as
-    attributes on each <w>, which is how real interlinear-tagged OSIS
-    Bibles handle this rather than doubling every word inline."""
+def render_words(words):
+    """<w> elements: the gloss is the visible text; Strong's and morphology stay attached as attributes."""
     parts = []
     for w in words:
-        lemma = strong_lemma_attr(w)
-        morph = morph_attr(w)
-        gloss = escape_xml(w["gloss"] or "")
         attrs = []
+        lemma, morph = strong_lemma_attr(w), morph_attr(w)
         if lemma:
             attrs.append(f'lemma="{lemma}"')
         if morph:
             attrs.append(f'morph="{morph}"')
-        attr_str = (" " + " ".join(attrs)) if attrs else ""
-        parts.append(f"<w{attr_str}>{gloss}</w>")
+        parts.append(f"<w{(' ' + ' '.join(attrs)) if attrs else ''}>{escape_xml(w['gloss'] or '')}</w>")
     return " ".join(parts)
 
 
-def render_words_plain(words):
-    """Currently identical to render_words_interlinear -- OSIS's <w>
-    element IS inherently the Strong's-tagged representation, so
-    "plain" and "interlinear" don't diverge as structurally as they do
-    for MySword/e-Sword's tag sets. Kept as a separate function so the
-    two layouts can diverge later (e.g. adding <foreign> spans for the
-    original-language surface text) without disturbing callers."""
-    return render_words_interlinear(words)
+def render_natural(text):
+    """'Pada mula{G746} | ...' -> '<w lemma="strong:G746">mula</w><lb/>...'. A tag that does not follow a word is dropped."""
+    def word(m):
+        lemma = " ".join(f"strong:{l}{int(n)}" for l, n in TAG.findall(m.group(2)))
+        return f'<w lemma="{lemma}">{m.group(1)}</w>'
+    text = WORD_TAGS.sub(word, escape_xml(text))
+    return BAR.sub("<lb/>", TAG.sub("", text))
+
+
+def title_text(words):
+    return " ".join(w["gloss"] for w in words if w["gloss"] and w["gloss"] != "-" and not w["gloss"].startswith("("))
+
+
+def render_title(conn, verse_id, args):
+    if args.layout == "natural":
+        text = bec.get_verse_translation(conn, verse_id, args.language, tagged=False)
+        text = BAR.sub(" ", (text or "").strip().lstrip("\u00b6").strip())
+    else:
+        text = title_text(bec.get_words_for_verse(conn, verse_id, args.language))
+    return f'<title type="psalm" canonical="true">{escape_xml(text)}</title>' if text else None
+
+
+def render_verse(conn, verse_id, args):
+    if args.layout == "natural":
+        text = bec.get_verse_translation(conn, verse_id, args.language, tagged=True)
+        if not text:
+            return None
+        text = text.strip()
+        body = render_natural(text.lstrip("\u00b6").strip())
+        return ('<milestone type="x-p" marker="\u00b6"/>' if text.startswith("\u00b6") else "") + body
+    words = bec.get_words_for_verse(conn, verse_id, args.language)
+    return render_words(words) if words else None
 
 
 def main():
@@ -130,15 +138,16 @@ def main():
     ap.add_argument("--db", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--language", default="id")
-    ap.add_argument("--layout", choices=["interlinear", "plain"], default="interlinear")
+    ap.add_argument("--layout", choices=["interlinear", "plain", "natural"], default="interlinear")
     ap.add_argument("--title", required=True)
     ap.add_argument("--lang", default="id", help="OSIS/ISO language code for the osisText xml:lang attribute")
     ap.add_argument("--work-id", default="InterlinearBible", help="OSIS work identifier (no spaces)")
     ap.add_argument("--book", help="Only export one book (canonical 3-letter code), for testing")
-    ap.add_argument("--no-remap", action="store_true",
-                     help="Emit verses under raw source (Hebrew/Greek) numbering instead of resolving through versification_mapping to standard English references")
     args = ap.parse_args()
 
+    if not args.db.is_file() or args.db.stat().st_size == 0:
+        print(f"ERROR: database missing or empty: {args.db.resolve()}", file=sys.stderr)
+        sys.exit(1)
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
     conn = sqlite3.connect(args.db)
@@ -149,100 +158,60 @@ def main():
             print(f"ERROR: book '{args.book}' not found", file=sys.stderr)
             sys.exit(1)
 
-    render_fn = render_words_interlinear if args.layout == "interlinear" else render_words_plain
+    wid, lang = escape_xml(args.work_id), escape_xml(args.lang)
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" '
+        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+        'xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace '
+        'http://www.bibletechnologies.net/osisCore.2.1.1.xsd">',
+        f'<osisText osisIDWork="{wid}" osisRefWork="Bible" xml:lang="{lang}">',
+        "<header>",
+        f'<work osisWork="{wid}">',
+        f"<title>{escape_xml(args.title)}</title>",
+        f"<language>{lang}</language>",
+        "<description>Generated by interlinear-bible export_osis.py. "
+        f"Language: {escape_xml(args.language)}. Layout: {escape_xml(args.layout)}. "
+        "OSIS XML source; compile with osis2mod to get a SWORD module.</description>",
+        "</work>",
+        "</header>",
+    ]
 
-    lines = []
-    lines.append('<?xml version="1.0" encoding="UTF-8"?>')
-    lines.append('<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" '
-                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                  'xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace '
-                  'http://www.bibletechnologies.net/osisCore.2.1.1.xsd">')
-    lines.append(f'<osisText osisIDWork="{escape_xml(args.work_id)}" osisRefWork="Bible" xml:lang="{escape_xml(args.lang)}">')
-    lines.append('<header>')
-    lines.append('<work osisWork="{}">'.format(escape_xml(args.work_id)))
-    lines.append(f'<title>{escape_xml(args.title)}</title>')
-    lines.append(f'<language>{escape_xml(args.lang)}</language>')
-    lines.append('<description>Generated by interlinear-bible export_osis.py. '
-                  f'Language: {escape_xml(args.language)}. Layout: {escape_xml(args.layout)}. '
-                  'Requires osis2mod (CrossWire SWORD tools) to compile into an installable module -- '
-                  'this file is OSIS XML source, not a finished module.</description>')
-    lines.append('</work>')
-    lines.append('</header>')
-
-    verse_count = 0
-    remap_gaps = []  # verses whose standard reference exists in versification_mapping but has no source content
+    verse_count, skipped, chapters = 0, 0, set()
     for book_id, code, name, testament, ordinal in books:
-        lines.append(f'<div type="book" osisID="{code}">')
-        verses = bec.get_verses_for_book(conn, book_id)
-        for verse_id, chapter, verse in verses:
-            words = bec.get_words_for_verse(conn, verse_id, args.language)
-            if not words:
+        if code not in bec.CANONICAL_BOOK_ORDER:
+            print(f"WARN: book '{code}' not in canonical 66-book order, skipping", file=sys.stderr)
+            continue
+        osis = osis_book(code)
+        lines.append(f'<div type="book" osisID="{osis}">')
+        titles, book_verses, book_chapters = {}, 0, set()
+        for verse_id, chapter, verse in bec.get_verses_for_book(conn, book_id):
+            if verse == 0:                       # title: folded into verse 1 below
+                title = render_title(conn, verse_id, args)
+                if title:
+                    titles[chapter] = title
                 continue
+            content = render_verse(conn, verse_id, args)
+            if content is None:
+                skipped += 1
+                continue
+            if verse == 1 and chapter in titles:
+                content = titles.pop(chapter) + content
+            lines.append(f'<verse osisID="{osis}.{chapter}.{verse}">{content}</verse>')
+            book_verses += 1
+            book_chapters.add(chapter)
+        lines.append("</div>")
+        verse_count += book_verses
+        chapters.update((code, c) for c in book_chapters)
+        print(f"{code}: {len(book_chapters)} chapters, {book_verses} verses", file=sys.stderr)
 
-            if args.no_remap:
-                disp_chapter, disp_verse = chapter, verse
-            else:
-                cur = conn.cursor()
-                cur.execute(
-                    "SELECT standard_chapter, standard_verse FROM versification_mapping "
-                    "WHERE book_code = ? AND hebrew_chapter = ? AND hebrew_verse = ? LIMIT 1",
-                    (code, chapter, verse),
-                )
-                mapping = cur.fetchone()
-                if mapping and mapping[0] is not None and mapping[1] is not None:
-                    disp_chapter, disp_verse = mapping
-                else:
-                    disp_chapter, disp_verse = chapter, verse
-
-            osis_id = f"{code}.{disp_chapter}.{disp_verse}"
-            content = render_fn(words)
-            lines.append(f'<verse osisID="{osis_id}">{content}</verse>')
-            verse_count += 1
-
-        # Report standard references that versification_mapping knows
-        # about for this book but which have no corresponding source
-        # verse content at all -- e.g. Malachi 4:1-6 (Hebrew 3:19-24):
-        # the mapping correctly describes how the NUMBERING translates,
-        # but TAHOT's underlying Hebrew text for Malachi genuinely ends
-        # at 3:18, so there is no content to emit at that reference.
-        # This is a real, pre-existing source-data gap (documented
-        # elsewhere in this project), not something this exporter can
-        # fix -- but it should be visible rather than silently missing.
-        if not args.no_remap:
-            cur = conn.cursor()
-            cur.execute(
-                "SELECT DISTINCT standard_chapter, standard_verse, hebrew_chapter, hebrew_verse "
-                "FROM versification_mapping WHERE book_code = ? AND standard_chapter IS NOT NULL",
-                (code,),
-            )
-            for std_ch, std_v, heb_ch, heb_v in cur.fetchall():
-                cur2 = conn.cursor()
-                cur2.execute(
-                    "SELECT 1 FROM verse v JOIN book b ON v.book_id = b.book_id "
-                    "WHERE b.code = ? AND v.chapter = ? AND v.verse = ?",
-                    (code, heb_ch, heb_v),
-                )
-                if not cur2.fetchone():
-                    remap_gaps.append(f"{code} {std_ch}:{std_v} (would come from source {heb_ch}:{heb_v}, which has no content)")
-
-        lines.append('</div>')
-        print(f"{code}: done", file=sys.stderr)
-
-    lines.append('</osisText>')
-    lines.append('</osis>')
-
+    lines += ["</osisText>", "</osis>"]
     args.out.write_text("\n".join(lines), encoding="utf-8")
 
-    print(f"\nWrote {verse_count} verses -> {args.out}", file=sys.stderr)
-    if remap_gaps:
-        print(f"\nNOTE: {len(remap_gaps)} standard-numbered verses have no source content "
-              f"(pre-existing TAHOT source gaps, not an exporter bug -- see README's "
-              f"'OT versification mapping' section):", file=sys.stderr)
-        for gap in remap_gaps:
-            print(f"  {gap}", file=sys.stderr)
-    print("This is OSIS XML SOURCE, not a finished SWORD module.", file=sys.stderr)
-    print("Compile with osis2mod (CrossWire SWORD tools) to produce an installable module -- see module docstring.", file=sys.stderr)
-
+    print(f"\nWrote {len(chapters)} chapters, {verse_count} verses -> {args.out}", file=sys.stderr)
+    if skipped:
+        print(f"  {skipped} verses skipped (no content for layout '{args.layout}')", file=sys.stderr)
+    print("This is OSIS XML SOURCE, not a finished SWORD module. Compile with osis2mod.", file=sys.stderr)
     conn.close()
 
 

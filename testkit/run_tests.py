@@ -4,7 +4,8 @@ Smoke tests for the AI gloss pipeline on a toy database. No API calls, no networ
 
 Covers generate_ai_glosses.py (prompt, sync, resume, --dry-run, targeted mode, submit/retrieve),
 load_ai_glosses.py (position loading after a rebuild, cleaning), add_glosses_refs.py,
-import_batch_results.py, remap_ai_glosses.py, check_term.py and find_term_drift.py.
+import_batch_results.py, remap_ai_glosses.py, check_term.py, find_term_drift.py,
+generate_verse_translations.py (stage 4), export_to_markdown.py and parse_tahot.py.
 
 Usage, from the package root:   python testkit/run_tests.py
 Needs:  pip install anthropic        (testkit/bible_export_common.py is a stub of your real one)
@@ -28,6 +29,7 @@ import batch_api_helper as bah   # noqa: E402
 import generate_ai_glosses as gag   # noqa: E402
 import load_ai_glosses, add_glosses_refs, import_batch_results, remap_ai_glosses   # noqa: E402
 import check_term, find_term_drift   # noqa: E402
+import generate_verse_translations as gvt, export_to_markdown as etm, parse_tahot   # noqa: E402
 
 results = []
 
@@ -198,6 +200,143 @@ check("check_term: shows the lexicon gloss sent and the AI gloss returned", "mem
 _, out = run(find_term_drift.main, "--db", "db.sqlite", "--min-count", 1)
 check("find_term_drift: flags G907 (membenamkan) as not followed, leaves G3056 (firman) alone",
       "G907" in out and "membenamkan" in out and "G3056" not in out.split("Targeted")[0])
+
+
+# =====================  stage 4: natural verse translation  =====================
+GUIDE = ROOT / "sources" / "eydv.md"
+base = gvt.system_prompt("id")
+check("stage 4 prompt: formats, tag braces rendered, one-backslash escaped-quote example",
+      "langit{H8064}{H853}" in base and 'Ia berkata, \\"Marilah.\\"' in base and '\\\\"' not in base)
+check("stage 4 prompt: paragraph, poetry, placeholder and God-pronoun rules present",
+      all(k in base for k in ("¶", '" | "', "(tanda objek)", "Pronouns for God")))
+withg = gvt.system_prompt("id", "RULES-GO-HERE")
+check("guidelines are inserted before the response-format paragraph; no guidelines leaves the prompt unchanged",
+      withg.index("RULES-GO-HERE") < withg.index("Respond with ONLY") and gvt.system_prompt("id", "") == base)
+with contextlib.redirect_stderr(io.StringIO()) as e:
+    missing_default = gvt.load_guidelines(None)                  # cwd is the temp dir: no sources/eydv.md here
+check("load_guidelines: default file absent -> empty text and a NOTE", missing_default == "" and "NOTE" in e.getvalue())
+try:
+    gvt.load_guidelines("nope.md")
+    check("load_guidelines: explicit missing file exits", False)
+except SystemExit:
+    check("load_guidelines: explicit missing file exits", True)
+with contextlib.redirect_stderr(io.StringIO()):
+    check("load_guidelines: reads sources/eydv.md and it carries the rule references", "[I.F.7]" in gvt.load_guidelines(str(GUIDE)))
+
+
+def reply4(prompt):
+    """Stage 4 answer: JSON Lines (no brackets) with quotes, a paragraph mark and one poetic verse."""
+    vs = [int(v) for v in re.findall(r"^(\d+):", prompt, re.M)]
+    rows = []
+    for v in vs:
+        text = f'Ia berkata, "Marilah{{H3068}} kita." Lalu \'ya\' {v}'
+        if v == vs[0]:
+            text = "¶ " + text
+        if v == 3:
+            text = "Berbahagialah | yang tidak berjalan{H5002} | dalam nasihat"
+        rows.append(json.dumps({"verse": v, "text": text}, ensure_ascii=False))
+    return "\n".join(rows)
+
+
+class FakeClient4:
+    def __init__(self, *a, **k):
+        def create(model, max_tokens, system, messages):
+            calls["systems"].append(system)
+            return NS(content=[NS(type="text", text=reply4(messages[0]["content"]))])
+        self.messages = NS(create=create)
+
+
+anthropic.Anthropic = FakeClient4
+calls["systems"].clear()
+err, _ = run(gvt.main, "sync", "--db", "db.sqlite", "--out", "out/v_gen1.jsonl", "--book", "GEN", "--chapter", "1", "--guidelines", GUIDE)
+v = jsonl("out/v_gen1.jsonl")
+check("stage 4 sync: 4 verses written; quotes, paragraph mark and poetry bars survive",
+      len(v) == 4 and all('"Marilah' in r["text"] for r in v if "Berbahagialah" not in r["text"])
+      and v[0]["text"].startswith("¶") and " | " in v[2]["text"])
+sysblock = calls["systems"][0]
+check("stage 4 sync: system prompt is a cached block that carries the EYD rules",
+      isinstance(sysblock, list) and sysblock[0]["cache_control"] == {"type": "ephemeral"} and "[I.F.7]" in sysblock[0]["text"])
+run(gvt.main, "sync", "--db", "db.sqlite", "--out", "out/v_gen1.jsonl", "--book", "GEN", "--chapter", "1", "--guidelines", GUIDE)
+check("stage 4 sync: rerun resumes without duplicating verses", len(jsonl("out/v_gen1.jsonl")) == 4)
+
+# submit / retrieve
+bah.fetch_batch_results = lambda client, bid: {r[0]: reply4(r[2]) for r in store["req"]}
+run(gvt.main, "submit", "--db", "db.sqlite", "--out", "out/v_exo.jsonl", "--book", "EXO", "--guidelines", GUIDE, "--batch-job-file", "jobs/v.json")
+check("stage 4 submit: one request per chapter chunk, system prompt carries the guidelines",
+      len(store["req"]) == 1 and "[I.F.7]" in store["req"][0][1])
+run(gvt.main, "retrieve", "--out", "out/v_exo.jsonl", "--batch-job-file", "jobs/v.json")
+check("stage 4 retrieve: verses written once", len(jsonl("out/v_exo.jsonl")) == 1)
+
+# load: unknown and zero-padded tags
+rec = {"verse_id": 1, "language": "id", "text": "Allah{H3068}{H999} berfirman{H5002} tuan{H0113}",
+       "model": "m", "prompt_version": "v2", "generated_at": "t"}
+Path("load4.jsonl").write_text(json.dumps(rec) + "\n")
+err, _ = run(gvt.main, "load", "--db", "db.sqlite", "--jsonl", "load4.jsonl")
+c = sqlite3.connect("db.sqlite")
+stored = c.execute("select text from verse_translation where verse_id = 1").fetchone()[0]
+check("stage 4 load: unknown tag dropped, padded tag normalised, report printed",
+      stored == "Allah{H3068} berfirman{H5002} tuan{H113}" and "1 unknown tag(s) dropped" in err)
+
+# =====================  export_to_markdown (compact reading format)  =====================
+c.executemany("insert or replace into verse_translation (verse_id, language, text, model, prompt_version, generated_at) values (?,?,?,?,?,?)", [
+    (1, "id", "¶ Pada mula{H5002} Allah menciptakan", "m", "v", "t"),
+    (2, "id", "Bumi belum berbentuk", "m", "v", "t"),
+    (3, "id", "¶ Berbahagialah orang itu{H3068} | yang tidak berjalan | dalam nasihat", "m", "v", "t")])
+c.execute("insert into verse values (60, 1, 3, 0)")                           # a Psalm-style title: verse 0 of GEN 3
+c.execute("insert into verse values (61, 1, 3, 1)")
+c.executemany("insert into verse_translation (verse_id, language, text, model, prompt_version, generated_at) values (?,?,?,?,?,?)",
+              [(60, "id", "Untuk pemimpin pujian", "m", "v", "t"), (61, "id", "¶ Mengapa bangsa-bangsa ribut", "m", "v", "t")])
+c.commit()
+c.close()
+err, _ = run(etm.main, "--db", "db.sqlite", "--out-dir", "md1", "--compact", "--book", "GEN")
+md = Path("md1/01_GEN_Genesis_compact.md").read_text(encoding="utf-8")
+lines = md.split("\n")
+check("markdown: book-name headings, superscript verse numbers, summary shows chapters/verses",
+      "## Genesis 1" in md and "¹ Pada mula Allah menciptakan" in md and "chapters" in err and "Chapter" not in md)
+check("markdown: verses of a paragraph are consecutive lines (no blank line between them)",
+      lines[lines.index("¹ Pada mula Allah menciptakan") + 1] == "² Bumi belum berbentuk")
+check("markdown: a paragraph mark starts a new paragraph after a blank line",
+      lines[lines.index("² Bumi belum berbentuk") + 1] == "" and "³ Berbahagialah orang itu  " in md)
+check("markdown: poetry lines are indented and hard-broken; the last line of the paragraph is not",
+      "   yang tidak berjalan  \n   dalam nasihat  \n⁴ ucapan TUHAN tuan\n" in md and "⁴ ucapan TUHAN tuan  " not in md)
+check("markdown: a verse-0 title is an italic line without a number", "*Untuk pemimpin pujian*" in md)
+check("markdown: a verse without a translation falls back to joined glosses without placeholders", "⁴ ucapan TUHAN tuan" in md)
+run(etm.main, "--db", "db.sqlite", "--out-dir", "md2", "--compact", "--book", "GEN", "--verse-style", "caret", "--strongs")
+md2 = Path("md2/01_GEN_Genesis_compact.md").read_text(encoding="utf-8")
+check("markdown: --verse-style caret writes ^n^ and --strongs keeps the tags", "^1^ Pada mula{H5002} Allah menciptakan" in md2)
+run(etm.main, "--db", "db.sqlite", "--out-dir", "md3", "--compact", "--book", "GEN", "--verse-style", "plain")
+check("markdown: --verse-style plain writes a bare number", "\n1 Pada mula Allah menciptakan" in Path("md3/01_GEN_Genesis_compact.md").read_text(encoding="utf-8"))
+run(etm.main, "--db", "db.sqlite", "--out-dir", "md4", "--book", "GEN", "--wikilink")
+md4 = Path("md4/01_GEN_Genesis.md").read_text(encoding="utf-8")
+check("markdown: interlinear mode keeps full references (and --wikilink wraps them)", "**[[GEN 1:1]]**" in md4)
+err, _ = run(etm.main, "--db", "nope.sqlite", "--out-dir", "md5")
+check("markdown: a missing database stops with a clear error instead of creating one", "missing or empty" in err and not Path("nope.sqlite").exists())
+
+# =====================  parse_tahot  =====================
+def trow(ref, n, flag):
+    return f"{ref}#{n:02d}={flag}\tא\tx\tg\t{{H0001}}\tHNcmsa\n"
+
+
+lines = ["Gen.1.1\tsummary-block line without #NN must be ignored\n"]
+lines += [trow("Gen.1.1", i, "L") for i in (1, 2)]
+lines += [trow("Psa.67.0(67.1)", i, "L") for i in (1, 2, 3)] + [trow("Psa.67.1(67.2)", i, "L") for i in (1, 2)]
+lines += [trow("Num.26.1(25.19)", i, "L") for i in (1, 2, 3)] + [trow("Num.26.1", i, "L") for i in (1, 2, 3, 4, 5)]
+lines += [trow("Deu.30.16", i, "X") for i in (1, 2, 3)] + [trow("Deu.30.16", i, "L") for i in (1, 2, 3, 4)]
+lines += [trow("Mal.4.1(3.19)", i, "Q(K)") for i in (1, 2, 3)]
+lines += [trow("Gen.1.2x", 1, "L")]
+Path("tahot_src").mkdir()
+Path("tahot_src/TAHOT Test.txt").write_text("".join(lines), encoding="utf-8")
+err, _ = run(parse_tahot.main, "tahot_src", "tahot_out.jsonl")
+rows = jsonl("tahot_out.jsonl")
+keys = [(r["book_code"], r["chapter"], r["verse"], r["position"]) for r in rows]
+check("parse_tahot: bracketed references parse; English numbering kept (Psa 67:0 title, Mal 4:1)",
+      {(r["book_code"], r["chapter"], r["verse"]) for r in rows} >= {("PSA", 67, 0), ("PSA", 67, 1), ("MAL", 4, 1)})
+check("parse_tahot: merged verses get unique, ordered positions (Num 26:1 = 1..8)",
+      sorted(p for b, c, vv, p in keys if (b, c, vv) == ("NUM", 26, 1)) == list(range(1, 9)) and len(keys) == len(set(keys)))
+check("parse_tahot: X rows skipped (counted), Ketiv/Qere rows kept",
+      not any(r["source_flag"] == "X" for r in rows) and "3 X rows skipped" in err and any(r["source_flag"] == "Q(K)" for r in rows))
+check("parse_tahot: an unparseable detail row is reported, not silently dropped",
+      "1 detail rows could not be parsed" in err and "TOTAL:" in err)
 
 print(f"\n{sum(results)}/{len(results)} checks passed")
 sys.exit(0 if all(results) else 1)

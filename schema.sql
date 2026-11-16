@@ -13,6 +13,7 @@ CREATE TABLE book (
     ordinal  INTEGER NOT NULL
 );
 
+-- Chapter/verse use standard English numbering (the first reference in TAHOT). A Psalm title is verse 0.
 CREATE TABLE verse (
     verse_id INTEGER PRIMARY KEY,
     book_id  INTEGER NOT NULL REFERENCES book(book_id),
@@ -131,7 +132,7 @@ CREATE TABLE morphology_code (
 
 -- AI-generated per-word contextual gloss (populated by a later pipeline
 -- stage, not by the parsers above). One row per word, generated in a
--- verse-batched pass so glosses are context-aware rather than pure
+-- chapter-batched pass so glosses are context-aware rather than pure
 -- dictionary lookups.
 CREATE TABLE ai_gloss (
     gloss_id       INTEGER PRIMARY KEY,
@@ -142,6 +143,21 @@ CREATE TABLE ai_gloss (
     prompt_version TEXT NOT NULL,  -- tag identifying which prompt/methodology produced this, for regeneration tracking
     model          TEXT,           -- which model generated it
     generated_at   TEXT            -- ISO timestamp
+);
+
+-- Natural verse translation (stage 4, generate_verse_translations.py): one simple, literal sentence per verse
+-- with a Strong's tag after each translated word, e.g. "Pada mula{G746}". A leading "¶ " marks a paragraph start
+-- and " | " separates the lines of a poetic verse. One row per (verse, language). The loader creates this table
+-- with the same definition if it is missing, so existing databases need no rebuild.
+CREATE TABLE verse_translation (
+    verse_id       INTEGER NOT NULL REFERENCES verse(verse_id),
+    language       TEXT NOT NULL,
+    text           TEXT NOT NULL,
+    model          TEXT NOT NULL,
+    prompt_version TEXT NOT NULL,
+    generated_at   TEXT NOT NULL,
+    reviewed       INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (verse_id, language)
 );
 
 -- Reserved for future versification mapping (TVTMS) once that parser
@@ -162,6 +178,8 @@ CREATE TABLE versification_note (
 -- One row per verse where Hebrew (TAHOT source) and standard English
 -- numbering actually differ -- the vast majority of verses need no
 -- entry here at all, since they already agree.
+-- NOTE: since the verse table now uses English numbering directly, this table is reference data only;
+-- the exporters no longer remap through it.
 CREATE TABLE versification_mapping (
     mapping_id          INTEGER PRIMARY KEY,
     section_ref          TEXT NOT NULL,   -- which TVTMS difference-section this came from, e.g. "Mal.4:1-4:6"
