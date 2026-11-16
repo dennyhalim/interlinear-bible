@@ -1,30 +1,24 @@
 #!/usr/bin/env python3
 """
-Export interlinear.sqlite into a D1-compatible .sql file for
-`wrangler d1 execute --remote --file=...`.
+Export interlinear.sqlite into D1-compatible .sql files for `wrangler d1 execute --remote --file=...`.
 
 Why not just `sqlite3 interlinear.sqlite .dump`:
-  - D1 rejects BEGIN TRANSACTION / COMMIT wrapping (D1 docs: "cannot
-    start a transaction within a transaction").
-  - D1 has a 100,000 byte SQL statement length limit. A plain .dump
-    emits one INSERT per row (fine) but some tools/dumps batch multi-
-    row VALUES (...), (...), (...) into one statement -- and even
-    per-row INSERTs from a raw dump aren't guaranteed batched
-    efficiently for the wrangler upload step. This script explicitly
-    batches multiple rows into each INSERT, sized safely under the
-    limit by actual byte length (not just a fixed row count), since
-    fields like lexicon_entry.meaning vary from a few bytes to ~7KB.
+  - D1 rejects BEGIN TRANSACTION / COMMIT wrapping (D1 docs: "cannot start a transaction within a transaction").
+  - D1 has a 100,000 byte SQL statement length limit. This script batches multiple rows into each INSERT,
+    sized safely under the limit by actual byte length (not a fixed row count), since fields like
+    lexicon_entry.meaning vary from a few bytes to ~7KB.
   - D1 doesn't want a `_cf_KV` table definition if present (reserved).
+
+TABLE_ORDER is the single source of truth for table order: parents before children. generate_d1_reset.py imports
+it and drops tables in the reverse order, so the two can no longer drift apart.
 
 Usage:
   export_to_d1.py --db output/interlinear.sqlite --out output/d1_import.sql
-  # then:
-  wrangler d1 execute <db-name> --remote --file=output/d1_import.sql
+  export_to_d1.py --db output/interlinear.sqlite --split-dir output/d1_export
+  # then:  wrangler d1 execute <db-name> --remote --file=output/d1_import.sql
 
-For very large tables this also supports --split-dir to write one file
-per table (useful for staying under wrangler's 5GiB file limit and for
-resumable imports -- if one table's import fails partway, only that
-table's file needs re-running rather than the whole database).
+--split-dir writes one file per table, useful for resumable imports (if one table fails partway, only that
+table's file needs re-running) and for deploying only the tables that changed (deploy_to_d1.sh --tables ...).
 """
 import argparse
 import sqlite3
@@ -32,24 +26,27 @@ import sys
 from pathlib import Path
 
 # Conservative ceiling well under D1's 100,000 byte statement limit,
-# leaving headroom for the "INSERT INTO t (...) VALUES " prefix and
-# per-row punctuation overhead.
+# leaving headroom for the "INSERT INTO t (...) VALUES " prefix and per-row punctuation overhead.
 MAX_STATEMENT_BYTES = 80_000
 
-# Table order matters for foreign keys: parents before children.
+# Table order matters for foreign keys: parents before children. Every table in schema.sql belongs here.
 TABLE_ORDER = [
     "book",
     "verse",
     "word",
     "word_morph_part",
     "lexicon_entry",
+    "lexicon_gloss_translation",
+    "lexicon_category",
     "morphology_code",
     "proper_noun",
     "proper_noun_variant",
     "proper_noun_occurrence",
     "word_proper_noun",
     "ai_gloss",
+    "verse_translation",
     "versification_note",
+    "versification_mapping",
     "metadata",
 ]
 
@@ -64,7 +61,6 @@ def sql_quote(value):
         return repr(value)
     if isinstance(value, bytes):
         return "X'" + value.hex() + "'"
-    # string: escape single quotes by doubling
     escaped = str(value).replace("'", "''")
     return f"'{escaped}'"
 
@@ -130,11 +126,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", required=True, type=Path)
     ap.add_argument("--out", type=Path, help="Single combined output .sql file")
-    ap.add_argument("--split-dir", type=Path, help="Write one .sql file per table into this directory instead")
+    ap.add_argument("--split-dir", type=Path, help="Write one file per table into this directory instead")
     args = ap.parse_args()
 
     if not args.out and not args.split_dir:
         print("Specify --out (single file) or --split-dir (one file per table)", file=sys.stderr)
+        sys.exit(1)
+    if not args.db.is_file() or args.db.stat().st_size == 0:
+        print(f"ERROR: database missing or empty: {args.db.resolve()}", file=sys.stderr)
         sys.exit(1)
 
     conn = sqlite3.connect(args.db)
@@ -145,8 +144,11 @@ def main():
     ordered_tables = [t for t in TABLE_ORDER if t in actual_tables]
     leftover = actual_tables - set(ordered_tables)
     if leftover:
-        print(f"WARN: tables present but not in TABLE_ORDER, appending at end: {leftover}", file=sys.stderr)
+        print(f"WARN: tables present but not in TABLE_ORDER, appending at end: {sorted(leftover)}", file=sys.stderr)
         ordered_tables += sorted(leftover)
+    absent = [t for t in TABLE_ORDER if t not in actual_tables]
+    if absent:
+        print(f"NOTE: tables in TABLE_ORDER but not in this database (skipped): {absent}", file=sys.stderr)
 
     total_rows = 0
 
@@ -167,7 +169,7 @@ def main():
                 print(f"{table}: {n} rows", file=sys.stderr)
         print(f"-> {args.out}", file=sys.stderr)
 
-    print(f"TOTAL rows exported: {total_rows}", file=sys.stderr)
+    print(f"TOTAL: {len(ordered_tables)} tables, {total_rows} rows exported", file=sys.stderr)
     conn.close()
 
 
