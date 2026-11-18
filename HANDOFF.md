@@ -7,7 +7,7 @@ State of the interlinear-bible project at the end of this long chat. Claude's sa
 - Textus Receptus (NT) and Masoretic Text (OT) are the only source of truth. Be expert in Greek and Hebrew; give references, plus Strong's where possible.
 - Natural translation is simple and literal, and follows the EYD V spelling rules (`sources/SK_EYD_Edisi_V_16082022.pdf`, distilled into `sources/eydv.md`).
 - Scripts must print statistics (chapters, verses, words) so input and output can be checked.
-- Work in small tasks, each finished in one run. Send progress often. Surgical edits, and send only changed files.
+- Work in small tasks, each finished in one run, one file per message. Surgical edits, and send only changed files.
 - Code: light, simple, readable, production-ready, concise docblock header, tested before sending.
 
 ## 2. Database state (after the rebuild with the parse_tahot fixes)
@@ -24,29 +24,25 @@ State of the interlinear-bible project at the end of this long chat. Claude's sa
 
 | Stage | Status |
 |---|---|
-| 1 Build DB | Done. Add the ignored-row counters in `build_db.py` (edits were sent). |
+| 1 Build DB | Done. `build_db.py` should print ignored-row counters (edit sent as a snippet). |
 | 2 Lexicon translation | Done. |
 | 3 Contextual glosses | 22.3%. `generate_ai_glosses.py` is current (below). |
-| 4 Natural verse translation | Script ready and tested on stubs only. Not run on real data. |
-| 5 Exports | `export_to_markdown.py` done. MySword, e-Sword and OSIS edits sent, not confirmed applied. |
-| 6 D1 deploy | Not redone. |
+| 4 Natural verse translation | Script ready, 17 + stub checks pass. Not run on real data. |
+| 5 Exports | Complete files: `export_to_markdown.py`, `export_mysword.py`, `export_esword.py`, `export_osis.py`. Not tried in the apps. |
+| 6 D1 deploy | Table lists fixed, CI deploy guarded. Translation tables not redeployed. |
 
 ## 4. Files in this zip
 
 Scripts (these replace your copies; your repo's other scripts are unchanged):
 
-- `generate_ai_glosses.py`: sync/submit/retrieve, `--strongs` targeted mode, `--dry-run`, position fields in records, comma lists for `--book`/`--group`, cached system prompt, lenient parsing. Defaults: model `claude-opus-5-5`, 150 words per request, `max_tokens` 16000, prompt version `v2`.
-- `load_ai_glosses.py`: loads by position (survives rebuilds) and cleans glosses (`-/ bumi` becomes `bumi`, `[Obj.]` becomes `(tanda objek)`).
-- `add_glosses_refs.py`, `import_batch_results.py` (from `--batch-id` or a Console download), `remap_ai_glosses.py` (old DB to new DB).
-- `batch_api_helper.py`: lenient JSON parser (arrays, JSON Lines, fences, cut-off replies), cache-usage summary, cached system block.
-- `check_term.py`, `find_term_drift.py`: show what the AI was sent versus what it returned, and which Strong's numbers drift from the lexicon.
-- `generate_verse_translations.py`: stage 4. Tagged text (`{G746}`), `¶` paragraphs, ` | ` poetry lines, God-pronoun capitalization, direct speech with escaped quotes, EYD rules from `sources/eydv.md` (`--guidelines` to override).
-- `export_to_markdown.py`: compact reading format (`Genesis 1` headings, superscript verse numbers, paragraphs, poetry hard breaks). `--strongs`, `--verse-style unicode|caret|plain`, `--language`.
-- `parse_tahot.py`: handles bracketed references, merged verses, skips `X` rows, prints chapters/verses/skips.
-- `sources/eydv.md`, `README_pipeline.md` (the pipeline section for the README).
-- `testkit/`: a stub `bible_export_common.py` (your real one lives in your repo), `mkdb.py` (toy database with the real table names) and `run_tests.py` (24 checks for the AI gloss pipeline: generate, load, import, remap, check_term, find_term_drift; run `python testkit/run_tests.py` from the package root after `pip install anthropic`).
+- Stage 3: `generate_ai_glosses.py` (sync/submit/retrieve, `--strongs` targeted mode, `--dry-run`, position fields, comma lists for `--book`/`--group`, cached system prompt, lenient parsing; model `claude-opus-5-5`, 150 words per request, `max_tokens` 16000, prompt version `v2`), `load_ai_glosses.py` (loads by position, cleans `-/ bumi`, `[Obj.]`), `add_glosses_refs.py`, `import_batch_results.py`, `remap_ai_glosses.py`, `batch_api_helper.py` (lenient JSON parser, cached system block, cache-usage summary), `check_term.py`, `find_term_drift.py`.
+- Stage 4: `generate_verse_translations.py` (tagged text `{G746}`, `¶` paragraphs, ` | ` poetry, God-pronoun capitalization, escaped quotes, EYD rules from `sources/eydv.md`, `--guidelines` to override).
+- Exports: `export_to_markdown.py` (compact reading format, `--verse-style unicode|caret|plain`, `--strongs`), `export_mysword.py` (unpadded Strong's, Greek-only `<WT>`, `Language` column, `natural` layout with `<CM>` paragraph ends, `<TS>` titles, poetry `<br>`), `export_esword.py` (`natural` now real, literal pilcrow, poetry space or `<br>`), `export_osis.py` (standard OSIS book names, unpadded Strong's, no remap, `natural` layout).
+- Parsing and D1: `parse_tahot.py`, `export_to_d1.py` + `generate_d1_reset.py` (install as a pair; one table order), `schema.sql` (adds `verse_translation`), `.github/workflows/build.yml` (CI can no longer wipe translation tables in D1).
+- Docs: `README.md` (merged and corrected), `RUNBOOK.md` (commands and checklists for the remaining gloss runs and the stage 4 trial), `sources/eydv.md`.
+- `testkit/`: stub `bible_export_common.py` (your real one is in your repo), `mkdb.py` (toy database), `run_tests.py` (50 checks) and `test_exporters.py` (32 checks). Run both from the package root after `pip install anthropic`.
 
-Edits sent as snippets, not in the zip (confirm they are applied): `bible_export_common.py` (`get_verse_translation`, ranked lexicon join, `first_sense` with colon/parentheses handling, `bec.connect`); `export_mysword.py` (unpadded Strong's with `int(digits)`, Greek-only `morph_tag`, `natural` layout); `export_osis.py` (unpadded Strong's, use `--no-remap`); `build_db.py` counters; `export_to_d1.py` / `generate_d1_reset.py` table lists.
+Edits still sent only as snippets (confirm they are applied): `bible_export_common.py` (`get_verse_translation`, ranked lexicon join, `first_sense` with colon/parentheses handling, `bec.connect`) and the `build_db.py` ignored-row counters.
 
 ## 5. Conventions decided
 
@@ -54,25 +50,25 @@ Edits sent as snippets, not in the zip (confirm they are applied): `bible_export
 - Pronouns for God are capitalized (Ia/Dia, -Nya, Engkau/-Mu, Aku/-Ku).
 - `H853` plain object marker gets `(tanda objek)`; an unrendered word gets `-`.
 - A word with TAHOT-style parts gets one gloss, with no `/` and no English markers.
-- Gloss lexicon format: `general: specific`, `a/b` for alternatives, and ALL-CAPS parentheses are usage hints, not output.
+- Lexicon format: `general: specific`, `a/b` for alternatives, ALL-CAPS parentheses are usage hints, not output.
 - Stage 4: Strong's tag after each translated word, `¶` at the start of a paragraph verse, ` | ` between poetic lines.
 
 ## 6. Open items
 
 1. Decide the Jesus pronoun convention and add it to the prompt (the Gospels are already glossed).
 2. Tell Claude the Indonesian term for `H3068`/`H3069` (TB uses TUHAN, and "Tuhan ALLAH" for Adonai YHWH) so rules can be added.
-3. Finish glosses in groups: Pauline, General epistles + Revelation, then OT. Test two chapters first, `--dry-run`, one `--batch-job-file` per job, `retrieve` before the next `submit`.
-4. Stage 4 trial: Genesis 1, a Psalm and John 1. Check paragraphs, poetry lines and quotes before any batch.
-5. Reapply the database-only SQL after every load: `H853` plain forms, `H5002` before a divine name, `H136` tuan to Tuhan.
+3. Finish glosses in groups: Pauline, General epistles + Revelation, then OT (RUNBOOK part A).
+4. Stage 4 trial on a copy of the database: Genesis 1, Psalm 1, John 1 (RUNBOOK part B). Check quotes, paragraphs and poetry before the full batch.
+5. Reapply the database-only SQL after every load: `H5002` before a divine name, `H136` tuan to Tuhan (and `H853` plain forms, if wanted).
 6. Cost: divide the Gospels job's cost by its 67,525 words and multiply by the remaining words.
-7. README: replace "Build locally" with `README_pipeline.md`; remove the stale lines about `ai_gloss` and TVTMS.
-8. D1: add `verse_translation` and `lexicon_gloss_translation` to the table lists; deploy translation tables from your machine, not from CI.
-9. Deferred: an Indonesian RMAC dictionary for MySword (needs the real `rmac.dct.mybible` schema); a `reviewed` column for `ai_gloss`.
+7. Deploy translation tables to D1 from your machine, never from CI.
+8. Deferred: an Indonesian RMAC dictionary for MySword (needs the real `rmac.dct.mybible` schema); a `reviewed` column for `ai_gloss`.
 
 ## 7. Known risks and unverified items
 
 - Everything was tested on toy data. Nothing was run against your real database or the live model.
-- Stage 4 output is a JSON array. An unescaped `"` in a verse loses that verse and the rest of its request. The prompt now says to escape quotes, but Genesis and the Psalms will show whether the model complies. A line-based output format (`verse<TAB>text`) removes the risk, if needed.
+- Stage 4 output is a JSON array. An unescaped `"` in a verse loses that verse and the rest of its request. The prompt says to escape quotes, but the trial will show whether the model complies. A line-based output format (`verse<TAB>text`) removes the risk if needed.
+- Nothing was compiled or opened in the target apps: `osis2mod`, MySword (the `<br>` poetry break, `<CM>` and `<TS>` rendering) and e-Sword are untested. The `oshm:` morph prefix for Hebrew in OSIS is unverified.
 - `eydv.md` examples marked "e.g." are applications to Bible text, not EYD quotations (e.g. `3 hari`, Aku/Ku- for God speaking).
 - The pandoc PDF font fix was checked at glyph level only. `--verse-style caret` avoids the font problem.
 - Cost and caching figures are rough estimates from the docs at the time.
@@ -85,26 +81,5 @@ Edits sent as snippets, not in the zip (confirm they are applied): `bible_export
 - A second `submit` overwrote the first job file; use a distinct `--batch-job-file`.
 - Excel saves CSV as `;`-separated and cp1252 unless "CSV UTF-8" is chosen.
 - A prompt that says "follow Bible convention" overrides your lexicon.
-
-## 9. Commands (Windows, repo root)
-
-```bat
-python scripts\build_db.py --staging output\staging --schema schema.sql --out output\interlinear.sqlite
-python scripts\load_lexicon_translations.py --db output\interlinear.sqlite --csv output\staging\lexicon_id.csv --language id --model <label>
-python scripts\load_ai_glosses.py --db output\interlinear.sqlite --jsonl output\staging\aigloss-refs2.jsonl
-python scripts\generate_ai_glosses.py submit --db output\interlinear.sqlite --out output\staging\aigloss-refs2.jsonl --group pauline_epistles --batch-job-file output\staging\batch_pauline.json --dry-run
-python scripts\generate_verse_translations.py sync --db output\interlinear.sqlite --out output\staging\verses_id.jsonl --book GEN --chapter 1
-python scripts\export_to_markdown.py --db output\interlinear.sqlite --out-dir output\reading --compact --group --verse-style caret
-```
-
-## 10. Task plan (one run each, 2-3 files per batch)
-
-Done: stage 4 script and `eydv.md` (17 checks on toy data); this handoff package; AI gloss test suite (24 checks, and the suite was shown to fail when the loader is broken).
-
-Next, in order:
-1. Extend `run_tests.py` to stage 4, `export_to_markdown.py` and `parse_tahot.py`.
-2. Optional line-based output format for stage 4 (`verse<TAB>text`), which removes the JSON quote-escaping risk.
-3. Stage 4 trial: exact commands and a review checklist for Genesis 1, a Psalm and John 1.
-4. Remaining gloss runs: commands per group, `--dry-run` first, and the cost check.
-5. MySword / e-Sword / OSIS exporter edits as complete files (natural layout, unpadded Strong's, Greek-only morph tags, `Language` column).
-6. D1 table lists and the README fixes.
+- A prompt asking for a "compact JSON array, one object per line" made the model answer in JSON Lines; the parser is now lenient, and the prompt asks for a real array.
+- A tag push ending in `.0` used to trigger a full `--fresh` D1 deploy from the CI database, which has no translations.
