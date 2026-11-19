@@ -18,6 +18,7 @@ Commands:
 Resumable: verses already in the JSONL or in the table are skipped.
 Spelling and punctuation follow sources/eydv.md (EYD Edisi V), appended to the system prompt
 (--guidelines to use another file).
+Reply format: --format json (default) or lines; replies of either kind are parsed.
 Does not read ai_gloss directly -- it uses bible_export_common's gloss
 priority (ai_gloss -> translated lexicon -> ...), so run the gloss step
 first for best quality.
@@ -99,10 +100,10 @@ Rules:
 - Pronouns for God stay capitalized exactly as in the glosses (Ia, Dia, -Nya, Engkau, -Mu, Aku, -Ku). Do not lowercase them.
 - Paragraphs: begin the text of a verse with "¶ " when that verse starts a new paragraph (a change of speaker, scene, subject or time; usually every 3 to 8 verses). Always mark verse 1 of a chapter. Use ¶ nowhere else.
 - Poetry: in poetic verses (Psalms, Proverbs, Job, Song of Songs, Lamentations, prophetic oracles, songs inside narrative), separate the lines (cola) of the verse with " | ", one per Hebrew colon, usually 2 or 3 per verse. Use the accents in the Hebrew text (e.g. etnachta) to place the breaks. In prose never use "|".
-- Direct speech takes double quotation marks. The reply is JSON, so escape every double quotation mark inside the text with a backslash, e.g. Ia berkata, \\"Marilah.\\" A quotation that continues over several verses opens in its first verse and closes in its last. Use single quotation marks for a quotation inside a quotation.
+- {speech}
 - Do not output verse numbers inside the text. One entry per input verse.
 
-Respond with ONLY a JSON array, no markdown fences: [{{"verse": <int>, "text": "<translation>"}}] in the same order as the input."""
+{response}"""
 
 
 def parse_chapters(spec):
@@ -171,6 +172,20 @@ def build_units(conn, a):
     return units
 
 
+FORMATS = ("json", "lines")
+SPEECH = {
+    "json": ('Direct speech takes double quotation marks. The reply is JSON, so escape every double quotation mark inside the text '
+             'with a backslash, e.g. Ia berkata, \\"Marilah.\\" A quotation that continues over several verses opens in its first verse '
+             'and closes in its last. Use single quotation marks for a quotation inside a quotation.'),
+    "lines": ('Direct speech takes double quotation marks, written as plain " characters (no escaping). A quotation that continues '
+              'over several verses opens in its first verse and closes in its last. Use single quotation marks for a quotation inside a quotation.'),
+}
+RESPONSE = {
+    "json": 'Respond with ONLY a JSON array, no markdown fences: [{"verse": <int>, "text": "<translation>"}] in the same order as the input.',
+    "lines": ('Respond with ONLY the translations, one line per input verse, in the same order: the verse number, a tab character, then the whole '
+              'translation on that single line. No JSON, no markdown, no other text. Example line:\n1\t¶ Pada mula{G746} Allah menciptakan ...'),
+}
+
 DEFAULT_GUIDELINES = Path("sources/eydv.md")
 
 
@@ -188,8 +203,8 @@ def load_guidelines(path):
     return text
 
 
-def system_prompt(language, guidelines=""):
-    prompt = SYSTEM.format(lang=LANG_NAMES.get(language, language))
+def system_prompt(language, guidelines="", fmt="json"):
+    prompt = SYSTEM.format(lang=LANG_NAMES.get(language, language), speech=SPEECH[fmt], response=RESPONSE[fmt])
     if not guidelines:
         return prompt
     head, tail = prompt.split("\n\nRespond with ONLY", 1)
@@ -202,6 +217,27 @@ def parse_json(text):
     if text.startswith("```"):
         text = text.split("```")[1].removeprefix("json")
     return json.loads(text)
+
+
+LINE = re.compile(r"^\s*(\d+)\s*[\t:]\s*(.*)$")
+
+
+def parse_reply(text):
+    """Model reply -> list of {"verse": int, "text": str}, or None. A reply that looks like JSON goes through the
+    lenient JSON parser (array, JSON Lines, fences, cut off); otherwise it is read as one 'N<TAB>text' line per verse
+    (a colon after the number is accepted too, and a line without a number continues the previous verse)."""
+    import batch_api_helper as bah
+    text = (text or "").strip()
+    if text.startswith(("[", "{", "```")):
+        return bah.parse_json_response(text)
+    items = []
+    for line in text.splitlines():
+        m = LINE.match(line)
+        if m:
+            items.append({"verse": int(m[1]), "text": m[2].strip()})
+        elif items and line.strip():
+            items[-1]["text"] += " " + line.strip()
+    return items or None
 
 
 def write_results(out_f, verses, items, a, model):
@@ -226,17 +262,16 @@ def write_results(out_f, verses, items, a, model):
 
 
 def ask(client, a, prompt, retries=3):
-    import batch_api_helper as bah
     for attempt in range(1, retries + 1):
         try:
             msg = client.messages.create(
                 model=a.model, max_tokens=MAX_TOKENS,
-                system=[{"type": "text", "text": system_prompt(a.language, a.guidelines_text),
+                system=[{"type": "text", "text": system_prompt(a.language, a.guidelines_text, a.format),
                          "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": prompt}])
-            parsed = bah.parse_json_response("".join(b.text for b in msg.content if b.type == "text"))
+            parsed = parse_reply("".join(b.text for b in msg.content if b.type == "text"))
             if parsed is None:
-                raise ValueError("no JSON objects in reply")
+                raise ValueError("no verses in reply")
             return parsed
         except Exception as e:  # bad JSON or API error
             print(f"  attempt {attempt}/{retries} failed: {e}", file=sys.stderr)
@@ -274,7 +309,7 @@ def cmd_submit(a):
     if not units:
         print("Nothing to do.", file=sys.stderr)
         return
-    system = system_prompt(a.language, load_guidelines(a.guidelines))
+    system = system_prompt(a.language, load_guidelines(a.guidelines), a.format)
     requests = [(f"vt-{i:05d}", system, u["prompt"], a.model, MAX_TOKENS) for i, u in enumerate(units)]
     bah.submit_batch_job(anthropic.Anthropic(), requests, a.batch_job_file)
     a.batch_job_file.with_suffix(".membership.json").write_text(json.dumps({
@@ -298,7 +333,7 @@ def cmd_retrieve(a):
     a.out.parent.mkdir(parents=True, exist_ok=True)
     with a.out.open("a", encoding="utf-8") as f:
         for cid, verses in mem["units"].items():
-            items = bah.parse_json_response(results.get(cid))
+            items = parse_reply(results.get(cid))
             if items is None:
                 print(f"  WARNING: {cid} has no usable result", file=sys.stderr)
                 continue
@@ -357,6 +392,8 @@ def main():
         p.add_argument("--chapter", help="'all', '1', or ranges like 1-3,5 (default: all)")
         p.add_argument("--max-verses", type=int, default=40, help="Max verses per API request")
         p.add_argument("--guidelines", type=Path, help="Spelling rules appended to the prompt (default: sources/eydv.md if present)")
+        p.add_argument("--format", choices=FORMATS, default="json",
+                       help="Reply format asked of the model: json (default) or lines ('N<TAB>text', no quote escaping)")
 
     jobfile = dict(type=Path, default=Path("output/staging/verse_batch_job.json"))
     p = sub.add_parser("sync", help="Call the API now"); common(p); scope(p); p.set_defaults(func=cmd_sync)
