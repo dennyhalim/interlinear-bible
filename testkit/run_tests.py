@@ -267,6 +267,51 @@ check("stage 4 submit: one request per chapter chunk, system prompt carries the 
 run(gvt.main, "retrieve", "--out", "out/v_exo.jsonl", "--batch-job-file", "jobs/v.json")
 check("stage 4 retrieve: verses written once", len(jsonl("out/v_exo.jsonl")) == 1)
 
+# ---- stage 4: line-based reply format (no quote escaping) ----
+lp = gvt.system_prompt("id", "RULES-GO-HERE", "lines")
+check("lines prompt: asks for 'N<TAB>text', drops the JSON and escaping rules, keeps guidelines before the format paragraph",
+      "a tab character" in lp and "1\t¶ Pada mula{G746}" in lp and "JSON array" not in lp and "escape every double quotation" not in lp
+      and lp.index("RULES-GO-HERE") < lp.index("Respond with ONLY"))
+check("json prompt (the default) still asks for a JSON array with escaped quotes", "JSON array" in base and "escape every double quotation" in base)
+check("parse_reply: tab lines keep double quotes as written",
+      gvt.parse_reply('1\tIa berkata, "Marilah." Lalu\n2\t¶ Kedua') == [{"verse": 1, "text": 'Ia berkata, "Marilah." Lalu'}, {"verse": 2, "text": "¶ Kedua"}])
+check("parse_reply: a colon after the number works and a wrapped line continues the verse",
+      gvt.parse_reply("1: satu\ndua lanjut\n2: tiga") == [{"verse": 1, "text": "satu dua lanjut"}, {"verse": 2, "text": "tiga"}])
+check("parse_reply: JSON arrays, JSON Lines and fenced JSON are still accepted; garbage gives None",
+      [x["verse"] for x in gvt.parse_reply('[{"verse": 1, "text": "a"}]')] == [1]
+      and [x["verse"] for x in gvt.parse_reply('{"verse": 1, "text": "a"}\n{"verse": 2, "text": "b"}')] == [1, 2]
+      and gvt.parse_reply('```json\n[{"verse": 3, "text": "c"}]\n```')[0]["verse"] == 3
+      and gvt.parse_reply("Maaf, saya tidak bisa.") is None and gvt.parse_reply("") is None)
+
+
+def reply4_lines(prompt):
+    vs = [int(v) for v in re.findall(r"^(\d+):", prompt, re.M)]
+    return "\n".join(f'{v}\t' + ("¶ " if v == vs[0] else "") + f'Ia berkata, "Marilah{{H3068}} kita." Lalu \'ya\' {v}' for v in vs)
+
+
+class FakeClient4L:
+    def __init__(self, *a, **k):
+        def create(model, max_tokens, system, messages):
+            calls["systems"].append(system)
+            return NS(content=[NS(type="text", text=reply4_lines(messages[0]["content"]))])
+        self.messages = NS(create=create)
+
+
+anthropic.Anthropic = FakeClient4L
+calls["systems"].clear()
+run(gvt.main, "sync", "--db", "db.sqlite", "--out", "out/v_lines.jsonl", "--book", "GEN", "--chapter", "1", "--guidelines", GUIDE, "--format", "lines")
+vl = jsonl("out/v_lines.jsonl")
+check("lines sync: 4 verses written; unescaped double quotes and the paragraph mark survive",
+      len(vl) == 4 and all('"Marilah' in r["text"] for r in vl) and vl[0]["text"].startswith("¶"))
+check("lines sync: the system prompt sent is the lines version", "a tab character" in calls["systems"][0][0]["text"])
+bah.fetch_batch_results = lambda client, bid: {r[0]: reply4_lines(r[2]) for r in store["req"]}
+run(gvt.main, "submit", "--db", "db.sqlite", "--out", "out/v_lines2.jsonl", "--book", "EXO", "--guidelines", GUIDE, "--format", "lines", "--batch-job-file", "jobs/vl.json")
+check("lines submit: requests carry the lines prompt", "a tab character" in store["req"][0][1])
+run(gvt.main, "retrieve", "--out", "out/v_lines2.jsonl", "--batch-job-file", "jobs/vl.json")
+check("lines retrieve: verses written with their quotes", len(jsonl("out/v_lines2.jsonl")) == 1 and '"Marilah' in jsonl("out/v_lines2.jsonl")[0]["text"])
+anthropic.Anthropic = FakeClient4
+bah.fetch_batch_results = lambda client, bid: {r[0]: reply4(r[2]) for r in store["req"]}
+
 # load: unknown and zero-padded tags
 rec = {"verse_id": 1, "language": "id", "text": "Allah{H3068}{H999} berfirman{H5002} tuan{H0113}",
        "model": "m", "prompt_version": "v2", "generated_at": "t"}

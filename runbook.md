@@ -64,21 +64,21 @@ Needs `sources\eydv.md` (loaded automatically; `--guidelines` to use another fil
 1. **Trial on a copy of the database**, so nothing real is loaded yet:
    ```bat
    copy output\interlinear.sqlite output\trial.sqlite
-   python scripts\generate_verse_translations.py sync --db output\trial.sqlite --out output\staging\verses_trial.jsonl --book GEN --chapter 1 --prompt-version v2
-   python scripts\generate_verse_translations.py sync --db output\trial.sqlite --out output\staging\verses_trial.jsonl --book PSA --chapter 1
-   python scripts\generate_verse_translations.py sync --db output\trial.sqlite --out output\staging\verses_trial.jsonl --book JHN --chapter 1
+   python scripts\generate_verse_translations.py sync --db output\trial.sqlite --out output\staging\verses_trial.jsonl --book GEN --chapter 1 --prompt-version v2 --format lines
+   python scripts\generate_verse_translations.py sync --db output\trial.sqlite --out output\staging\verses_trial.jsonl --book PSA --chapter 1 --format lines
+   python scripts\generate_verse_translations.py sync --db output\trial.sqlite --out output\staging\verses_trial.jsonl --book JHN --chapter 1 --format lines
    python scripts\generate_verse_translations.py load --db output\trial.sqlite --jsonl output\staging\verses_trial.jsonl
    python scripts\export_to_markdown.py --db output\trial.sqlite --out-dir output\trial --compact --book GEN --verse-style caret
    ```
 2. **Review checklist**
-   - No `response cut off or malformed` or `FAILED` lines while it ran. If you see them, the model left a double quote unescaped; tell Claude, because switching stage 4 to a line-based output format fixes it.
+   - No `FAILED` lines while it ran. `--format lines` asks the model for one `N<TAB>text` line per verse, so double quotes need no escaping. With `--format json` (the default), a `response cut off or malformed` warning means the model left a double quote unescaped and lost the rest of that request: use `lines`.
    - The `load` report: `unknown tag(s) dropped` should be near 0; `verse(s) missing some source Strong's` shows how complete the tagging is.
    - Paragraphs (`¶`) every 3 to 8 verses and always at verse 1; Psalm 1 has its lines split into 2 or 3 per verse.
    - Direct speech: double quotes balanced, a quotation running over several verses opens once and closes once.
    - God's pronouns capitalized as in the glosses; spelling follows `eydv.md` (di and ke separate from places, -nya attached, `-Nya` hyphenated for God, numbers as digits for measures such as `40 hari`).
 3. **Full run** (about 1,300 requests, one job):
    ```bat
-   python scripts\generate_verse_translations.py submit --db output\interlinear.sqlite --out output\staging\verses_id.jsonl --batch-job-file output\staging\batch_verses.json --prompt-version v2 --model claude-opus-5-5
+   python scripts\generate_verse_translations.py submit --db output\interlinear.sqlite --out output\staging\verses_id.jsonl --batch-job-file output\staging\batch_verses.json --prompt-version v2 --model claude-opus-5-5 --format lines
    python scripts\generate_verse_translations.py retrieve --out output\staging\verses_id.jsonl --batch-job-file output\staging\batch_verses.json
    python scripts\generate_verse_translations.py load --db output\interlinear.sqlite --jsonl output\staging\verses_id.jsonl
    ```
