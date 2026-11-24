@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Shared verse/word data assembly used by all Bible-format exporters
-(export_mysword.py, export_esword.py, export_osis.py). Keeping this
+(export_mysword.py, export_esword.py, export_osis.py, export_to_markdown.py). Keeping this
 in one place means every exporter reads the database the same way and
 applies the same gloss-priority fallback, rather than each script
 re-deriving its own (possibly inconsistent) logic.
@@ -14,8 +14,10 @@ fallback order used elsewhere in this project, e.g. the read API):
   -> source dataset's own gloss (TAHOT's Hebrew gloss_source column)
 """
 import json
-import sqlite3
 import re
+import sqlite3
+import sys
+from pathlib import Path
 
 
 # Canonical 66-book order, matching book.ordinal in the schema. Needed
@@ -34,6 +36,18 @@ CANONICAL_BOOK_ORDER = [
 ]
 
 
+def connect(path):
+    """Open an existing, built interlinear DB; fail clearly instead of silently
+    creating an empty file (sqlite3.connect creates one if the path is wrong)."""
+    p = Path(path)
+    if not p.is_file() or p.stat().st_size == 0:
+        sys.exit(f"ERROR: database missing or empty: {p.resolve()}. Run build_db.py first, and run from the repo root.")
+    conn = sqlite3.connect(p)
+    if not conn.execute("SELECT 1 FROM sqlite_master WHERE name = 'book'").fetchone():
+        sys.exit(f"ERROR: {p.resolve()} has no 'book' table, so it is not a built interlinear.sqlite.")
+    return conn
+
+
 def get_books(conn):
     cur = conn.cursor()
     cur.execute("SELECT book_id, code, name, testament, ordinal FROM book ORDER BY ordinal")
@@ -48,7 +62,8 @@ def get_verses_for_book(conn, book_id):
     )
     return cur.fetchall()
 
-def get_verse_translation(conn, verse_id, language, tagged=True):
+
+def get_verse_translation(conn, verse_id, language, tagged=False):
     """Natural verse translation, or None. Stored with {G746}-style Strong's
     tags; tagged=False (default) strips them for plain reading."""
     try:
@@ -60,26 +75,33 @@ def get_verse_translation(conn, verse_id, language, tagged=True):
     if not row:
         return None
     return row[0] if tagged else re.sub(r"\{[HG]\d+\}", "", row[0])
-    
+
+
 def first_sense(gloss):
-    """'the; this, who' -> 'the'; separators inside (...) are ignored."""
+    """'the; this, who' -> 'the'; 'woman: wife' -> 'woman'; separators inside (...) are ignored."""
     depth, out = 0, []
     for ch in (gloss or "").strip():
         if ch == "(":
             depth += 1
         elif ch == ")":
             depth = max(0, depth - 1)
-        elif depth == 0 and ch in "/;,":
+        elif depth == 0 and ch in "/;,:":
             break
         out.append(ch)
     return "".join(out).strip()
-    
+
+
 def get_words_for_verse(conn, verse_id, language):
     """Returns a list of dicts, one per word, with everything an
     exporter needs: surface text, transliteration, Strong's (both the
     single head value and the full prefix/stem breakdown when
     available), morphology, and the resolved primary gloss text plus
-    which source it came from."""
+    which source it came from.
+
+    The lexicon join resolves to AT MOST ONE row per word: an exact dstrong match
+    first, else the lowest lexicon_id among the entries sharing the base number
+    (a plain OR join returns several rows when a base Strong's number has
+    several disambiguated entries, duplicating the word)."""
     cur = conn.cursor()
     cur.execute(
         """
