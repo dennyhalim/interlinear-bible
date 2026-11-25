@@ -18,7 +18,9 @@ Commands:
 Resumable: verses already in the JSONL or in the table are skipped.
 Spelling and punctuation follow sources/eydv.md (EYD Edisi V), appended to the system prompt
 (--guidelines to use another file).
-Reply format: --format json (default) or lines; replies of either kind are parsed.
+Reply format: --format json (default) or lines; replies of either kind are parsed, and a JSON reply with an
+unescaped quote is salvaged verse by verse. Scope: --book (comma list), --group or --testament; --dry-run reports
+chapters, verses and words without calling the API.
 Does not read ai_gloss directly -- it uses bible_export_common's gloss
 priority (ai_gloss -> translated lexicon -> ...), so run the gloss step
 first for best quality.
@@ -140,12 +142,17 @@ def build_units(conn, a):
     boundaries): {"label", "verses": {verse_no: verse_id}, "prompt"}."""
     wanted = parse_chapters(a.chapter)
     skip = done_ids(conn, a.out, a.language)
+    from generate_ai_glosses import resolve_scope          # same --book / --group / --testament rules as stage 3
+    scope = resolve_scope(a.book, a.group, a.testament)
     q = ("SELECT DISTINCT v.book_id, b.code, b.name, v.chapter FROM verse v "
          "JOIN book b ON b.book_id = v.book_id")
     params = []
-    if a.book:
-        q += " WHERE b.code = ?"
-        params.append(a.book.upper())
+    if "book_codes" in scope:
+        q += f" WHERE b.code IN ({','.join('?' * len(scope['book_codes']))})"
+        params += scope["book_codes"]
+    elif "testament" in scope:
+        q += " WHERE b.testament = ?"
+        params.append(scope["testament"])
     cur = conn.execute(q + " ORDER BY b.ordinal, v.chapter", params)
     units = []
     for book_id, code, name, chapter in cur.fetchall():
@@ -219,6 +226,30 @@ def parse_json(text):
     return json.loads(text)
 
 
+OBJ_START = re.compile(r'\{\s*"verse"\s*:\s*(\d+)\s*,\s*"text"\s*:\s*"')
+OBJ_END = re.compile(r'"\s*\}\s*,?\s*\]?\s*$')
+
+
+def salvage_json(text):
+    """Verses from a JSON reply that is not valid JSON, typically because the model left a double quote unescaped
+    inside a verse. Each object is cut at the start of the next one, so one bad quote costs nothing else. A last
+    object with no closing (a reply cut off by max_tokens) is dropped, never kept half-written."""
+    marks = list(OBJ_START.finditer(text))
+    items = []
+    for i, m in enumerate(marks):
+        chunk = text[m.end(): marks[i + 1].start() if i + 1 < len(marks) else len(text)].rstrip()
+        inner = OBJ_END.sub("", chunk)
+        if inner == chunk:
+            continue
+        inner = re.sub(r'(?<!\\)"', r'\\"', inner)             # escape the quotes the model left bare
+        try:
+            value = json.loads('"' + inner + '"')
+        except ValueError:
+            value = inner.replace('\\"', '"')
+        items.append({"verse": int(m[1]), "text": value})
+    return items
+
+
 LINE = re.compile(r"^\s*(\d+)\s*[\t:]\s*(.*)$")
 
 
@@ -229,6 +260,16 @@ def parse_reply(text):
     import batch_api_helper as bah
     text = (text or "").strip()
     if text.startswith(("[", "{", "```")):
+        body = text.split("```")[1].removeprefix("json") if text.startswith("```") else text
+        try:
+            data = json.loads(body)
+            return [data] if isinstance(data, dict) else data
+        except ValueError:
+            pass
+        salvaged = salvage_json(body)
+        if salvaged:
+            print(f"  NOTE: reply was not strict JSON (an unescaped quote?); recovered {len(salvaged)} verses", file=sys.stderr)
+            return salvaged
         return bah.parse_json_response(text)
     items = []
     for line in text.splitlines():
@@ -240,9 +281,24 @@ def parse_reply(text):
     return items or None
 
 
-def write_results(out_f, verses, items, a, model):
-    """Append valid {"verse","text"} items; returns how many were written."""
-    now, n = datetime.now(timezone.utc).isoformat(), 0
+def jsonl_done(out, language):
+    """verse_ids already in the results file (a retrieve run again skips them)."""
+    done = set()
+    if out.exists():
+        for line in out.read_text(encoding="utf-8").splitlines():
+            try:
+                row = json.loads(line)
+                if row["language"] == language:
+                    done.add(row["verse_id"])
+            except (json.JSONDecodeError, KeyError):
+                continue
+    return done
+
+
+def write_results(out_f, verses, items, a, model, done=None):
+    """Append valid {"verse","text"} items; returns how many were written. Verses in `done` (a set of verse_ids)
+    are skipped, and the set is updated."""
+    now, n, seen = datetime.now(timezone.utc).isoformat(), 0, set()
     for it in items or []:
         try:
             vid, text = verses[int(it["verse"])], it["text"].strip()
@@ -250,14 +306,20 @@ def write_results(out_f, verses, items, a, model):
             continue
         if not text:
             continue
+        if done is not None and vid in done:
+            seen.add(vid)
+            continue
         out_f.write(json.dumps({
             "verse_id": vid, "language": a.language, "text": text, "model": model,
             "prompt_version": a.prompt_version, "generated_at": now,
         }, ensure_ascii=False) + "\n")
         n += 1
+        seen.add(vid)
+        if done is not None:
+            done.add(vid)
     out_f.flush()
-    if n < len(verses):
-        print(f"  WARNING: {len(verses) - n} verse(s) missing from response; re-run to retry", file=sys.stderr)
+    if len(seen) < len(verses):
+        print(f"  WARNING: {len(verses) - len(seen)} verse(s) missing from response; re-run to retry", file=sys.stderr)
     return n
 
 
@@ -280,12 +342,23 @@ def ask(client, a, prompt, retries=3):
             time.sleep(2 ** attempt)
 
 
+def describe(units):
+    """Statistics line: requests, chapters, verses and source words (each word is 'surface|strongs|gloss')."""
+    verses = sum(len(u["verses"]) for u in units)
+    words = sum(u["prompt"].count("|") // 2 for u in units)
+    print(f"{len(units)} request(s): {len({u['label'] for u in units})} chapters, {verses} verses, {words} words to translate",
+          file=sys.stderr)
+
+
 def cmd_sync(a):
     import anthropic
     a.guidelines_text = load_guidelines(a.guidelines)
     conn = sqlite3.connect(a.db)
     units = build_units(conn, a)
-    print(f"{len(units)} unit(s) to translate", file=sys.stderr)
+    describe(units)
+    if a.dry_run:
+        print("Dry run: nothing sent.", file=sys.stderr)
+        return
     a.out.parent.mkdir(parents=True, exist_ok=True)
     client, total = anthropic.Anthropic(), 0
     with a.out.open("a", encoding="utf-8") as f:
@@ -309,6 +382,10 @@ def cmd_submit(a):
     if not units:
         print("Nothing to do.", file=sys.stderr)
         return
+    describe(units)
+    if a.dry_run:
+        print("Dry run: nothing submitted.", file=sys.stderr)
+        return
     system = system_prompt(a.language, load_guidelines(a.guidelines), a.format)
     requests = [(f"vt-{i:05d}", system, u["prompt"], a.model, MAX_TOKENS) for i, u in enumerate(units)]
     bah.submit_batch_job(anthropic.Anthropic(), requests, a.batch_job_file)
@@ -331,14 +408,15 @@ def cmd_retrieve(a):
         return
     results, total = bah.fetch_batch_results(client, job["batch_id"]), 0
     a.out.parent.mkdir(parents=True, exist_ok=True)
+    done = jsonl_done(a.out, a.language)
     with a.out.open("a", encoding="utf-8") as f:
         for cid, verses in mem["units"].items():
             items = parse_reply(results.get(cid))
             if items is None:
                 print(f"  WARNING: {cid} has no usable result", file=sys.stderr)
                 continue
-            total += write_results(f, {int(k): v for k, v in verses.items()}, items, a, mem["model"])
-    print(f"Wrote {total} verses -> {a.out}. Next: load --jsonl {a.out}", file=sys.stderr)
+            total += write_results(f, {int(k): v for k, v in verses.items()}, items, a, mem["model"], done)
+    print(f"Wrote {total} new verses -> {a.out} (verses already in the file are skipped). Next: load --jsonl {a.out}", file=sys.stderr)
 
 
 def cmd_load(a):
@@ -388,7 +466,11 @@ def main():
 
     def scope(p):
         p.add_argument("--model", default="claude-opus-5-5")
-        p.add_argument("--book", help="Book code, e.g. JHN (default: all)")
+        p.add_argument("--book", help="Book codes, comma-separated, e.g. JHN or GEN,EXO (default: all)")
+        p.add_argument("--group", help="Thematic group(s), comma-separated: torah, historical, wisdom, major_prophets, minor_prophets, "
+                                       "gospels_acts, pauline_epistles, general_epistles_revelation")
+        p.add_argument("--testament", help="Only one testament: OT or NT")
+        p.add_argument("--dry-run", action="store_true", help="Report chapters, verses and words that would be sent, and stop")
         p.add_argument("--chapter", help="'all', '1', or ranges like 1-3,5 (default: all)")
         p.add_argument("--max-verses", type=int, default=40, help="Max verses per API request")
         p.add_argument("--guidelines", type=Path, help="Spelling rules appended to the prompt (default: sources/eydv.md if present)")
