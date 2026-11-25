@@ -8,7 +8,7 @@ Some drift is legitimate (the AI may pick another sense when context calls for i
 so read the list before regenerating. Same lexicon join as generate_ai_glosses.py.
 
 Usage:
-  find_term_drift.py --db output/interlinear.sqlite [--min-count 10] [--max-rate 0.5] [--top 40]
+  find_term_drift.py --db output/interlinear.sqlite [--min-count 10] [--max-rate 0.5] [--top 40] [--only G|H] [--regen 25]
 """
 import argparse
 import collections
@@ -62,6 +62,8 @@ def main():
     ap.add_argument("--min-count", type=int, default=10, help="Ignore Strong's numbers with fewer glossed words")
     ap.add_argument("--max-rate", type=float, default=0.5, help="List those whose follow rate is below this")
     ap.add_argument("--top", type=int, default=40)
+    ap.add_argument("--only", choices=["G", "H"], type=str.upper, help="Only Greek (G) or only Hebrew (H) Strong's numbers")
+    ap.add_argument("--regen", type=int, default=25, help="How many of the worst offenders to put in the --strongs line")
     a = ap.parse_args()
 
     if not a.db.is_file() or a.db.stat().st_size == 0:
@@ -74,7 +76,7 @@ def main():
     drifted = collections.defaultdict(collections.Counter)
     for strongs, gloss, lex in conn.execute(SQL, (a.language,)):
         b = base(strongs)
-        if not b or not gloss or gloss == "-" or gloss.startswith("("):
+        if not b or not gloss or gloss == "-" or gloss.startswith("(") or (a.only and not b.startswith(a.only)):
             continue
         sn = senses(lex)
         if not sn:
@@ -95,7 +97,9 @@ def main():
         print(f"{b:<7} {n:>5} words  {rate:>4.0%} follow | lexicon: {lex_text[b][:40]} | AI used: {top}")
     if rows:
         print("\nTargeted regeneration of the worst offenders (dry run first):")
-        print("  --strongs " + ",".join(b for b, _, _ in rows[:25]))
+        print("  --strongs " + ",".join(b for b, _, _ in rows[:a.regen]))
+        print(f"  ({sum(n for _, n, _ in rows[:a.regen])} words carry these numbers; a targeted run re-glosses all of them, "
+              f"not only the drifted ones, plus neighbouring verses as context)")
 
 
 if __name__ == "__main__":
