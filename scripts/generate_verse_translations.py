@@ -58,7 +58,7 @@ DDL = """CREATE TABLE IF NOT EXISTS verse_translation (
 )"""
 
 LANG_NAMES = {"id": "Indonesian"}
-MAX_TOKENS = 12000
+MAX_TOKENS = 16000   # a reply is about 150-300 tokens per verse (the Strong's tags are most of it); see --max-verses
 TAG = re.compile(r"\{([HG])0*(\d+)[A-Za-z]?\}")
 
 
@@ -268,7 +268,8 @@ def parse_reply(text):
             pass
         salvaged = salvage_json(body)
         if salvaged:
-            print(f"  NOTE: reply was not strict JSON (an unescaped quote?); recovered {len(salvaged)} verses", file=sys.stderr)
+            print(f"  NOTE: reply was not strict JSON (cut off by max_tokens, or an unescaped quote); recovered {len(salvaged)} verses",
+                  file=sys.stderr)
             return salvaged
         return bah.parse_json_response(text)
     items = []
@@ -334,6 +335,9 @@ def ask(client, a, prompt, retries=3):
             parsed = parse_reply("".join(b.text for b in msg.content if b.type == "text"))
             if parsed is None:
                 raise ValueError("no verses in reply")
+            if getattr(msg, "stop_reason", None) == "max_tokens":
+                print("  WARNING: reply cut off by max_tokens; the verses after the cut are missing. Lower --max-verses and re-run.",
+                      file=sys.stderr)
             return parsed
         except Exception as e:  # bad JSON or API error
             print(f"  attempt {attempt}/{retries} failed: {e}", file=sys.stderr)
@@ -472,7 +476,8 @@ def main():
         p.add_argument("--testament", help="Only one testament: OT or NT")
         p.add_argument("--dry-run", action="store_true", help="Report chapters, verses and words that would be sent, and stop")
         p.add_argument("--chapter", help="'all', '1', or ranges like 1-3,5 (default: all)")
-        p.add_argument("--max-verses", type=int, default=40, help="Max verses per API request")
+        p.add_argument("--max-verses", type=int, default=20,
+                       help="Max verses per API request (default 20; 40 verses overran the output limit in half the requests)")
         p.add_argument("--guidelines", type=Path, help="Spelling rules appended to the prompt (default: sources/eydv.md if present)")
         p.add_argument("--format", choices=FORMATS, default="json",
                        help="Reply format asked of the model: json (default) or lines ('N<TAB>text', no quote escaping)")
