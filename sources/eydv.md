@@ -39,3 +39,4 @@ Source: *Ejaan Bahasa Indonesia yang Disempurnakan* (EYD) Edisi V, Keputusan Kep
 
 ## Project conventions (not from EYD)
 - Plain text only (no italics or bold). Proper names keep the form given in the glosses. Do not use square brackets or slashes to join alternatives, and no apostrophe contractions ('kan), which EYD calls non-standard [III.O].
+- Always return the text representation of the number in sentence form.
