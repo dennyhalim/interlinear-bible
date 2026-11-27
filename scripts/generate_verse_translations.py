@@ -430,7 +430,7 @@ def cmd_load(a):
     allowed = {}  # verse_id -> its real Strong's numbers
     for vid, st, parts in conn.execute("SELECT verse_id, strongs, strongs_parts FROM word"):
         allowed.setdefault(vid, set()).update(strong_nums([st] + (json.loads(parts) if parts else [])))
-    rows, dropped, untagged, incomplete = [], 0, 0, 0
+    rows, dropped, no_tags, partial = [], 0, [], []
     for line in a.jsonl.read_text(encoding="utf-8").splitlines():
         try:
             r = json.loads(line)
@@ -439,8 +439,10 @@ def cmd_load(a):
         if r.get("verse_id") in valid and r.get("text"):
             text, bad, used = check_tags(r["text"], allowed[r["verse_id"]])
             dropped += bad
-            untagged += not used
-            incomplete += bool(allowed[r["verse_id"]] - used)
+            if not used:
+                no_tags.append(r["verse_id"])
+            elif allowed[r["verse_id"]] - used:
+                partial.append((r["verse_id"], sorted(allowed[r["verse_id"]] - used)))
             rows.append((r["verse_id"], r["language"], text, r["model"],
                          r["prompt_version"], r["generated_at"]))
     conn.executemany(
@@ -453,8 +455,19 @@ def cmd_load(a):
     total = conn.execute("SELECT COUNT(*) FROM verse_translation").fetchone()[0]
     verses = len(valid)
     print(f"Loaded {len(rows)} rows. Coverage: {total}/{verses} verses ({100 * total / verses:.1f}%)", file=sys.stderr)
-    print(f"Tags: {dropped} unknown tag(s) dropped; {untagged} verse(s) with no tags; "
-          f"{incomplete} verse(s) missing some source Strong's (review these).", file=sys.stderr)
+    print(f"Tags: {dropped} unknown tag(s) dropped; {len(no_tags)} verse(s) with no tags; "
+          f"{len(partial) + len(no_tags)} verse(s) missing some source Strong's (review these).", file=sys.stderr)
+    if a.show and (no_tags or partial):
+        ids = no_tags[:a.show] + [v for v, _ in partial[:a.show]]
+        ref = {vid: f"{code} {ch}:{vs}" for vid, code, ch, vs in conn.execute(
+            "SELECT v.verse_id, b.code, v.chapter, v.verse FROM verse v JOIN book b ON b.book_id = v.book_id "
+            f"WHERE v.verse_id IN ({','.join('?' * len(ids))})", ids)}
+        if no_tags:
+            print("  no tags: " + ", ".join(ref[v] for v in no_tags[:a.show]) + (" ..." if len(no_tags) > a.show else ""), file=sys.stderr)
+        if partial:
+            print("  missing some Strong's: " + ", ".join(f"{ref[v]} ({', '.join(m)})" for v, m in partial[:a.show])
+                  + (" ..." if len(partial) > a.show else ""), file=sys.stderr)
+        print("  look at them with: show_verse.py --db <db> " + " ".join(r.replace(" ", ".").replace(":", ".") for r in list(ref.values())[:3]), file=sys.stderr)
 
 
 def main():
@@ -494,6 +507,7 @@ def main():
     p = sub.add_parser("load", help="Load JSONL into verse_translation")
     p.add_argument("--db", required=True, type=Path)
     p.add_argument("--jsonl", required=True, type=Path)
+    p.add_argument("--show", type=int, default=15, help="List up to this many verses to review (0 = none)")
     p.set_defaults(func=cmd_load)
 
     args = ap.parse_args()
