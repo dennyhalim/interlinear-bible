@@ -102,6 +102,7 @@ Rules:
 - Pronouns for God stay capitalized exactly as in the glosses (Ia, Dia, -Nya, Engkau, -Mu, Aku, -Ku). Do not lowercase them.
 - Paragraphs: begin the text of a verse with "¶ " when that verse starts a new paragraph (a change of speaker, scene, subject or time; usually every 3 to 8 verses). Always mark verse 1 of a chapter. Use ¶ nowhere else.
 - Poetry: in poetic verses (Psalms, Proverbs, Job, Song of Songs, Lamentations, prophetic oracles, songs inside narrative), separate the lines of the verse with " | ", one line per colon, the unit of Hebrew parallelism: usually 2 lines, sometimes 3, and 4 when the verse holds two parallel pairs. The main pause accent (etnachta) gives one break, but break again at every further parallel clause, so a verse made of two parallel pairs gets 4 lines, not 2. "Selah" stays at the end of its line. In prose never use "|".
+- write every number in words (empat puluh hari)
 - {speech}
 - Do not output verse numbers inside the text. One entry per input verse.
 
