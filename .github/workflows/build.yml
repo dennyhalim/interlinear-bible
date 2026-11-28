@@ -50,6 +50,7 @@ jobs:
           python3 scripts/parse_tr.py \
             sources/tr/parsed \
             output/staging/tr.jsonl
+          python3 scripts/parse_tr.py sources/tr/parsed output/staging/tr_new.jsonl --report output/staging/tr_variants.txt
 
       - name: Parse Hebrew OT (TAHOT / Masoretic)
         run: |
