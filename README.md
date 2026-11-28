@@ -375,9 +375,9 @@ source's primary one).
 
 ## Tests
 
-`testkit/run_tests.py` (AI gloss pipeline, stage 4, Markdown exporter, TAHOT parser) and `testkit/test_exporters.py`
-(MySword, e-Sword, OSIS) run on a toy database with no network. They use `testkit/bible_export_common.py`, a stub of
-the real module. Run both from the repo root after `pip install anthropic`.
+`testkit/run_tests.py` (AI gloss pipeline, stage 4, Markdown exporter, TAHOT parser), `testkit/test_exporters.py`
+(MySword, e-Sword, OSIS) and `testkit/test_common.py` (`bible_export_common.py`) run on a toy database with no network,
+against the real files in `scripts/`. Run all three from the repo root after `pip install anthropic`.
 
 ## Known gaps / next steps
 

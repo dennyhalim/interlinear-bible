@@ -101,7 +101,7 @@ Rules:
 - Words glossed "-" or "(tanda objek)" are not rendered in the sentence. Put their tag right after the word they belong with (the noun an article modifies, the object an H853 marks), e.g. langit{{H8064}}{{H853}}.
 - Pronouns for God stay capitalized exactly as in the glosses (Ia, Dia, -Nya, Engkau, -Mu, Aku, -Ku). Do not lowercase them.
 - Paragraphs: begin the text of a verse with "¶ " when that verse starts a new paragraph (a change of speaker, scene, subject or time; usually every 3 to 8 verses). Always mark verse 1 of a chapter. Use ¶ nowhere else.
-- Poetry: in poetic verses (Psalms, Proverbs, Job, Song of Songs, Lamentations, prophetic oracles, songs inside narrative), separate the lines (cola) of the verse with " | ", one per Hebrew colon, usually 2 or 3 per verse. Use the accents in the Hebrew text (e.g. etnachta) to place the breaks. In prose never use "|".
+- Poetry: in poetic verses (Psalms, Proverbs, Job, Song of Songs, Lamentations, prophetic oracles, songs inside narrative), separate the lines of the verse with " | ", one line per colon, the unit of Hebrew parallelism: usually 2 lines, sometimes 3, and 4 when the verse holds two parallel pairs. The main pause accent (etnachta) gives one break, but break again at every further parallel clause, so a verse made of two parallel pairs gets 4 lines, not 2. "Selah" stays at the end of its line. In prose never use "|".
 - {speech}
 - Do not output verse numbers inside the text. One entry per input verse.
 
@@ -403,8 +403,8 @@ def cmd_submit(a):
 def cmd_retrieve(a):
     import anthropic
     import batch_api_helper as bah
-    job = json.loads(a.batch_job_file.read_text())
-    mem = json.loads(a.batch_job_file.with_suffix(".membership.json").read_text())
+    job = json.loads(a.batch_job_file.read_text(encoding="utf-8"))
+    mem = json.loads(a.batch_job_file.with_suffix(".membership.json").read_text(encoding="utf-8"))
     client = anthropic.Anthropic()
     batch = bah.poll_batch_job(client, job["batch_id"], a.poll_interval, a.max_wait)
     if batch.processing_status != "ended":
@@ -479,7 +479,7 @@ def main():
             p.add_argument("--db", required=True, type=Path)
         p.add_argument("--out", required=True, type=Path, help="JSONL results file")
         p.add_argument("--language", default="id")
-        p.add_argument("--prompt-version", default="v2")
+        p.add_argument("--prompt-version", default="v3")
 
     def scope(p):
         p.add_argument("--model", default="claude-opus-5-5")

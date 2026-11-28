@@ -8,6 +8,7 @@ Keep one working gloss file: `output\staging\aigloss-refs2.jsonl` (records carry
 ```bat
 python testkit\run_tests.py
 python testkit\test_exporters.py
+python testkit\test_common.py
 ```
 
 Both should say all checks passed. Decide first:
@@ -15,6 +16,8 @@ Both should say all checks passed. Decide first:
 - **YHWH term** for `H3068`/`H3069` (and "Tuhan ALLAH" for Adonai YHWH, if you follow TB), so a rule can be added to `TERM_RULES`.
 
 Bump `--prompt-version` (for example `v3`) whenever the prompt or rules change.
+
+If any script stops with `UnicodeDecodeError: 'charmap' codec ...` on Windows, run `set PYTHONUTF8=1` first and rerun. The scripts now name UTF-8 themselves, so this should only matter for old copies.
 
 ## A. Remaining glosses (stage 3): 346,873 words
 
@@ -52,7 +55,7 @@ Remaining: NT 55,728 (Pauline epistles, General epistles + Revelation), OT 291,1
    python scripts\find_term_drift.py --db output\interlinear.sqlite
    python scripts\check_term.py G907 --db output\interlinear.sqlite
    ```
-   `find_term_drift` lists terms the model keeps overriding. Fix those with a targeted run, for example `--strongs G907,G908 --prompt-version v4 --out output\staging\glosses\fix_terms.jsonl`, then load that file.
+   `find_term_drift` lists terms the model keeps overriding (use `--only G` or `--only H`; most entries are legitimate context choices such as pronouns and prepositions, so fix only terms you decided on). Fix those with a targeted run, for example `--strongs G907,G908 --prompt-version v4 --out output\staging\glosses\fix_terms.jsonl`, then load that file. **Then append it to the working file**, so the next full load cannot bring the old glosses back (the later record wins): `type output\staging\glosses\fix_terms.jsonl >> output\staging\aigloss-refs2.jsonl`.
 6. **Cost**: take the Gospels job's cost from the Console usage page, divide by its 67,525 words, and multiply by the words in the group (the dry run shows them).
 
 A job that returns replies that fail to parse: `python scripts\import_batch_results.py --batch-id msgbatch_... --out output\staging\aigloss-refs2.jsonl --db output\interlinear.sqlite` (needs the job to still be within 29 days).
@@ -82,7 +85,7 @@ Needs `sources\eydv.md` (loaded automatically; `--guidelines` to use another fil
    python scripts\generate_verse_translations.py retrieve --out output\staging\verses_id.jsonl --batch-job-file output\staging\batch_verses.json
    python scripts\generate_verse_translations.py load --db output\interlinear.sqlite --jsonl output\staging\verses_id.jsonl
    ```
-   Re-run `submit` and `retrieve` for verses a job missed; verses already done are skipped.
+   Re-run `submit` and `retrieve` for verses a job missed; verses already done are skipped. Scope flags are the same as for glosses: `--group`, `--testament`, `--book GEN,EXO`; add `--dry-run` first to see the requests, chapters, verses and words. If `retrieve` prints `cut off by max_tokens`, the reply ran out of output tokens: the verses after the cut were never generated, so re-run `submit` for the rest (verses already done are skipped). Requests now hold 20 verses (`--max-verses`, default 20; 40 overran the limit in half of the requests). A `recovered N verses` note means a JSON reply was cut off or had an unescaped quote; the complete verses are kept, and running `retrieve` again on the same job file is safe (nothing is written twice).
 
 ## C. Exports (after the loads; they bake the text in)
 
@@ -96,5 +99,7 @@ python scripts\export_osis.py --db output\interlinear.sqlite --out output\export
 Test each with `--book JUD` first. PDF from the Markdown: `--verse-style caret` avoids the missing-glyph warnings.
 
 ## D. After any rebuild
+
+NT text: `parse_tr.py` now keeps one reading where the Robinson TR has `| A | B |` (default B, Scrivener 1894; `--reading A` for Stephanus 1550) and `--report output\staging\tr_variants.txt` lists the 246 verses involved. Their glosses and translations must be removed and redone after a rebuild.
 
 `build_db.py` empties `lexicon_gloss_translation`, `ai_gloss` and `verse_translation`. Reload them from the staging files (lexicon CSV, `aigloss-refs2.jsonl`, `verses_id.jsonl`); gloss files with positions load correctly even if `word_id`s moved. Then reapply the SQL fixes in A.4. Deploy translation tables to D1 from your machine only, never from CI.
