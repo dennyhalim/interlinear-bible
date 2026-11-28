@@ -21,13 +21,6 @@ Source: *Ejaan Bahasa Indonesia yang Disempurnakan* (EYD) Edisi V, Keputusan Kep
 7. si and sang are separate: si pengirim, sang suami. Sang is capitalized when part of God's name: Sang Pencipta [II.I].
 8. Established loanwords keep their spelling [IV.B.4]: faedah, heran, kabar, khotbah, majelis, napas, paham, perlu, pikir, sahabat, sehat, setan, soal, syahadat, terjemah; Senin, Selasa, Rabu, Kamis.
 
-## Numbers
-1. A number expressible in one word is spelled out in running text: tiga kali, seribu buku; but use digits in enumerations: 50 bus, 100 minibus, 250 sedan [II.G.2].
-2. Digits for measures (length, weight, area, volume, time) and values (money, percent): 5 kilogram, 2 tahun 6 bulan 5 hari, 1 jam 20 menit, Rp5.000,00, 5%, 7 persen [II.G.3]; so e.g. 3 hari, 40 hari.
-3. A number of more than one word does not begin a sentence in digits: begin with Sebanyak or reword [II.G.4]. Large numbers may be part words: 500 ribu, 90 juta rupiah [II.G.5].
-4. Ordinals: abad ke-7 or abad ketujuh, both allowed [II.G.9]; this project uses the word form (hari ketiga). Fractions in words: setengah, tiga perempat [II.G.8.b].
-5. Thousands separator is a period: 13.000 pulau; decimal is a comma: 12,5 m; no period in years: tahun 1998 [III.A.8-9, III.B.12].
-
 ## Punctuation
 1. Comma: between items in a series, with dan before the last [III.B.1]; before tetapi, melainkan, sedangkan [III.B.2]; after a clause that comes before the main clause (Kalau diundang, saya akan datang) but not when it follows (Saya akan datang kalau diundang) [III.B.3-4]; after sentence connectives such as Oleh karena itu, Jadi, Dengan demikian [III.B.5]; around interjections and vocatives: "Ya, Tuhan, ...", "Nak, ..." [III.B.6]; around an apposition: Soekarno, Presiden I Republik Indonesia, merupakan ... ; none around a restrictive clause: Siswa yang lulus dengan nilai tinggi akan diterima [III.B.13].
 2. Direct speech takes double quotation marks. Introduced speech: Kata nenek saya, "Kita harus berbagi dalam hidup ini." Speech first: "Kita harus berbagi dalam hidup ini," kata nenek saya, "karena manusia adalah makhluk sosial." No comma when the quote ends in ? or !: "Di mana Saudara tinggal?" tanya Pak Lurah [III.B.7-8, III.J.1]. The final period of a quoted sentence stands inside the closing mark (see the example for Pasal 31 in III.J.1). A quotation inside a quotation takes single marks [III.K.1]. Single marks also give meanings: tergugat 'yang digugat' [III.K.2].
