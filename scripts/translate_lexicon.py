@@ -359,8 +359,8 @@ def cmd_retrieve(args):
         print("ERROR: ANTHROPIC_API_KEY environment variable not set.", file=sys.stderr)
         sys.exit(1)
 
-    job_info = json.loads(args.batch_job_file.read_text())
-    membership = json.loads(membership_file.read_text())
+    job_info = json.loads(args.batch_job_file.read_text(encoding="utf-8"))
+    membership = json.loads(membership_file.read_text(encoding="utf-8"))
     batch_id = job_info["batch_id"]
 
     client = anthropic.Anthropic(api_key=api_key)

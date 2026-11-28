@@ -527,7 +527,7 @@ def cmd_submit(args):
     client = anthropic.Anthropic(api_key=api_key)
     bah.submit_batch_job(client, requests, args.batch_job_file)
 
-    job = json.loads(args.batch_job_file.read_text())
+    job = json.loads(args.batch_job_file.read_text(encoding="utf-8"))
     job.update({"model": args.model, "language": args.language, "prompt_version": args.prompt_version})
     args.batch_job_file.write_text(json.dumps(job, indent=2), encoding="utf-8")
     membership_file = args.batch_job_file.with_suffix(".membership.json")
@@ -556,8 +556,8 @@ def cmd_retrieve(args):
         print("ERROR: ANTHROPIC_API_KEY environment variable not set.", file=sys.stderr)
         sys.exit(1)
 
-    job_info = json.loads(args.batch_job_file.read_text())
-    membership = json.loads(membership_file.read_text())
+    job_info = json.loads(args.batch_job_file.read_text(encoding="utf-8"))
+    membership = json.loads(membership_file.read_text(encoding="utf-8"))
     batch_id = job_info["batch_id"]
     language = job_info.get("language", args.language)
     prompt_version = job_info.get("prompt_version", args.prompt_version)
